@@ -1,95 +1,183 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Add navigation links for Dashboard and Social Media sections",
+  "title": "Rebuild Follow-Ups page with editable message templates as primary focus",
   "requirements": [
     {
-      "id": "REQ-26",
-      "summary": "Add Dashboard and Social Media navigation menu items to Header component",
+      "id": "REQ-65",
+      "summary": "Redesign the FollowUpsPage component to display message templates as the primary content, replacing the current customer list view with a template-focused layout",
       "acceptanceCriteria": [
-        "Dashboard link appears in the navigation menu",
-        "Social Media link appears in the navigation menu",
-        "Both links are visible in desktop navigation",
-        "Both links are visible in mobile hamburger menu",
-        "Navigation maintains the existing earth-tone styling"
+        "The Follow-Ups page displays message templates prominently as the main content",
+        "The previous customer list view is removed or moved to a secondary position",
+        "The page layout is clean and organized for easy template management"
       ],
       "file_operations": [
         {
-          "path": "frontend/src/components/layout/Header.tsx",
+          "path": "frontend/src/pages/FollowUpsPage.tsx",
           "operation": "modify",
-          "description": "Add Dashboard and Social Media navigation links to both desktop nav menu and mobile Sheet menu, positioned after existing Customers, Calendar, and Jobs links. Maintain consistent styling with existing earth-tone theme and navigation patterns."
+          "description": "Restructure the page layout to prioritize message templates over the customer list. Move customer list to a collapsible or secondary section. Create a clean grid or vertical stack layout for displaying multiple message template cards prominently."
         }
       ]
     },
     {
-      "id": "REQ-27",
-      "summary": "Create Dashboard page with revenue insights showing monthly totals, jobs completed, and average job value",
+      "id": "REQ-66",
+      "summary": "Display all four message template types simultaneously on the Follow-Ups page: post-job satisfaction (3-7 days after completion), 6-month mold prevention check-in, seasonal check-ins (spring moisture season and fall prep), and Google review request template",
       "acceptanceCriteria": [
-        "Dashboard page displays total revenue for the current month",
-        "Dashboard shows count of jobs completed",
-        "Dashboard calculates and displays average job value",
-        "Dashboard is accessible via the Dashboard navigation link"
+        "Post-job satisfaction template is visible with description indicating 3-7 days after completion timing",
+        "6-month mold prevention check-in template is visible",
+        "Seasonal check-ins templates are visible (spring moisture season and fall prep)",
+        "Google review request template is visible",
+        "All four template types are displayed on the same page without requiring selection"
       ],
       "file_operations": [
         {
-          "path": "frontend/src/pages/DashboardPage.tsx",
+          "path": "frontend/src/components/followups/MessageTemplateCard.tsx",
           "operation": "create",
-          "description": "Create Dashboard page component that fetches all jobs using useGetAllJobs hook, calculates monthly revenue metrics (total revenue, completed jobs count, average job value) for the current month, and displays them in card-based layout with earth-tone styling. Use placeholder revenue values derived from job count and sample calculations since backend does not store revenue data."
-        }
-      ]
-    },
-    {
-      "id": "REQ-28",
-      "summary": "Create Social Media page with AI post generator, content calendar, template library, and post preview functionality",
-      "acceptanceCriteria": [
-        "Social Media page is accessible via the Social Media navigation link",
-        "Page includes section for AI-powered post generation with topic, tone, and platform selection",
-        "Page includes content calendar view for planning posts",
-        "Page includes template library with categories: before/after, prevention tips, testimonials, emergency response, seasonal content",
-        "Page includes post preview and editing interface with copy to clipboard functionality"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/pages/SocialMediaPage.tsx",
-          "operation": "create",
-          "description": "Create Social Media page component with tabbed interface (Tabs component from shadcn/ui) containing four sections: AI Post Generator (form with topic input, tone selector, platform selector, and generate button), Content Calendar (monthly calendar grid for planning posts), Template Library (categorized cards for before/after, prevention tips, testimonials, emergency response, seasonal content), and Post Preview (textarea for editing with copy to clipboard button). Use earth-tone styling and reference the social media illustration asset at frontend/public/assets/generated/social-media-illustration.dim_400x300.png in the page header or empty states. Note: This is a frontend-only implementation with mock data and no actual AI integration."
+          "description": "Create a reusable card component for displaying individual message templates. Include props for template title, description, default message text, and timing information. Use shadcn/ui Card components for consistent styling with the earth-tone theme."
         },
         {
-          "path": "frontend/src/components/social/PostGenerator.tsx",
-          "operation": "create",
-          "description": "Create AI post generator component with form inputs for topic (text input), tone (select: Professional, Friendly, Urgent, Educational), and platform (select: Facebook, Instagram, LinkedIn, Twitter). Include generate button that creates mock AI-generated content based on selections. Display generated content in a Card component with earth-tone styling."
-        },
-        {
-          "path": "frontend/src/components/social/ContentCalendar.tsx",
-          "operation": "create",
-          "description": "Create content calendar component showing a monthly grid view for planning social media posts. Use similar calendar structure as MonthlyCalendar component but adapted for content planning. Display placeholder posts and allow users to see scheduled content dates. Maintain earth-tone styling consistent with application theme."
-        },
-        {
-          "path": "frontend/src/components/social/TemplateLibrary.tsx",
-          "operation": "create",
-          "description": "Create template library component displaying categorized template cards for: before/after transformations, prevention tips, testimonials, emergency response, and seasonal content. Each category shows sample templates with preview text. Use Card components in a responsive grid layout with earth-tone styling. Include click handlers to load templates into the post preview."
-        },
-        {
-          "path": "frontend/src/components/social/PostPreview.tsx",
-          "operation": "create",
-          "description": "Create post preview component with editable textarea for post content and a copy to clipboard button. Include preview of how the post will appear on different platforms. Use Textarea and Button components from shadcn/ui with earth-tone styling. Implement clipboard copy functionality with toast notification on success."
-        }
-      ]
-    },
-    {
-      "id": "REQ-29",
-      "summary": "Configure routing for Dashboard and Social Media pages with authentication protection",
-      "acceptanceCriteria": [
-        "Dashboard route is registered and accessible",
-        "Social Media route is registered and accessible",
-        "Routes are protected by authentication like existing routes",
-        "Navigation links correctly route to new pages"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/App.tsx",
+          "path": "frontend/src/pages/FollowUpsPage.tsx",
           "operation": "modify",
-          "description": "Register Dashboard route at /dashboard and Social Media route at /social-media within the authenticated Route group. Import DashboardPage and SocialMediaPage components and add them as child routes with appropriate path configurations, ensuring they are protected by the same authentication guard as existing Customers, Calendar, and Jobs routes."
+          "description": "Add four MessageTemplateCard instances for: post-job satisfaction (3-7 days after completion), 6-month mold prevention check-in, seasonal check-ins (spring moisture season and fall prep), and Google review request. Display all templates simultaneously without tabs or selection. Include descriptive headers and timing information for each template type."
+        }
+      ]
+    },
+    {
+      "id": "REQ-67",
+      "summary": "Implement editable text areas for each message template on the Follow-Ups page that allow users to customize the template content in real-time",
+      "acceptanceCriteria": [
+        "Each template has an editable text area that displays the current template content",
+        "Users can modify template text directly in the text area",
+        "Changes to template text are reflected immediately in the interface",
+        "Text areas are appropriately sized for message content"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/followups/MessageTemplateCard.tsx",
+          "operation": "modify",
+          "description": "Add an editable textarea element using shadcn/ui Textarea component. Manage local state for template text with useState. Ensure textarea is appropriately sized (minimum 4-6 rows) and includes proper styling for the earth-tone theme. Handle onChange events to update the text in real-time."
+        }
+      ]
+    },
+    {
+      "id": "REQ-68",
+      "summary": "Add a preview section for each message template that displays the formatted message with customer name placeholders and shows how the message will appear when sent",
+      "acceptanceCriteria": [
+        "Each template includes a preview section showing the formatted message",
+        "Preview displays placeholders like [Customer Name] to indicate customization points",
+        "Preview updates dynamically as template text is edited",
+        "Preview is visually distinct from the editable text area"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/followups/MessageTemplateCard.tsx",
+          "operation": "modify",
+          "description": "Add a preview section below or beside the editable textarea. Display the formatted message text with placeholders like [Customer Name] replaced or highlighted. Use a distinct visual style (different background color, border, or card styling) to differentiate from the editable area. Update the preview dynamically as the textarea content changes using the template text state."
+        }
+      ]
+    },
+    {
+      "id": "REQ-69",
+      "summary": "Add a copy-to-clipboard button for each message template that copies the formatted message text and displays a success notification when the copy operation completes",
+      "acceptanceCriteria": [
+        "Each template has a clearly labeled copy-to-clipboard button",
+        "Clicking the button copies the formatted message text to the clipboard",
+        "A success notification appears after successful copy operation",
+        "The button provides visual feedback when clicked"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/followups/MessageTemplateCard.tsx",
+          "operation": "modify",
+          "description": "Add a copy-to-clipboard button using shadcn/ui Button component with a copy icon. Implement clipboard API functionality to copy the formatted message text. Add a success toast notification using shadcn/ui toast/sonner when copy succeeds. Provide visual feedback on the button (icon change or loading state) during the copy operation."
+        }
+      ]
+    },
+    {
+      "id": "REQ-70",
+      "summary": "Create default message template text for post-job satisfaction that requests customer feedback 3-7 days after job completion, including placeholders for customer name and customizable content",
+      "acceptanceCriteria": [
+        "Template includes friendly greeting with customer name placeholder",
+        "Message references recent mold remediation service",
+        "Requests feedback or satisfaction confirmation",
+        "Tone is professional and appreciative"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/data/messageTemplates.ts",
+          "operation": "create",
+          "description": "Create a data file exporting default message template objects. Define a template for post-job satisfaction with a professional, appreciative tone. Include greeting with [Customer Name] placeholder, reference to recent mold remediation service, request for feedback, and appropriate closing. Example: 'Hi [Customer Name], we hope you're satisfied with the mold remediation work we completed at your property. We'd love to hear your feedback about our service. Please let us know if everything met your expectations or if there's anything we can improve. Thank you for trusting Phoenix Shield with your mold prevention needs.'"
+        },
+        {
+          "path": "frontend/src/pages/FollowUpsPage.tsx",
+          "operation": "modify",
+          "description": "Import the post-job satisfaction template from messageTemplates.ts and pass it as the default text to the corresponding MessageTemplateCard. Include descriptive label and timing information (3-7 days after completion)."
+        }
+      ]
+    },
+    {
+      "id": "REQ-71",
+      "summary": "Create default message template text for 6-month mold prevention check-in that reminds customers about preventive maintenance and offers a check-in appointment, including placeholders for customer name",
+      "acceptanceCriteria": [
+        "Template emphasizes importance of preventive maintenance",
+        "Message offers to schedule a check-in appointment",
+        "Content is helpful and positions the business as proactive",
+        "Includes customer name placeholder"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/data/messageTemplates.ts",
+          "operation": "modify",
+          "description": "Add a 6-month mold prevention check-in template that emphasizes preventive maintenance importance and offers to schedule a check-in appointment. Use helpful, proactive tone with [Customer Name] placeholder. Example: 'Hi [Customer Name], it's been 6 months since we completed your mold remediation service. We recommend a preventive check-in to ensure everything is still in great condition. Would you like to schedule a quick inspection to catch any potential issues early? Let us know a time that works for you!'"
+        },
+        {
+          "path": "frontend/src/pages/FollowUpsPage.tsx",
+          "operation": "modify",
+          "description": "Import the 6-month prevention template from messageTemplates.ts and pass it to the corresponding MessageTemplateCard with appropriate label and description."
+        }
+      ]
+    },
+    {
+      "id": "REQ-72",
+      "summary": "Create default message template text for seasonal check-ins covering spring moisture season and fall prep, with messaging appropriate for each season's mold prevention needs and customer name placeholders",
+      "acceptanceCriteria": [
+        "Spring template addresses moisture concerns typical of spring season",
+        "Fall template addresses preparation for winter and moisture control",
+        "Both templates offer seasonal inspection or consultation",
+        "Templates include customer name placeholders"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/data/messageTemplates.ts",
+          "operation": "modify",
+          "description": "Add two seasonal check-in templates: one for spring moisture season and one for fall prep. Spring template should address moisture concerns typical of spring (rain, humidity, flooding). Fall template should address winter preparation and moisture control. Both should offer seasonal inspections with [Customer Name] placeholders. Examples: Spring: 'Hi [Customer Name], spring brings increased moisture that can lead to mold growth. We'd like to offer a seasonal inspection to check for any moisture issues before they become problems. Contact us to schedule your spring mold prevention check!' Fall: 'Hi [Customer Name], as we prepare for winter, now is the perfect time to ensure your property is protected from moisture and mold. We're offering fall prep inspections to help you stay ahead of any potential issues. Let's schedule a time that works for you!'"
+        },
+        {
+          "path": "frontend/src/pages/FollowUpsPage.tsx",
+          "operation": "modify",
+          "description": "Import both seasonal templates (spring and fall) from messageTemplates.ts and pass them to separate MessageTemplateCard instances with appropriate seasonal labels and descriptions."
+        }
+      ]
+    },
+    {
+      "id": "REQ-73",
+      "summary": "Create default message template text for Google review request that politely asks customers to leave a review with a placeholder for the business Google review link and customer name",
+      "acceptanceCriteria": [
+        "Template includes friendly request for Google review",
+        "Message expresses appreciation for customer's business",
+        "Includes clear placeholder for Google review link insertion",
+        "Tone is polite and not overly pushy"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/data/messageTemplates.ts",
+          "operation": "modify",
+          "description": "Add a Google review request template with polite, appreciative tone. Include [Customer Name] and [Google Review Link] placeholders. Example: 'Hi [Customer Name], thank you for choosing Phoenix Shield for your mold remediation needs. We truly appreciate your business! If you were satisfied with our service, we'd be grateful if you could share your experience with a Google review. Your feedback helps us serve our community better. [Google Review Link]. Thank you!'"
+        },
+        {
+          "path": "frontend/src/pages/FollowUpsPage.tsx",
+          "operation": "modify",
+          "description": "Import the Google review request template from messageTemplates.ts and pass it to the corresponding MessageTemplateCard with appropriate label indicating it's for review requests."
         }
       ]
     }

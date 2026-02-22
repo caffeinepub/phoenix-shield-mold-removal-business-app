@@ -1,96 +1,198 @@
 {
   "kind": "build_request",
-  "title": "Add navigation links for Dashboard and Social Media sections",
+  "title": "Rebuild Follow-Ups page with editable message templates as primary focus",
   "projectName": "Phoenix Shield",
   "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-26",
-      "text": "Add navigation menu items for Dashboard and Social Media sections to the Header component navigation, displaying them alongside existing Customers, Calendar, and Jobs links in both desktop and mobile views",
+      "id": "REQ-65",
+      "text": "Redesign the FollowUpsPage component to display message templates as the primary content, replacing the current customer list view with a template-focused layout",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-14"
+          "msg-recent"
         ],
         "quotes": [
-          "Add clear navigation links/buttons to access the Dashboard and Social Media sections"
+          "message templates as the primary focus"
         ]
       },
       "acceptanceCriteria": [
-        "Dashboard link appears in the navigation menu",
-        "Social Media link appears in the navigation menu",
-        "Both links are visible in desktop navigation",
-        "Both links are visible in mobile hamburger menu",
-        "Navigation maintains the existing earth-tone styling"
+        "The Follow-Ups page displays message templates prominently as the main content",
+        "The previous customer list view is removed or moved to a secondary position",
+        "The page layout is clean and organized for easy template management"
       ]
     },
     {
-      "id": "REQ-27",
-      "text": "Create a Dashboard page component that displays revenue insights including monthly total revenue, number of jobs completed, and average job value",
+      "id": "REQ-66",
+      "text": "Display all four message template types simultaneously on the Follow-Ups page: post-job satisfaction (3-7 days after completion), 6-month mold prevention check-in, seasonal check-ins (spring moisture season and fall prep), and Google review request template",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-14"
+          "msg-recent"
         ],
         "quotes": [
-          "Dashboard - Revenue insights showing monthly totals, jobs completed, and average job value"
+          "all 3 types",
+          "Google review request template"
         ]
       },
       "acceptanceCriteria": [
-        "Dashboard page displays total revenue for the current month",
-        "Dashboard shows count of jobs completed",
-        "Dashboard calculates and displays average job value",
-        "Dashboard is accessible via the Dashboard navigation link"
+        "Post-job satisfaction template is visible with description indicating 3-7 days after completion timing",
+        "6-month mold prevention check-in template is visible",
+        "Seasonal check-ins templates are visible (spring moisture season and fall prep)",
+        "Google review request template is visible",
+        "All four template types are displayed on the same page without requiring selection"
       ]
     },
     {
-      "id": "REQ-28",
-      "text": "Create a Social Media page component with tabs or sections for AI post generator, content calendar, template library, and post preview/editing functionality",
+      "id": "REQ-67",
+      "text": "Implement editable text areas for each message template on the Follow-Ups page that allow users to customize the template content in real-time",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-14"
+          "msg-recent"
         ],
         "quotes": [
-          "Social Media - AI-powered post generator with mold remediation templates, content calendar, and template library"
+          "all templates be visible/editable at once",
+          "Editable text area for customizing the message"
         ]
       },
       "acceptanceCriteria": [
-        "Social Media page is accessible via the Social Media navigation link",
-        "Page includes section for AI-powered post generation with topic, tone, and platform selection",
-        "Page includes content calendar view for planning posts",
-        "Page includes template library with categories: before/after, prevention tips, testimonials, emergency response, seasonal content",
-        "Page includes post preview and editing interface with copy to clipboard functionality"
+        "Each template has an editable text area that displays the current template content",
+        "Users can modify template text directly in the text area",
+        "Changes to template text are reflected immediately in the interface",
+        "Text areas are appropriately sized for message content"
       ]
     },
     {
-      "id": "REQ-29",
-      "text": "Configure routing to support Dashboard and Social Media pages with appropriate route paths and navigation integration",
+      "id": "REQ-68",
+      "text": "Add a preview section for each message template that displays the formatted message with customer name placeholders and shows how the message will appear when sent",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-14"
+          "msg-recent"
+        ],
+        "quotes": [
+          "Preview of the formatted message"
         ]
       },
       "acceptanceCriteria": [
-        "Dashboard route is registered and accessible",
-        "Social Media route is registered and accessible",
-        "Routes are protected by authentication like existing routes",
-        "Navigation links correctly route to new pages"
+        "Each template includes a preview section showing the formatted message",
+        "Preview displays placeholders like [Customer Name] to indicate customization points",
+        "Preview updates dynamically as template text is edited",
+        "Preview is visually distinct from the editable text area"
+      ]
+    },
+    {
+      "id": "REQ-69",
+      "text": "Add a copy-to-clipboard button for each message template that copies the formatted message text and displays a success notification when the copy operation completes",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-recent"
+        ],
+        "quotes": [
+          "Copy-to-clipboard button for easy manual sending"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Each template has a clearly labeled copy-to-clipboard button",
+        "Clicking the button copies the formatted message text to the clipboard",
+        "A success notification appears after successful copy operation",
+        "The button provides visual feedback when clicked"
+      ]
+    },
+    {
+      "id": "REQ-70",
+      "text": "Create default message template text for post-job satisfaction that requests customer feedback 3-7 days after job completion, including placeholders for customer name and customizable content",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-recent"
+        ],
+        "quotes": [
+          "Post-job satisfaction (3-7 days after completion)",
+          "requesting feedback 3-7 days after job completion"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Template includes friendly greeting with customer name placeholder",
+        "Message references recent mold remediation service",
+        "Requests feedback or satisfaction confirmation",
+        "Tone is professional and appreciative"
+      ]
+    },
+    {
+      "id": "REQ-71",
+      "text": "Create default message template text for 6-month mold prevention check-in that reminds customers about preventive maintenance and offers a check-in appointment, including placeholders for customer name",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-recent"
+        ],
+        "quotes": [
+          "6-month mold prevention check-in",
+          "6-month mold prevention (preventive check-in reminder)"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Template emphasizes importance of preventive maintenance",
+        "Message offers to schedule a check-in appointment",
+        "Content is helpful and positions the business as proactive",
+        "Includes customer name placeholder"
+      ]
+    },
+    {
+      "id": "REQ-72",
+      "text": "Create default message template text for seasonal check-ins covering spring moisture season and fall prep, with messaging appropriate for each season's mold prevention needs and customer name placeholders",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-recent"
+        ],
+        "quotes": [
+          "Seasonal check-ins (spring moisture season, fall prep)",
+          "seasonal check-ins (spring moisture season, fall prep)"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Spring template addresses moisture concerns typical of spring season",
+        "Fall template addresses preparation for winter and moisture control",
+        "Both templates offer seasonal inspection or consultation",
+        "Templates include customer name placeholders"
+      ]
+    },
+    {
+      "id": "REQ-73",
+      "text": "Create default message template text for Google review request that politely asks customers to leave a review with a placeholder for the business Google review link and customer name",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-recent"
+        ],
+        "quotes": [
+          "Google review request template"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Template includes friendly request for Google review",
+        "Message expresses appreciation for customer's business",
+        "Includes clear placeholder for Google review link insertion",
+        "Tone is polite and not overly pushy"
       ]
     }
   ],
   "constraints": [
-    "Do not modify the existing Header component's immutable paths (frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, frontend/src/components/ui)",
-    "Maintain the existing earth-tone color scheme using warm greens and browns",
-    "Keep mobile-responsive design patterns consistent with existing pages",
-    "Use existing authentication and authorization patterns"
+    "Do not modify the Header component navigation or routing configuration",
+    "Do not change backend data structures or API functions",
+    "Maintain the existing earth-tone color scheme and mobile-responsive design",
+    "Do not integrate with external messaging or email services"
   ],
   "nonGoals": [
-    "Backend changes for Dashboard or Social Media features",
-    "Modifying existing Customers, Calendar, or Jobs pages",
-    "Implementing actual AI integration or external API calls",
-    "Adding drag-and-drop to the content calendar"
+    "Automated sending of messages to customers",
+    "Integration with SMS or email services",
+    "Customer selection or filtering on the Follow-Ups page",
+    "Reminder scheduling or due date tracking functionality",
+    "Backend storage of edited template content"
   ],
   "imageRequirements": {
     "required": [],

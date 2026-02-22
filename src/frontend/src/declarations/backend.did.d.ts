@@ -27,6 +27,19 @@ export interface Customer {
   'phoneNumber' : string,
 }
 export type CustomerId = bigint;
+export interface Estimate {
+  'totalMaterialCost' : bigint,
+  'laborHours' : bigint,
+  'estimateId' : EstimateId,
+  'creationDate' : Time,
+  'laborHourlyRate' : bigint,
+  'totalEstimate' : bigint,
+  'squareFootage' : bigint,
+  'totalLaborCost' : bigint,
+  'materials' : Array<Material>,
+  'pricePerSquareFoot' : bigint,
+}
+export type EstimateId = bigint;
 export interface Job {
   'status' : JobStatus,
   'serviceDate' : Time,
@@ -39,6 +52,11 @@ export type JobId = bigint;
 export type JobStatus = { 'scheduled' : null } |
   { 'completed' : null } |
   { 'inProgress' : null };
+export interface Material {
+  'name' : string,
+  'quantity' : bigint,
+  'unitCost' : bigint,
+}
 export type Time = bigint;
 export interface UserProfile { 'name' : string }
 export type UserRole = { 'admin' : null } |
@@ -53,17 +71,28 @@ export interface _SERVICE {
   >,
   'createCustomer' : ActorMethod<[string, string, string, string], CustomerId>,
   'createJob' : ActorMethod<[CustomerId, Time, string, string], JobId>,
+  'deleteEstimate' : ActorMethod<[EstimateId], undefined>,
   'getAllAppointments' : ActorMethod<[], Array<Appointment>>,
   'getAllCustomers' : ActorMethod<[], Array<Customer>>,
+  'getAllEstimates' : ActorMethod<[], Array<Estimate>>,
   'getAllJobs' : ActorMethod<[], Array<Job>>,
   'getAppointment' : ActorMethod<[AppointmentId], Appointment>,
   'getCallerUserProfile' : ActorMethod<[], [] | [UserProfile]>,
   'getCallerUserRole' : ActorMethod<[], UserRole>,
   'getCustomer' : ActorMethod<[CustomerId], Customer>,
+  'getEstimate' : ActorMethod<[EstimateId], Estimate>,
   'getJob' : ActorMethod<[JobId], Job>,
   'getUserProfile' : ActorMethod<[Principal], [] | [UserProfile]>,
   'isCallerAdmin' : ActorMethod<[], boolean>,
   'saveCallerUserProfile' : ActorMethod<[UserProfile], undefined>,
+  'saveEstimate' : ActorMethod<
+    [bigint, bigint, Array<Material>, bigint, bigint],
+    EstimateId
+  >,
+  'updateEstimate' : ActorMethod<
+    [EstimateId, bigint, bigint, Array<Material>, bigint, bigint],
+    undefined
+  >,
   'updateJobStatus' : ActorMethod<[JobId, JobStatus], undefined>,
 }
 export declare const idlService: IDL.ServiceClass;

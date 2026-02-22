@@ -2,10 +2,10 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-add-navigation-menu-items-for-dashboard-and-social-media-sections-to-the-header-component-navigation-displaying-them-alongside-existing-customers-calendar-and-jobs-links-in-both-desktop-and-mobile-views",
-      "featureTitle": "Add navigation menu items for Dashboard and Social Media sections to the Header component navigation, displaying them alongside existing Customers, Calendar, and Jobs links in both desktop and mobile views",
+      "featureId": "feature-redesign-the-followupspage-component-to-display-message-templates-as-the-primary-content-replacing-the-current-customer-list-view-with-a-template-focused-layout",
+      "featureTitle": "Redesign the FollowUpsPage component to display message templates as the primary content, replacing the current customer list view with a template-focused layout",
       "files": [
-        "frontend/src/components/layout/Header.tsx"
+        "frontend/src/pages/FollowUpsPage.tsx"
       ],
       "components": [
         "authorization@4.0.0",
@@ -16,15 +16,16 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-26"
+        "REQ-65"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-create-a-dashboard-page-component-that-displays-revenue-insights-including-monthly-total-revenue-number-of-jobs-completed-and-average-job-value",
-      "featureTitle": "Create a Dashboard page component that displays revenue insights including monthly total revenue, number of jobs completed, and average job value",
+      "featureId": "feature-display-all-four-message-template-types-simultaneously-on-the-follow-ups-page-post-job-satisfaction-3-7-days-after-completion-6-month-mold-prevention-check-in-seasonal-check-ins-spring-moisture-season-and-fall-prep-and-google-review-request-template",
+      "featureTitle": "Display all four message template types simultaneously on the Follow-Ups page: post-job satisfaction (3-7 days after completion), 6-month mold prevention check-in, seasonal check-ins (spring moisture season and fall prep), and Google review request template",
       "files": [
-        "frontend/src/pages/DashboardPage.tsx"
+        "frontend/src/components/followups/MessageTemplateCard.tsx",
+        "frontend/src/pages/FollowUpsPage.tsx"
       ],
       "components": [
         "authorization@4.0.0",
@@ -35,19 +36,15 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-27"
+        "REQ-66"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-create-a-social-media-page-component-with-tabs-or-sections-for-ai-post-generator-content-calendar-template-library-and-post-preview-editing-functionality",
-      "featureTitle": "Create a Social Media page component with tabs or sections for AI post generator, content calendar, template library, and post preview/editing functionality",
+      "featureId": "feature-implement-editable-text-areas-for-each-message-template-on-the-follow-ups-page-that-allow-users-to-customize-the-template-content-in-real-time",
+      "featureTitle": "Implement editable text areas for each message template on the Follow-Ups page that allow users to customize the template content in real-time",
       "files": [
-        "frontend/src/components/social/ContentCalendar.tsx",
-        "frontend/src/components/social/PostGenerator.tsx",
-        "frontend/src/components/social/PostPreview.tsx",
-        "frontend/src/components/social/TemplateLibrary.tsx",
-        "frontend/src/pages/SocialMediaPage.tsx"
+        "frontend/src/components/followups/MessageTemplateCard.tsx"
       ],
       "components": [
         "authorization@4.0.0",
@@ -58,15 +55,15 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-28"
+        "REQ-67"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-configure-routing-to-support-dashboard-and-social-media-pages-with-appropriate-route-paths-and-navigation-integration",
-      "featureTitle": "Configure routing to support Dashboard and Social Media pages with appropriate route paths and navigation integration",
+      "featureId": "feature-add-a-preview-section-for-each-message-template-that-displays-the-formatted-message-with-customer-name-placeholders-and-shows-how-the-message-will-appear-when-sent",
+      "featureTitle": "Add a preview section for each message template that displays the formatted message with customer name placeholders and shows how the message will appear when sent",
       "files": [
-        "frontend/src/App.tsx"
+        "frontend/src/components/followups/MessageTemplateCard.tsx"
       ],
       "components": [
         "authorization@4.0.0",
@@ -77,7 +74,106 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-29"
+        "REQ-68"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-a-copy-to-clipboard-button-for-each-message-template-that-copies-the-formatted-message-text-and-displays-a-success-notification-when-the-copy-operation-completes",
+      "featureTitle": "Add a copy-to-clipboard button for each message template that copies the formatted message text and displays a success notification when the copy operation completes",
+      "files": [
+        "frontend/src/components/followups/MessageTemplateCard.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-69"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-create-default-message-template-text-for-post-job-satisfaction-that-requests-customer-feedback-3-7-days-after-job-completion-including-placeholders-for-customer-name-and-customizable-content",
+      "featureTitle": "Create default message template text for post-job satisfaction that requests customer feedback 3-7 days after job completion, including placeholders for customer name and customizable content",
+      "files": [
+        "frontend/src/data/messageTemplates.ts",
+        "frontend/src/pages/FollowUpsPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-70"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-create-default-message-template-text-for-6-month-mold-prevention-check-in-that-reminds-customers-about-preventive-maintenance-and-offers-a-check-in-appointment-including-placeholders-for-customer-name",
+      "featureTitle": "Create default message template text for 6-month mold prevention check-in that reminds customers about preventive maintenance and offers a check-in appointment, including placeholders for customer name",
+      "files": [
+        "frontend/src/data/messageTemplates.ts",
+        "frontend/src/pages/FollowUpsPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-71"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-create-default-message-template-text-for-seasonal-check-ins-covering-spring-moisture-season-and-fall-prep-with-messaging-appropriate-for-each-season-s-mold-prevention-needs-and-customer-name-placeholders",
+      "featureTitle": "Create default message template text for seasonal check-ins covering spring moisture season and fall prep, with messaging appropriate for each season's mold prevention needs and customer name placeholders",
+      "files": [
+        "frontend/src/data/messageTemplates.ts",
+        "frontend/src/pages/FollowUpsPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-72"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-create-default-message-template-text-for-google-review-request-that-politely-asks-customers-to-leave-a-review-with-a-placeholder-for-the-business-google-review-link-and-customer-name",
+      "featureTitle": "Create default message template text for Google review request that politely asks customers to leave a review with a placeholder for the business Google review link and customer name",
+      "files": [
+        "frontend/src/data/messageTemplates.ts",
+        "frontend/src/pages/FollowUpsPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-73"
       ],
       "confidence": "high"
     }

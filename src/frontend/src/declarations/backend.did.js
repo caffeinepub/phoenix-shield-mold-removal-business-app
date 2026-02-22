@@ -17,6 +17,7 @@ export const CustomerId = IDL.Nat;
 export const Time = IDL.Int;
 export const AppointmentId = IDL.Nat;
 export const JobId = IDL.Nat;
+export const EstimateId = IDL.Nat;
 export const Appointment = IDL.Record({
   'scheduledDate' : Time,
   'jobType' : IDL.Text,
@@ -31,6 +32,23 @@ export const Customer = IDL.Record({
   'customerId' : CustomerId,
   'emailAddress' : IDL.Text,
   'phoneNumber' : IDL.Text,
+});
+export const Material = IDL.Record({
+  'name' : IDL.Text,
+  'quantity' : IDL.Nat,
+  'unitCost' : IDL.Nat,
+});
+export const Estimate = IDL.Record({
+  'totalMaterialCost' : IDL.Nat,
+  'laborHours' : IDL.Nat,
+  'estimateId' : EstimateId,
+  'creationDate' : Time,
+  'laborHourlyRate' : IDL.Nat,
+  'totalEstimate' : IDL.Nat,
+  'squareFootage' : IDL.Nat,
+  'totalLaborCost' : IDL.Nat,
+  'materials' : IDL.Vec(Material),
+  'pricePerSquareFoot' : IDL.Nat,
 });
 export const JobStatus = IDL.Variant({
   'scheduled' : IDL.Null,
@@ -61,13 +79,16 @@ export const idlService = IDL.Service({
       [],
     ),
   'createJob' : IDL.Func([CustomerId, Time, IDL.Text, IDL.Text], [JobId], []),
+  'deleteEstimate' : IDL.Func([EstimateId], [], []),
   'getAllAppointments' : IDL.Func([], [IDL.Vec(Appointment)], ['query']),
   'getAllCustomers' : IDL.Func([], [IDL.Vec(Customer)], ['query']),
+  'getAllEstimates' : IDL.Func([], [IDL.Vec(Estimate)], ['query']),
   'getAllJobs' : IDL.Func([], [IDL.Vec(Job)], ['query']),
   'getAppointment' : IDL.Func([AppointmentId], [Appointment], ['query']),
   'getCallerUserProfile' : IDL.Func([], [IDL.Opt(UserProfile)], ['query']),
   'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),
   'getCustomer' : IDL.Func([CustomerId], [Customer], ['query']),
+  'getEstimate' : IDL.Func([EstimateId], [Estimate], ['query']),
   'getJob' : IDL.Func([JobId], [Job], ['query']),
   'getUserProfile' : IDL.Func(
       [IDL.Principal],
@@ -76,6 +97,16 @@ export const idlService = IDL.Service({
     ),
   'isCallerAdmin' : IDL.Func([], [IDL.Bool], ['query']),
   'saveCallerUserProfile' : IDL.Func([UserProfile], [], []),
+  'saveEstimate' : IDL.Func(
+      [IDL.Nat, IDL.Nat, IDL.Vec(Material), IDL.Nat, IDL.Nat],
+      [EstimateId],
+      [],
+    ),
+  'updateEstimate' : IDL.Func(
+      [EstimateId, IDL.Nat, IDL.Nat, IDL.Vec(Material), IDL.Nat, IDL.Nat],
+      [],
+      [],
+    ),
   'updateJobStatus' : IDL.Func([JobId, JobStatus], [], []),
 });
 
@@ -91,6 +122,7 @@ export const idlFactory = ({ IDL }) => {
   const Time = IDL.Int;
   const AppointmentId = IDL.Nat;
   const JobId = IDL.Nat;
+  const EstimateId = IDL.Nat;
   const Appointment = IDL.Record({
     'scheduledDate' : Time,
     'jobType' : IDL.Text,
@@ -105,6 +137,23 @@ export const idlFactory = ({ IDL }) => {
     'customerId' : CustomerId,
     'emailAddress' : IDL.Text,
     'phoneNumber' : IDL.Text,
+  });
+  const Material = IDL.Record({
+    'name' : IDL.Text,
+    'quantity' : IDL.Nat,
+    'unitCost' : IDL.Nat,
+  });
+  const Estimate = IDL.Record({
+    'totalMaterialCost' : IDL.Nat,
+    'laborHours' : IDL.Nat,
+    'estimateId' : EstimateId,
+    'creationDate' : Time,
+    'laborHourlyRate' : IDL.Nat,
+    'totalEstimate' : IDL.Nat,
+    'squareFootage' : IDL.Nat,
+    'totalLaborCost' : IDL.Nat,
+    'materials' : IDL.Vec(Material),
+    'pricePerSquareFoot' : IDL.Nat,
   });
   const JobStatus = IDL.Variant({
     'scheduled' : IDL.Null,
@@ -135,13 +184,16 @@ export const idlFactory = ({ IDL }) => {
         [],
       ),
     'createJob' : IDL.Func([CustomerId, Time, IDL.Text, IDL.Text], [JobId], []),
+    'deleteEstimate' : IDL.Func([EstimateId], [], []),
     'getAllAppointments' : IDL.Func([], [IDL.Vec(Appointment)], ['query']),
     'getAllCustomers' : IDL.Func([], [IDL.Vec(Customer)], ['query']),
+    'getAllEstimates' : IDL.Func([], [IDL.Vec(Estimate)], ['query']),
     'getAllJobs' : IDL.Func([], [IDL.Vec(Job)], ['query']),
     'getAppointment' : IDL.Func([AppointmentId], [Appointment], ['query']),
     'getCallerUserProfile' : IDL.Func([], [IDL.Opt(UserProfile)], ['query']),
     'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),
     'getCustomer' : IDL.Func([CustomerId], [Customer], ['query']),
+    'getEstimate' : IDL.Func([EstimateId], [Estimate], ['query']),
     'getJob' : IDL.Func([JobId], [Job], ['query']),
     'getUserProfile' : IDL.Func(
         [IDL.Principal],
@@ -150,6 +202,16 @@ export const idlFactory = ({ IDL }) => {
       ),
     'isCallerAdmin' : IDL.Func([], [IDL.Bool], ['query']),
     'saveCallerUserProfile' : IDL.Func([UserProfile], [], []),
+    'saveEstimate' : IDL.Func(
+        [IDL.Nat, IDL.Nat, IDL.Vec(Material), IDL.Nat, IDL.Nat],
+        [EstimateId],
+        [],
+      ),
+    'updateEstimate' : IDL.Func(
+        [EstimateId, IDL.Nat, IDL.Nat, IDL.Vec(Material), IDL.Nat, IDL.Nat],
+        [],
+        [],
+      ),
     'updateJobStatus' : IDL.Func([JobId, JobStatus], [], []),
   });
 };

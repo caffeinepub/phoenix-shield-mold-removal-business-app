@@ -1,12 +1,17 @@
 # Specification
 
 ## Summary
-**Goal:** Add Dashboard and Social Media sections with navigation links to provide revenue insights and social media content management capabilities.
+**Goal:** Redesign the Follow-Ups page to display editable message templates as the primary content, replacing the customer list view.
 
 **Planned changes:**
-- Add Dashboard and Social Media navigation links to the Header component (desktop and mobile views)
-- Create Dashboard page displaying monthly revenue total, jobs completed count, and average job value
-- Create Social Media page with AI post generator, content calendar, template library, and post preview/editing
-- Configure routing for Dashboard and Social Media pages with authentication protection
+- Replace current customer list view with template-focused layout
+- Display all four message template types simultaneously: post-job satisfaction (3-7 days after completion), 6-month mold prevention check-in, seasonal check-ins (spring moisture season and fall prep), and Google review request
+- Add editable text areas for each template allowing real-time customization
+- Include preview sections showing formatted messages with customer name placeholders
+- Add copy-to-clipboard buttons with success notifications for each template
+- Create default template text for post-job satisfaction requesting feedback 3-7 days after completion
+- Create default template text for 6-month mold prevention check-in offering preventive maintenance appointment
+- Create default template text for seasonal check-ins (spring moisture and fall prep) with season-appropriate messaging
+- Create default template text for Google review request with placeholder for review link
 
-**User-visible outcome:** Users can navigate to a Dashboard to view revenue insights and to a Social Media section to generate posts, manage a content calendar, browse templates, and preview/edit content.
+**User-visible outcome:** Users can view and edit all four message templates on a single page, preview how messages will appear with customer names, and copy formatted messages to clipboard for manual sending to customers.

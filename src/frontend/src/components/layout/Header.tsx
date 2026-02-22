@@ -3,7 +3,7 @@ import { useGetCallerUserProfile } from '../../hooks/useQueries';
 import LoginButton from '../auth/LoginButton';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Menu, Users, Calendar, Briefcase, BarChart3, Share2 } from 'lucide-react';
+import { Menu, Users, Calendar, Briefcase, BarChart3, Share2, Calculator, FileText, Bell } from 'lucide-react';
 import { useState } from 'react';
 
 export default function Header() {
@@ -17,6 +17,9 @@ export default function Header() {
     { label: 'Jobs', path: '/jobs', icon: Briefcase },
     { label: 'Dashboard', path: '/dashboard', icon: BarChart3 },
     { label: 'Social Media', path: '/social-media', icon: Share2 },
+    { label: 'Estimates', path: '/estimates', icon: Calculator },
+    { label: 'Saved Estimates', path: '/saved-estimates', icon: FileText },
+    { label: 'Follow-Ups', path: '/follow-ups', icon: Bell },
   ];
 
   const handleNavClick = (path: string) => {

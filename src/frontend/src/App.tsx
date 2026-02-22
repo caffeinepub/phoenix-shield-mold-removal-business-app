@@ -7,6 +7,9 @@ import CalendarPage from './pages/CalendarPage';
 import JobsPage from './pages/JobsPage';
 import DashboardPage from './pages/DashboardPage';
 import SocialMediaPage from './pages/SocialMediaPage';
+import EstimatesPage from './pages/EstimatesPage';
+import SavedEstimatesPage from './pages/SavedEstimatesPage';
+import FollowUpsPage from './pages/FollowUpsPage';
 import Layout from './components/layout/Layout';
 import ProfileSetup from './components/auth/ProfileSetup';
 import { Toaster } from '@/components/ui/sonner';
@@ -83,6 +86,24 @@ const socialMediaRoute = createRoute({
   component: SocialMediaPage,
 });
 
+const estimatesRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/estimates',
+  component: EstimatesPage,
+});
+
+const savedEstimatesRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/saved-estimates',
+  component: SavedEstimatesPage,
+});
+
+const followUpsRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/follow-ups',
+  component: FollowUpsPage,
+});
+
 const routeTree = rootRoute.addChildren([
   indexRoute,
   customersRoute,
@@ -91,6 +112,9 @@ const routeTree = rootRoute.addChildren([
   jobsRoute,
   dashboardRoute,
   socialMediaRoute,
+  estimatesRoute,
+  savedEstimatesRoute,
+  followUpsRoute,
 ]);
 
 const router = createRouter({ routeTree });

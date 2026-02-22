@@ -89,6 +89,19 @@ export class ExternalBlob {
         return this;
     }
 }
+export interface Material {
+    name: string;
+    quantity: bigint;
+    unitCost: bigint;
+}
+export interface Customer {
+    jobHistory: Array<JobId>;
+    name: string;
+    physicalAddress: string;
+    customerId: CustomerId;
+    emailAddress: string;
+    phoneNumber: string;
+}
 export interface Job {
     status: JobStatus;
     serviceDate: Time;
@@ -100,6 +113,18 @@ export interface Job {
 export type Time = bigint;
 export type CustomerId = bigint;
 export type JobId = bigint;
+export interface Estimate {
+    totalMaterialCost: bigint;
+    laborHours: bigint;
+    estimateId: EstimateId;
+    creationDate: Time;
+    laborHourlyRate: bigint;
+    totalEstimate: bigint;
+    squareFootage: bigint;
+    totalLaborCost: bigint;
+    materials: Array<Material>;
+    pricePerSquareFoot: bigint;
+}
 export type AppointmentId = bigint;
 export interface Appointment {
     scheduledDate: Time;
@@ -108,14 +133,7 @@ export interface Appointment {
     customerId: CustomerId;
     appointmentId: AppointmentId;
 }
-export interface Customer {
-    jobHistory: Array<JobId>;
-    name: string;
-    physicalAddress: string;
-    customerId: CustomerId;
-    emailAddress: string;
-    phoneNumber: string;
-}
+export type EstimateId = bigint;
 export interface UserProfile {
     name: string;
 }
@@ -135,17 +153,22 @@ export interface backendInterface {
     createAppointment(customerId: CustomerId, scheduledDate: Time, jobType: string, durationMinutes: bigint): Promise<AppointmentId>;
     createCustomer(name: string, phoneNumber: string, emailAddress: string, physicalAddress: string): Promise<CustomerId>;
     createJob(customerId: CustomerId, serviceDate: Time, serviceType: string, issuesFound: string): Promise<JobId>;
+    deleteEstimate(estimateId: EstimateId): Promise<void>;
     getAllAppointments(): Promise<Array<Appointment>>;
     getAllCustomers(): Promise<Array<Customer>>;
+    getAllEstimates(): Promise<Array<Estimate>>;
     getAllJobs(): Promise<Array<Job>>;
     getAppointment(appointmentId: AppointmentId): Promise<Appointment>;
     getCallerUserProfile(): Promise<UserProfile | null>;
     getCallerUserRole(): Promise<UserRole>;
     getCustomer(customerId: CustomerId): Promise<Customer>;
+    getEstimate(estimateId: EstimateId): Promise<Estimate>;
     getJob(jobId: JobId): Promise<Job>;
     getUserProfile(user: Principal): Promise<UserProfile | null>;
     isCallerAdmin(): Promise<boolean>;
     saveCallerUserProfile(profile: UserProfile): Promise<void>;
+    saveEstimate(squareFootage: bigint, pricePerSquareFoot: bigint, materials: Array<Material>, laborHours: bigint, laborHourlyRate: bigint): Promise<EstimateId>;
+    updateEstimate(estimateId: EstimateId, squareFootage: bigint, pricePerSquareFoot: bigint, materials: Array<Material>, laborHours: bigint, laborHourlyRate: bigint): Promise<void>;
     updateJobStatus(jobId: JobId, status: JobStatus): Promise<void>;
 }
 import type { CustomerId as _CustomerId, Job as _Job, JobId as _JobId, JobStatus as _JobStatus, Time as _Time, UserProfile as _UserProfile, UserRole as _UserRole } from "./declarations/backend.did.d.ts";
@@ -221,6 +244,20 @@ export class Backend implements backendInterface {
             return result;
         }
     }
+    async deleteEstimate(arg0: EstimateId): Promise<void> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.deleteEstimate(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.deleteEstimate(arg0);
+            return result;
+        }
+    }
     async getAllAppointments(): Promise<Array<Appointment>> {
         if (this.processError) {
             try {
@@ -246,6 +283,20 @@ export class Backend implements backendInterface {
             }
         } else {
             const result = await this.actor.getAllCustomers();
+            return result;
+        }
+    }
+    async getAllEstimates(): Promise<Array<Estimate>> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getAllEstimates();
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getAllEstimates();
             return result;
         }
     }
@@ -319,6 +370,20 @@ export class Backend implements backendInterface {
             return result;
         }
     }
+    async getEstimate(arg0: EstimateId): Promise<Estimate> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getEstimate(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getEstimate(arg0);
+            return result;
+        }
+    }
     async getJob(arg0: JobId): Promise<Job> {
         if (this.processError) {
             try {
@@ -372,6 +437,34 @@ export class Backend implements backendInterface {
             }
         } else {
             const result = await this.actor.saveCallerUserProfile(arg0);
+            return result;
+        }
+    }
+    async saveEstimate(arg0: bigint, arg1: bigint, arg2: Array<Material>, arg3: bigint, arg4: bigint): Promise<EstimateId> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.saveEstimate(arg0, arg1, arg2, arg3, arg4);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.saveEstimate(arg0, arg1, arg2, arg3, arg4);
+            return result;
+        }
+    }
+    async updateEstimate(arg0: EstimateId, arg1: bigint, arg2: bigint, arg3: Array<Material>, arg4: bigint, arg5: bigint): Promise<void> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.updateEstimate(arg0, arg1, arg2, arg3, arg4, arg5);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.updateEstimate(arg0, arg1, arg2, arg3, arg4, arg5);
             return result;
         }
     }

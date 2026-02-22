@@ -1,20 +1,21 @@
 import Array "mo:core/Array";
-import List "mo:core/List";
 import Time "mo:core/Time";
 import Map "mo:core/Map";
-import Text "mo:core/Text";
 import Runtime "mo:core/Runtime";
-import Iter "mo:core/Iter";
 import Nat "mo:core/Nat";
+import Iter "mo:core/Iter";
 import Order "mo:core/Order";
 import Principal "mo:core/Principal";
 import MixinAuthorization "authorization/MixinAuthorization";
 import AccessControl "authorization/access-control";
 
+
+
 actor {
   public type CustomerId = Nat;
   public type JobId = Nat;
   public type AppointmentId = Nat;
+  public type EstimateId = Nat;
 
   public type Customer = {
     customerId : CustomerId;
@@ -52,6 +53,25 @@ actor {
     name : Text;
   };
 
+  public type Material = {
+    name : Text;
+    quantity : Nat;
+    unitCost : Nat;
+  };
+
+  public type Estimate = {
+    estimateId : EstimateId;
+    creationDate : Time.Time;
+    squareFootage : Nat;
+    pricePerSquareFoot : Nat;
+    materials : [Material];
+    laborHours : Nat;
+    laborHourlyRate : Nat;
+    totalMaterialCost : Nat;
+    totalLaborCost : Nat;
+    totalEstimate : Nat;
+  };
+
   // Initialize the access control state
   let accessControlState = AccessControl.initState();
   include MixinAuthorization(accessControlState);
@@ -60,17 +80,17 @@ actor {
   let jobs = Map.empty<JobId, Job>();
   let appointments = Map.empty<AppointmentId, Appointment>();
   let userProfiles = Map.empty<Principal, UserProfile>();
+  let estimates = Map.empty<EstimateId, Estimate>();
 
   var nextCustomerId : CustomerId = 1;
   var nextJobId : JobId = 1;
   var nextAppointmentId : AppointmentId = 1;
+  var nextEstimateId : EstimateId = 1;
 
   // User Profile Management Functions
 
   public query ({ caller }) func getCallerUserProfile() : async ?UserProfile {
-    if (not (AccessControl.hasPermission(accessControlState, caller, #user))) {
-      Runtime.trap("Unauthorized: Only users can access profiles");
-    };
+    checkUser(caller);
     userProfiles.get(caller);
   };
 
@@ -82,18 +102,14 @@ actor {
   };
 
   public shared ({ caller }) func saveCallerUserProfile(profile : UserProfile) : async () {
-    if (not (AccessControl.hasPermission(accessControlState, caller, #user))) {
-      Runtime.trap("Unauthorized: Only users can save profiles");
-    };
+    checkUser(caller);
     userProfiles.add(caller, profile);
   };
 
   // Customer Management Functions
 
   public shared ({ caller }) func createCustomer(name : Text, phoneNumber : Text, emailAddress : Text, physicalAddress : Text) : async CustomerId {
-    if (not (AccessControl.hasPermission(accessControlState, caller, #user))) {
-      Runtime.trap("Unauthorized: Only authenticated users can create customers");
-    };
+    checkUser(caller);
 
     let customerId = nextCustomerId;
     nextCustomerId += 1;
@@ -112,9 +128,7 @@ actor {
   };
 
   public query ({ caller }) func getCustomer(customerId : CustomerId) : async Customer {
-    if (not (AccessControl.hasPermission(accessControlState, caller, #user))) {
-      Runtime.trap("Unauthorized: Only authenticated users can access customer data");
-    };
+    checkUser(caller);
 
     switch (customers.get(customerId)) {
       case (null) { Runtime.trap("Customer not found") };
@@ -123,22 +137,17 @@ actor {
   };
 
   public query ({ caller }) func getAllCustomers() : async [Customer] {
-    if (not (AccessControl.hasPermission(accessControlState, caller, #user))) {
-      Runtime.trap("Unauthorized: Only authenticated users can access customer data");
-    };
-    
-    let customerArray = customers.values().toArray();
-    customerArray.sort(func(c1 : Customer, c2 : Customer) : Order.Order {
-      Nat.compare(c1.customerId, c2.customerId)
-    });
+    checkUser(caller);
+
+    customers.values().toArray().sort(
+      func(a, b) { Nat.compare(a.customerId, b.customerId) }
+    );
   };
 
   // Job Management Functions
 
   public shared ({ caller }) func createJob(customerId : CustomerId, serviceDate : Time.Time, serviceType : Text, issuesFound : Text) : async JobId {
-    if (not (AccessControl.hasPermission(accessControlState, caller, #user))) {
-      Runtime.trap("Unauthorized: Only authenticated users can create jobs");
-    };
+    checkUser(caller);
 
     let jobId = nextJobId;
     nextJobId += 1;
@@ -166,9 +175,7 @@ actor {
   };
 
   public shared ({ caller }) func updateJobStatus(jobId : JobId, status : JobStatus) : async () {
-    if (not (AccessControl.hasPermission(accessControlState, caller, #user))) {
-      Runtime.trap("Unauthorized: Only authenticated users can update job status");
-    };
+    checkUser(caller);
 
     switch (jobs.get(jobId)) {
       case (null) { Runtime.trap("Job not found") };
@@ -180,9 +187,7 @@ actor {
   };
 
   public query ({ caller }) func getJob(jobId : JobId) : async Job {
-    if (not (AccessControl.hasPermission(accessControlState, caller, #user))) {
-      Runtime.trap("Unauthorized: Only authenticated users can access job data");
-    };
+    checkUser(caller);
 
     switch (jobs.get(jobId)) {
       case (null) { Runtime.trap("Job not found") };
@@ -191,22 +196,17 @@ actor {
   };
 
   public query ({ caller }) func getAllJobs() : async [Job] {
-    if (not (AccessControl.hasPermission(accessControlState, caller, #user))) {
-      Runtime.trap("Unauthorized: Only authenticated users can access job data");
-    };
-    
-    let jobArray = jobs.values().toArray();
-    jobArray.sort(func(j1 : Job, j2 : Job) : Order.Order {
-      Nat.compare(j1.jobId, j2.jobId)
-    });
+    checkUser(caller);
+
+    jobs.values().toArray().sort(
+      func(a, b) { Nat.compare(a.jobId, b.jobId) }
+    );
   };
 
   // Appointment Management Functions
 
   public shared ({ caller }) func createAppointment(customerId : CustomerId, scheduledDate : Time.Time, jobType : Text, durationMinutes : Nat) : async AppointmentId {
-    if (not (AccessControl.hasPermission(accessControlState, caller, #user))) {
-      Runtime.trap("Unauthorized: Only authenticated users can create appointments");
-    };
+    checkUser(caller);
 
     let appointmentId = nextAppointmentId;
     nextAppointmentId += 1;
@@ -224,9 +224,7 @@ actor {
   };
 
   public query ({ caller }) func getAppointment(appointmentId : AppointmentId) : async Appointment {
-    if (not (AccessControl.hasPermission(accessControlState, caller, #user))) {
-      Runtime.trap("Unauthorized: Only authenticated users can access appointment data");
-    };
+    checkUser(caller);
 
     switch (appointments.get(appointmentId)) {
       case (null) { Runtime.trap("Appointment not found") };
@@ -235,13 +233,125 @@ actor {
   };
 
   public query ({ caller }) func getAllAppointments() : async [Appointment] {
-    if (not (AccessControl.hasPermission(accessControlState, caller, #user))) {
-      Runtime.trap("Unauthorized: Only authenticated users can access appointment data");
+    checkUser(caller);
+
+    appointments.values().toArray().sort(
+      func(a, b) { Nat.compare(a.appointmentId, b.appointmentId) }
+    );
+  };
+
+  // Estimate Management Functions
+
+  public shared ({ caller }) func saveEstimate(
+    squareFootage : Nat,
+    pricePerSquareFoot : Nat,
+    materials : [Material],
+    laborHours : Nat,
+    laborHourlyRate : Nat,
+  ) : async EstimateId {
+    checkUser(caller);
+
+    let estimateId = nextEstimateId;
+    nextEstimateId += 1;
+
+    let totalMaterialCost = materials.foldLeft(
+      0,
+      func(acc, material) {
+        acc + (material.quantity * material.unitCost);
+      },
+    );
+
+    let totalLaborCost = laborHours * laborHourlyRate;
+    let totalEstimate = (squareFootage * pricePerSquareFoot) + totalMaterialCost + totalLaborCost;
+
+    let newEstimate : Estimate = {
+      estimateId;
+      creationDate = Time.now();
+      squareFootage;
+      pricePerSquareFoot;
+      materials;
+      laborHours;
+      laborHourlyRate;
+      totalMaterialCost;
+      totalLaborCost;
+      totalEstimate;
     };
-    
-    let appointmentArray = appointments.values().toArray();
-    appointmentArray.sort(func(a1 : Appointment, a2 : Appointment) : Order.Order {
-      Nat.compare(a1.appointmentId, a2.appointmentId)
-    });
+
+    estimates.add(estimateId, newEstimate);
+    estimateId;
+  };
+
+  public query ({ caller }) func getEstimate(estimateId : EstimateId) : async Estimate {
+    checkUser(caller);
+
+    switch (estimates.get(estimateId)) {
+      case (null) { Runtime.trap("Estimate not found") };
+      case (?estimate) { estimate };
+    };
+  };
+
+  public query ({ caller }) func getAllEstimates() : async [Estimate] {
+    checkUser(caller);
+
+    estimates.values().toArray().sort(
+      func(a, b) { Nat.compare(a.estimateId, b.estimateId) }
+    );
+  };
+
+  public shared ({ caller }) func updateEstimate(
+    estimateId : EstimateId,
+    squareFootage : Nat,
+    pricePerSquareFoot : Nat,
+    materials : [Material],
+    laborHours : Nat,
+    laborHourlyRate : Nat,
+  ) : async () {
+    checkUser(caller);
+
+    switch (estimates.get(estimateId)) {
+      case (null) { Runtime.trap("Estimate not found") };
+      case (?_) {
+        let totalMaterialCost = materials.foldLeft(
+          0,
+          func(acc, material) {
+            acc + (material.quantity * material.unitCost);
+          },
+        );
+
+        let totalLaborCost = laborHours * laborHourlyRate;
+        let totalEstimate = (squareFootage * pricePerSquareFoot) + totalMaterialCost + totalLaborCost;
+
+        let updatedEstimate : Estimate = {
+          estimateId;
+          creationDate = Time.now();
+          squareFootage;
+          pricePerSquareFoot;
+          materials;
+          laborHours;
+          laborHourlyRate;
+          totalMaterialCost;
+          totalLaborCost;
+          totalEstimate;
+        };
+
+        estimates.add(estimateId, updatedEstimate);
+      };
+    };
+  };
+
+  public shared ({ caller }) func deleteEstimate(estimateId : EstimateId) : async () {
+    checkUser(caller);
+
+    if (not estimates.containsKey(estimateId)) {
+      Runtime.trap("Estimate not found");
+    };
+
+    estimates.remove(estimateId);
+  };
+
+  func checkUser(caller : Principal) {
+    if (not (AccessControl.hasPermission(accessControlState, caller, #user))) {
+      Runtime.trap("Unauthorized: Only users can perform this operation");
+    };
   };
 };

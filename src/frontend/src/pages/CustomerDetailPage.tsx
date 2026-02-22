@@ -1,14 +1,44 @@
 import { useParams, useNavigate } from '@tanstack/react-router';
-import { useGetCustomer } from '../hooks/useQueries';
+import { useGetCustomer, useGetAllEstimates } from '../hooks/useQueries';
 import JobHistoryTimeline from '../components/jobs/JobHistoryTimeline';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { ArrowLeft, Mail, Phone, MapPin } from 'lucide-react';
+import { ArrowLeft, Mail, Phone, MapPin, Copy, FileText } from 'lucide-react';
+import { copyEstimateToClipboard } from '../utils/copyEstimate';
+import { toast } from 'sonner';
+import type { Estimate } from '../backend';
 
 export default function CustomerDetailPage() {
   const { customerId } = useParams({ from: '/customers/$customerId' });
   const navigate = useNavigate();
   const { data: customer, isLoading } = useGetCustomer(BigInt(customerId));
+  const { data: estimates = [] } = useGetAllEstimates();
+
+  const handleCopyEstimate = async (estimate: Estimate) => {
+    try {
+      await copyEstimateToClipboard(estimate);
+      toast.success('Estimate copied to clipboard');
+    } catch (error) {
+      console.error('Error copying estimate:', error);
+      toast.error('Failed to copy estimate');
+    }
+  };
+
+  const formatCurrency = (value: bigint) => {
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+      minimumFractionDigits: 2,
+    }).format(Number(value) / 100);
+  };
+
+  const formatDate = (timestamp: bigint) => {
+    return new Date(Number(timestamp) / 1000000).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+    });
+  };
 
   if (isLoading) {
     return (
@@ -87,6 +117,60 @@ export default function CustomerDetailPage() {
       <div>
         <h2 className="text-2xl font-bold mb-4">Job History</h2>
         <JobHistoryTimeline customerId={customer.customerId} />
+      </div>
+
+      <div>
+        <h2 className="text-2xl font-bold mb-4">Estimates</h2>
+        {estimates.length === 0 ? (
+          <Card>
+            <CardContent className="flex flex-col items-center justify-center py-12">
+              <FileText className="h-12 w-12 text-muted-foreground mb-3" />
+              <p className="text-muted-foreground text-center">
+                No estimates available yet. Create estimates from the Estimates page.
+              </p>
+              <p className="text-sm text-muted-foreground text-center mt-2">
+                Note: Estimates are currently standalone and can be associated with customers in future versions.
+              </p>
+            </CardContent>
+          </Card>
+        ) : (
+          <div className="space-y-3">
+            <p className="text-sm text-muted-foreground mb-4">
+              All saved estimates (future versions will allow customer-specific estimates)
+            </p>
+            {estimates.map((estimate) => (
+              <Card key={estimate.estimateId.toString()}>
+                <CardContent className="flex items-center justify-between py-4">
+                  <div className="space-y-1">
+                    <div className="flex items-center gap-3">
+                      <span className="font-semibold">
+                        Estimate #{estimate.estimateId.toString()}
+                      </span>
+                      <span className="text-sm text-muted-foreground">
+                        {formatDate(estimate.creationDate)}
+                      </span>
+                    </div>
+                    <div className="flex gap-4 text-sm text-muted-foreground">
+                      <span>{estimate.squareFootage.toString()} sq ft</span>
+                      <span>•</span>
+                      <span className="font-semibold text-primary">
+                        {formatCurrency(estimate.totalEstimate)}
+                      </span>
+                    </div>
+                  </div>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => handleCopyEstimate(estimate)}
+                  >
+                    <Copy className="h-4 w-4 mr-2" />
+                    Copy
+                  </Button>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

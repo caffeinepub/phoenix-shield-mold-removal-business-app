@@ -1,6 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useActor } from './useActor';
-import type { Customer, Job, Appointment, JobStatus, UserProfile } from '../backend';
+import type { Customer, Job, Appointment, JobStatus, UserProfile, Estimate, Material } from '../backend';
 
 // User Profile Queries
 export function useGetCallerUserProfile() {
@@ -198,6 +198,109 @@ export function useCreateAppointment() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['appointments'] });
+    },
+  });
+}
+
+// Estimate Queries
+export function useGetAllEstimates() {
+  const { actor, isFetching } = useActor();
+
+  return useQuery<Estimate[]>({
+    queryKey: ['estimates'],
+    queryFn: async () => {
+      if (!actor) return [];
+      return actor.getAllEstimates();
+    },
+    enabled: !!actor && !isFetching,
+  });
+}
+
+export function useGetEstimate(estimateId: bigint | undefined) {
+  const { actor, isFetching } = useActor();
+
+  return useQuery<Estimate | null>({
+    queryKey: ['estimate', estimateId?.toString()],
+    queryFn: async () => {
+      if (!actor || !estimateId) return null;
+      try {
+        return await actor.getEstimate(estimateId);
+      } catch (error) {
+        console.error('Error fetching estimate:', error);
+        return null;
+      }
+    },
+    enabled: !!actor && !isFetching && !!estimateId,
+  });
+}
+
+export function useCreateEstimate() {
+  const { actor } = useActor();
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (data: {
+      squareFootage: bigint;
+      pricePerSquareFoot: bigint;
+      materials: Material[];
+      laborHours: bigint;
+      laborHourlyRate: bigint;
+    }) => {
+      if (!actor) throw new Error('Actor not available');
+      return actor.saveEstimate(
+        data.squareFootage,
+        data.pricePerSquareFoot,
+        data.materials,
+        data.laborHours,
+        data.laborHourlyRate
+      );
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['estimates'] });
+    },
+  });
+}
+
+export function useUpdateEstimate() {
+  const { actor } = useActor();
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (data: {
+      estimateId: bigint;
+      squareFootage: bigint;
+      pricePerSquareFoot: bigint;
+      materials: Material[];
+      laborHours: bigint;
+      laborHourlyRate: bigint;
+    }) => {
+      if (!actor) throw new Error('Actor not available');
+      return actor.updateEstimate(
+        data.estimateId,
+        data.squareFootage,
+        data.pricePerSquareFoot,
+        data.materials,
+        data.laborHours,
+        data.laborHourlyRate
+      );
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['estimates'] });
+    },
+  });
+}
+
+export function useDeleteEstimate() {
+  const { actor } = useActor();
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (estimateId: bigint) => {
+      if (!actor) throw new Error('Actor not available');
+      return actor.deleteEstimate(estimateId);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['estimates'] });
     },
   });
 }

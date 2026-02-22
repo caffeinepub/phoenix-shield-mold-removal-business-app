@@ -1,14 +1,18 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 7,
+  "projectStateVersion": 23,
   "summary": "Phoenix Shield Mold Removal business management app with AI-powered social media manager and smart CRM/operations system for mold remediation company in Tullahoma, TN",
   "architectural_notes": [
     "Internet Identity authentication for secure single-user access",
     "Mobile-friendly responsive design for on-the-go business management",
     "Template-based AI content generation system for social media (no external AI API integration)",
-    "Local storage for customer data, job history, and business metrics"
+    "Local storage for customer data, job history, and business metrics",
+    "Estimates stored as standalone records with optional customer association for flexibility",
+    "Follow-up and review request messages are generated as copy-ready text for manual sending through existing communication channels (no automatic sending integration)"
   ],
-  "known_issues": [],
+  "known_issues": [
+    "Customer creation mutation failing with 'Failed to add customer' error after latest deployment"
+  ],
   "isFixRequest": true,
   "existing_features": [
     {
@@ -210,6 +214,310 @@
         "REQ-29"
       ],
       "version": 1
+    },
+    {
+      "id": "feature-add-an-estimates-navigation-menu-item-to-the-header-component-that-appears-alongside-existing-customers-calendar-jobs-dashboard-and-social-media-links-in-both-desktop-and-mobile-views",
+      "title": "Add an 'Estimates' navigation menu item to the Header component that appears alongside existing Customers, Calendar, Jobs, Dashboard, and Social Media links in both desktop and mobile views",
+      "reqIds": [
+        "REQ-30"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-an-estimatespage-component-that-displays-a-calculator-form-interface-for-creating-itemized-estimates",
+      "title": "Create an EstimatesPage component that displays a calculator form interface for creating itemized estimates",
+      "reqIds": [
+        "REQ-31"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-a-square-footage-input-section-in-the-calculator-with-fields-for-square-footage-amount-and-price-per-square-foot-that-displays-a-calculated-subtotal",
+      "title": "Implement a square footage input section in the calculator with fields for square footage amount and price per square foot that displays a calculated subtotal",
+      "reqIds": [
+        "REQ-32"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-a-materials-section-in-the-calculator-that-allows-adding-multiple-line-items-each-with-fields-for-material-name-quantity-and-unit-cost-displaying-a-subtotal-for-each-line-item-and-a-total-for-all-materials",
+      "title": "Implement a materials section in the calculator that allows adding multiple line items, each with fields for material name, quantity, and unit cost, displaying a subtotal for each line item and a total for all materials",
+      "reqIds": [
+        "REQ-33"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-a-labor-section-in-the-calculator-with-fields-for-hours-worked-and-hourly-rate-that-displays-a-calculated-labor-subtotal",
+      "title": "Implement a labor section in the calculator with fields for hours worked and hourly rate that displays a calculated labor subtotal",
+      "reqIds": [
+        "REQ-34"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-display-a-grand-total-in-the-calculator-that-automatically-sums-the-square-footage-subtotal-all-materials-subtotals-and-labor-subtotal",
+      "title": "Display a grand total in the calculator that automatically sums the square footage subtotal, all materials subtotals, and labor subtotal",
+      "reqIds": [
+        "REQ-35"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-configure-routing-to-support-the-estimates-page-with-an-appropriate-route-path-and-integrate-it-with-the-application-s-router-configuration",
+      "title": "Configure routing to support the Estimates page with an appropriate route path and integrate it with the application's router configuration",
+      "reqIds": [
+        "REQ-36"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-react-query-hooks-for-estimate-crud-operations-including-useestimates-to-fetch-all-estimates-usecreateestimate-to-save-new-estimates-useupdateestimate-to-modify-existing-estimates-and-usedeleteestimate-to-remove-estimates",
+      "title": "Create React Query hooks for estimate CRUD operations including useEstimates to fetch all estimates, useCreateEstimate to save new estimates, useUpdateEstimate to modify existing estimates, and useDeleteEstimate to remove estimates",
+      "reqIds": [
+        "REQ-39"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-modify-the-estimatespage-component-to-add-a-save-estimate-button-that-persists-the-current-calculator-state-as-a-new-estimate-record-and-a-load-estimate-dropdown-or-button-that-allows-selecting-and-loading-a-previously-saved-estimate-into-the-calculator-for-editing",
+      "title": "Modify the EstimatesPage component to add a 'Save Estimate' button that persists the current calculator state as a new estimate record, and a 'Load Estimate' dropdown or button that allows selecting and loading a previously saved estimate into the calculator for editing",
+      "reqIds": [
+        "REQ-40"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-new-savedestimatespage-component-that-displays-a-list-of-all-saved-estimates-showing-key-details-creation-date-square-footage-total-amount-with-buttons-to-edit-delete-or-copy-each-estimate",
+      "title": "Create a new SavedEstimatesPage component that displays a list of all saved estimates showing key details (creation date, square footage, total amount) with buttons to edit, delete, or copy each estimate",
+      "reqIds": [
+        "REQ-41"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-saved-estimates-navigation-menu-item-to-the-header-component-that-appears-alongside-existing-navigation-links-in-both-desktop-and-mobile-views",
+      "title": "Add a 'Saved Estimates' navigation menu item to the Header component that appears alongside existing navigation links in both desktop and mobile views",
+      "reqIds": [
+        "REQ-42"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-configure-routing-to-support-the-savedestimatespage-with-an-appropriate-route-path-and-integrate-it-with-the-application-s-router-configuration-in-app-tsx",
+      "title": "Configure routing to support the SavedEstimatesPage with an appropriate route path and integrate it with the application's router configuration in App.tsx",
+      "reqIds": [
+        "REQ-43"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-section-to-the-customerdetailpage-that-displays-a-list-of-saved-estimates-with-an-option-to-associate-estimates-with-the-current-customer-showing-estimate-summaries-and-copy-to-clipboard-functionality",
+      "title": "Add a section to the CustomerDetailPage that displays a list of saved estimates with an option to associate estimates with the current customer, showing estimate summaries and copy-to-clipboard functionality",
+      "reqIds": [
+        "REQ-44"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-a-copy-to-clipboard-function-that-formats-an-estimate-as-readable-text-including-all-line-items-subtotals-and-the-grand-total-and-displays-a-success-notification-when-the-copy-operation-completes",
+      "title": "Implement a copy-to-clipboard function that formats an estimate as readable text including all line items, subtotals, and the grand total, and displays a success notification when the copy operation completes",
+      "reqIds": [
+        "REQ-45"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-create-job-button-to-the-jobspage-component-that-opens-a-form-dialog-for-creating-new-job-records",
+      "title": "Add a 'Create Job' button to the JobsPage component that opens a form dialog for creating new job records",
+      "reqIds": [
+        "REQ-46"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-a-job-creation-form-with-fields-for-customer-selection-dropdown-populated-from-existing-customers-service-type-text-input-description-textarea-scheduled-date-date-picker-and-initial-status-dropdown-with-options-scheduled-in-progress-completed",
+      "title": "Implement a job creation form with fields for customer selection (dropdown populated from existing customers), service type (text input), description (textarea), scheduled date (date picker), and initial status (dropdown with options: scheduled, in-progress, completed)",
+      "reqIds": [
+        "REQ-47"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-wire-the-job-creation-form-to-submit-data-using-the-usecreatejob-mutation-hook-display-success-feedback-close-the-dialog-on-successful-creation-and-show-error-messages-if-creation-fails",
+      "title": "Wire the job creation form to submit data using the useCreateJob mutation hook, display success feedback, close the dialog on successful creation, and show error messages if creation fails",
+      "reqIds": [
+        "REQ-49"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-react-query-hooks-for-follow-up-reminder-operations-including-usefollowupreminders-to-fetch-all-reminders-usecreatefollowupreminder-to-create-new-reminders-useupdatefollowupreminder-to-modify-reminder-templates-and-usecompletefollowupreminder-to-mark-reminders-as-sent",
+      "title": "Create React Query hooks for follow-up reminder operations including useFollowUpReminders to fetch all reminders, useCreateFollowUpReminder to create new reminders, useUpdateFollowUpReminder to modify reminder templates, and useCompleteFollowUpReminder to mark reminders as sent",
+      "reqIds": [
+        "REQ-52"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-followupspage-component-that-displays-upcoming-and-past-follow-up-reminders-in-a-list-or-timeline-view-with-the-ability-to-filter-by-reminder-type-post-job-satisfaction-6-month-mold-prevention-seasonal-check-in-and-view-reminder-details",
+      "title": "Create a FollowUpsPage component that displays upcoming and past follow-up reminders in a list or timeline view with the ability to filter by reminder type (post-job satisfaction, 6-month mold prevention, seasonal check-in) and view reminder details",
+      "reqIds": [
+        "REQ-53"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-a-follow-up-reminder-template-editor-dialog-that-displays-the-current-message-template-for-a-selected-reminder-with-a-text-area-for-editing-the-template-preview-of-the-formatted-message-and-a-copy-to-clipboard-button-to-copy-the-final-message-for-manual-sending",
+      "title": "Implement a follow-up reminder template editor dialog that displays the current message template for a selected reminder with a text area for editing the template, preview of the formatted message, and a copy-to-clipboard button to copy the final message for manual sending",
+      "reqIds": [
+        "REQ-54"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-pre-defined-message-templates-for-each-follow-up-type-post-job-satisfaction-requesting-feedback-3-7-days-after-job-completion-6-month-mold-prevention-preventive-check-in-reminder-and-seasonal-check-ins-spring-moisture-season-fall-prep-that-users-can-customize-before-sending",
+      "title": "Create pre-defined message templates for each follow-up type: post-job satisfaction (requesting feedback 3-7 days after job completion), 6-month mold prevention (preventive check-in reminder), and seasonal check-ins (spring moisture season, fall prep) that users can customize before sending",
+      "reqIds": [
+        "REQ-55"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-automatic-follow-up-reminder-creation-when-a-job-is-marked-as-completed-that-creates-a-post-job-satisfaction-reminder-scheduled-for-3-days-after-completion-and-a-6-month-mold-prevention-reminder-scheduled-for-6-months-after-completion",
+      "title": "Add automatic follow-up reminder creation when a job is marked as completed that creates a post-job satisfaction reminder scheduled for 3 days after completion and a 6-month mold prevention reminder scheduled for 6 months after completion",
+      "reqIds": [
+        "REQ-56"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-google-review-request-message-generator-component-that-displays-an-editable-template-asking-customers-to-leave-a-google-review-with-a-placeholder-for-the-business-google-review-link-preview-of-the-formatted-message-and-copy-to-clipboard-functionality-for-manual-sending",
+      "title": "Create a Google review request message generator component that displays an editable template asking customers to leave a Google review with a placeholder for the business Google review link, preview of the formatted message, and copy-to-clipboard functionality for manual sending",
+      "reqIds": [
+        "REQ-57"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-request-review-button-to-the-customerdetailpage-and-jobcard-components-that-opens-the-google-review-request-generator-dialog-pre-populated-with-the-customer-s-name-in-the-message-template",
+      "title": "Add a 'Request Review' button to the CustomerDetailPage and JobCard components that opens the Google review request generator dialog pre-populated with the customer's name in the message template",
+      "reqIds": [
+        "REQ-58"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-follow-ups-navigation-menu-item-to-the-header-component-that-appears-alongside-existing-navigation-links-in-both-desktop-and-mobile-views",
+      "title": "Add a 'Follow-Ups' navigation menu item to the Header component that appears alongside existing navigation links in both desktop and mobile views",
+      "reqIds": [
+        "REQ-59"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-configure-routing-to-support-the-followupspage-with-an-appropriate-route-path-follow-ups-and-integrate-it-with-the-application-s-router-configuration-in-app-tsx",
+      "title": "Configure routing to support the FollowUpsPage with an appropriate route path (/follow-ups) and integrate it with the application's router configuration in App.tsx",
+      "reqIds": [
+        "REQ-60"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-follow-ups-navigation-menu-item-to-the-header-component-that-appears-in-the-desktop-navigation-menu-alongside-existing-customers-calendar-jobs-dashboard-social-media-estimates-and-saved-estimates-links",
+      "title": "Add a 'Follow-Ups' navigation menu item to the Header component that appears in the desktop navigation menu alongside existing Customers, Calendar, Jobs, Dashboard, Social Media, Estimates, and Saved Estimates links",
+      "reqIds": [
+        "REQ-61"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-follow-ups-navigation-menu-item-to-the-mobile-sheet-menu-in-the-header-component-that-appears-alongside-existing-navigation-options-in-the-mobile-view",
+      "title": "Add a 'Follow-Ups' navigation menu item to the mobile sheet menu in the Header component that appears alongside existing navigation options in the mobile view",
+      "reqIds": [
+        "REQ-62"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-fix-the-follow-ups-page-routing-and-component-configuration-to-resolve-the-not-found-message-that-appears-in-the-top-left-when-accessing-the-page-through-navigation",
+      "title": "Fix the Follow-Ups page routing and component configuration to resolve the 'Not Found' message that appears in the top left when accessing the page through navigation",
+      "reqIds": [
+        "REQ-64"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-redesign-the-followupspage-component-to-display-message-templates-as-the-primary-content-replacing-the-current-customer-list-view-with-a-template-focused-layout",
+      "title": "Redesign the FollowUpsPage component to display message templates as the primary content, replacing the current customer list view with a template-focused layout",
+      "reqIds": [
+        "REQ-65"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-display-all-four-message-template-types-simultaneously-on-the-follow-ups-page-post-job-satisfaction-3-7-days-after-completion-6-month-mold-prevention-check-in-seasonal-check-ins-spring-moisture-season-and-fall-prep-and-google-review-request-template",
+      "title": "Display all four message template types simultaneously on the Follow-Ups page: post-job satisfaction (3-7 days after completion), 6-month mold prevention check-in, seasonal check-ins (spring moisture season and fall prep), and Google review request template",
+      "reqIds": [
+        "REQ-66"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-editable-text-areas-for-each-message-template-on-the-follow-ups-page-that-allow-users-to-customize-the-template-content-in-real-time",
+      "title": "Implement editable text areas for each message template on the Follow-Ups page that allow users to customize the template content in real-time",
+      "reqIds": [
+        "REQ-67"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-preview-section-for-each-message-template-that-displays-the-formatted-message-with-customer-name-placeholders-and-shows-how-the-message-will-appear-when-sent",
+      "title": "Add a preview section for each message template that displays the formatted message with customer name placeholders and shows how the message will appear when sent",
+      "reqIds": [
+        "REQ-68"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-copy-to-clipboard-button-for-each-message-template-that-copies-the-formatted-message-text-and-displays-a-success-notification-when-the-copy-operation-completes",
+      "title": "Add a copy-to-clipboard button for each message template that copies the formatted message text and displays a success notification when the copy operation completes",
+      "reqIds": [
+        "REQ-69"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-default-message-template-text-for-post-job-satisfaction-that-requests-customer-feedback-3-7-days-after-job-completion-including-placeholders-for-customer-name-and-customizable-content",
+      "title": "Create default message template text for post-job satisfaction that requests customer feedback 3-7 days after job completion, including placeholders for customer name and customizable content",
+      "reqIds": [
+        "REQ-70"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-default-message-template-text-for-6-month-mold-prevention-check-in-that-reminds-customers-about-preventive-maintenance-and-offers-a-check-in-appointment-including-placeholders-for-customer-name",
+      "title": "Create default message template text for 6-month mold prevention check-in that reminds customers about preventive maintenance and offers a check-in appointment, including placeholders for customer name",
+      "reqIds": [
+        "REQ-71"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-default-message-template-text-for-seasonal-check-ins-covering-spring-moisture-season-and-fall-prep-with-messaging-appropriate-for-each-season-s-mold-prevention-needs-and-customer-name-placeholders",
+      "title": "Create default message template text for seasonal check-ins covering spring moisture season and fall prep, with messaging appropriate for each season's mold prevention needs and customer name placeholders",
+      "reqIds": [
+        "REQ-72"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-default-message-template-text-for-google-review-request-that-politely-asks-customers-to-leave-a-review-with-a-placeholder-for-the-business-google-review-link-and-customer-name",
+      "title": "Create default message template text for Google review request that politely asks customers to leave a review with a placeholder for the business Google review link and customer name",
+      "reqIds": [
+        "REQ-73"
+      ],
+      "version": 1
     }
   ],
   "new_feature_requests": [
@@ -314,6 +622,96 @@
       "summary": "Implement a job status tracking system in the backend with three states (scheduled, in-progress, completed) and functions to update job status",
       "reqIds": [
         "REQ-22"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-20",
+      "summary": "Backend storage system for saved estimates with ability to save, retrieve, update, and delete estimate records",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-21",
+      "summary": "Saved Estimates page showing all saved estimates with edit and delete functionality",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-22",
+      "summary": "Integrate saved estimates view within customer profile pages",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-23",
+      "summary": "Copy-to-clipboard functionality for estimates to enable easy sharing via email or text",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-24",
+      "summary": "Create a backend data structure for saved estimates that stores estimate records as standalone entities (not tied to customers) with fields for estimate ID, creation date, square footage amount, square footage price per unit, materials array (each with name, quantity, unit cost), labor hours, labor hourly rate, and calculated totals",
+      "reqIds": [
+        "REQ-37"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-25",
+      "summary": "Implement backend functions to save new estimates, retrieve all estimates, retrieve a single estimate by ID, update an existing estimate, and delete an estimate",
+      "reqIds": [
+        "REQ-38"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-26",
+      "summary": "Add 'Create Job' button and form to Jobs page to create new job records with customer selection, service type, description, scheduled date, and status",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-29",
+      "summary": "Create a useCreateJob React Query mutation hook that calls the backend createJob function to persist new job records",
+      "reqIds": [
+        "REQ-48"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-30",
+      "summary": "Enhanced follow-up system with multiple types: post-job satisfaction, 6-month mold prevention, seasonal check-ins with editable message templates and preview capability",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-31",
+      "summary": "Google review request message generator with editable template, preview capability, and copy to clipboard for manual sending to customers",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-32",
+      "summary": "Create a backend data structure for follow-up reminders that stores reminder type (post-job satisfaction, 6-month mold prevention, seasonal check-in), customer ID, job ID (optional), scheduled date, message template text, and completion status",
+      "reqIds": [
+        "REQ-50"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-33",
+      "summary": "Implement backend functions to create follow-up reminders, retrieve all reminders, retrieve reminders filtered by type or customer, update reminder templates, and mark reminders as completed",
+      "reqIds": [
+        "REQ-51"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-34",
+      "summary": "Debug and fix the customer creation mutation in the backend that is causing 'Failed to add customer please try again' error after form submission, ensuring the createCustomer function properly persists customer data and returns success",
+      "reqIds": [
+        "REQ-63"
       ],
       "status": "pending"
     }

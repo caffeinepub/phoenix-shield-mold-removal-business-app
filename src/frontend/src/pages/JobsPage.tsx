@@ -1,13 +1,16 @@
 import { useState } from 'react';
 import { useGetAllJobs } from '../hooks/useQueries';
 import JobCard from '../components/jobs/JobCard';
+import JobForm from '../components/jobs/JobForm';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Briefcase } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Briefcase, Plus } from 'lucide-react';
 import { JobStatus } from '../backend';
 
 export default function JobsPage() {
   const { data: jobs, isLoading } = useGetAllJobs();
   const [activeTab, setActiveTab] = useState<string>('all');
+  const [isJobFormOpen, setIsJobFormOpen] = useState(false);
 
   const filterJobsByStatus = (status?: JobStatus) => {
     if (!jobs) return [];
@@ -40,11 +43,17 @@ export default function JobsPage() {
             <Briefcase className="h-10 w-10 text-muted-foreground" />
           </div>
           <h2 className="text-2xl font-semibold mb-2">No jobs found</h2>
-          <p className="text-muted-foreground max-w-md">
+          <p className="text-muted-foreground max-w-md mb-6">
             {activeTab === 'all'
-              ? 'No jobs have been created yet.'
+              ? 'No jobs have been created yet. Create your first job to get started.'
               : `No ${activeTab.replace('-', ' ')} jobs at the moment.`}
           </p>
+          {activeTab === 'all' && (
+            <Button onClick={() => setIsJobFormOpen(true)}>
+              <Plus className="mr-2 h-4 w-4" />
+              Create Job
+            </Button>
+          )}
         </div>
       );
     }
@@ -60,11 +69,17 @@ export default function JobsPage() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-3xl font-bold tracking-tight">Jobs</h1>
-        <p className="text-muted-foreground mt-1">
-          Track and manage job status across all projects
-        </p>
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-3xl font-bold tracking-tight">Jobs</h1>
+          <p className="text-muted-foreground mt-1">
+            Track and manage job status across all projects
+          </p>
+        </div>
+        <Button onClick={() => setIsJobFormOpen(true)}>
+          <Plus className="mr-2 h-4 w-4" />
+          Create Job
+        </Button>
       </div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab}>
@@ -103,6 +118,12 @@ export default function JobsPage() {
           {renderJobList(completedJobs)}
         </TabsContent>
       </Tabs>
+
+      <JobForm
+        open={isJobFormOpen}
+        onOpenChange={setIsJobFormOpen}
+        onSuccess={() => setIsJobFormOpen(false)}
+      />
     </div>
   );
 }

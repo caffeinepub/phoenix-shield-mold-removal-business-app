@@ -1,21 +1,38 @@
 {
   "kind": "spec_vs_diff_report",
   "version": "1.0",
-  "generatedAt": "2026-02-22T03:27:44.472Z",
-  "summary": "The diff implements all four requirements. Navigation links for Dashboard and Social Media are added to the Header component (both desktop and mobile). A Dashboard page displays revenue insights with monthly total revenue, completed jobs count, and average job value. A Social Media page provides tabbed sections for AI post generation, content calendar, template library, and post preview with copy-to-clipboard functionality. Routes for both pages are registered and protected via authentication. All acceptance criteria appear satisfied.",
+  "generatedAt": "2026-02-22T08:25:33.610Z",
+  "summary": "The implementation successfully addresses all 9 requirements (REQ-65 through REQ-73). The FollowUpsPage was redesigned with a template-focused layout, all four message template types are displayed simultaneously with editable text areas, dynamic previews, and copy-to-clipboard functionality. Default message templates were created for post-job satisfaction, 6-month prevention, spring/fall seasonal check-ins, and Google review requests, all including appropriate customer name and link placeholders.",
   "missing_requirements": [],
-  "hallucinated_features": [],
+  "hallucinated_features": [
+    {
+      "description": "Reset to Default button functionality added to MessageTemplateCard component",
+      "reason": "The BuildRequest does not mention any requirement for resetting templates to default values. The non-goals explicitly state 'Backend storage of edited template content', and the Alert message confirms 'Changes are temporary and will reset when you refresh the page', but an explicit Reset button was not requested.",
+      "evidence": [
+        "frontend/src/components/followups/MessageTemplateCard.tsx"
+      ]
+    },
+    {
+      "description": "Tips section added at bottom of FollowUpsPage with usage guidance",
+      "reason": "The BuildRequest does not include any requirement for instructional tips or usage guidance on the Follow-Ups page. While helpful, this is additional content not specified in any of the requirements or acceptance criteria.",
+      "evidence": [
+        "frontend/src/pages/FollowUpsPage.tsx"
+      ]
+    },
+    {
+      "description": "Alert/Info banner explaining temporary nature of edits",
+      "reason": "While the non-goals mention not storing edited content, there is no requirement to display an alert explaining that changes are temporary and will reset on page refresh. This informational component was added without being requested.",
+      "evidence": [
+        "frontend/src/pages/FollowUpsPage.tsx"
+      ]
+    }
+  ],
   "confidence": 0.95,
   "changed_files": [
     "frontend-file-summaries.txt",
-    "frontend/src/App.tsx",
-    "frontend/src/components/layout/Header.tsx",
-    "frontend/src/components/social/ContentCalendar.tsx",
-    "frontend/src/components/social/PostGenerator.tsx",
-    "frontend/src/components/social/PostPreview.tsx",
-    "frontend/src/components/social/TemplateLibrary.tsx",
-    "frontend/src/pages/DashboardPage.tsx",
-    "frontend/src/pages/SocialMediaPage.tsx",
+    "frontend/src/components/followups/MessageTemplateCard.tsx",
+    "frontend/src/data/messageTemplates.ts",
+    "frontend/src/pages/FollowUpsPage.tsx",
     "project_state.json"
   ]
 }
