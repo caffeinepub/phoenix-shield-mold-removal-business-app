@@ -1,84 +1,21 @@
 {
   "kind": "spec_vs_diff_report",
   "version": "1.0",
-  "generatedAt": "2026-02-22T02:56:18.790Z",
-  "summary": "The implementation covers most of the Phase 1 requirements with strong backend (Motoko) and frontend (React) integration. Customer management (REQ-16, REQ-17), job history (REQ-18, REQ-19), scheduling (REQ-20, REQ-21), job status tracking (REQ-22, REQ-23), Internet Identity authentication (REQ-24), and earth tone UI design (REQ-25) are all substantially implemented. However, some acceptance criteria details are missing from the diff due to truncation, particularly around complete CRUD operations, deletion confirmation dialogs, and full calendar navigation verification.",
-  "missing_requirements": [
-    {
-      "id": "REQ-17",
-      "requirement": "Delete confirmation dialog for customer records",
-      "reason": "The diff shows CustomerForm.tsx and CustomerCard.tsx components, but no delete confirmation dialog component or delete functionality is visible in the truncated files. The AC specifically requires 'Delete confirmation dialog'.",
-      "evidence": []
-    },
-    {
-      "id": "REQ-16",
-      "requirement": "Full CRUD operations for customers including update and delete functions in backend",
-      "reason": "The backend/main.mo file is truncated and only shows createCustomer, getCustomer, and getAllCustomers functions. The updateCustomer and deleteCustomer functions required by AC 'CRUD functions implemented' are not visible in the truncated content.",
-      "evidence": [
-        "backend/main.mo"
-      ]
-    },
-    {
-      "id": "REQ-20",
-      "requirement": "Update and delete functions for appointments in backend",
-      "reason": "The backend/main.mo is truncated and does not show update or delete appointment functions. AC requires 'Functions to create, update, retrieve, and delete appointments'.",
-      "evidence": [
-        "backend/main.mo"
-      ]
-    }
-  ],
-  "hallucinated_features": [
-    {
-      "description": "User profile management system with name field",
-      "reason": "The BuildRequest does not specify any user profile features. The implementation adds UserProfile type, getCallerUserProfile, saveCallerUserProfile functions in backend, ProfileSetup component in frontend, and profile UI in Header. This functionality was not requested in any requirement.",
-      "evidence": [
-        "backend/main.mo",
-        "frontend/src/components/auth/ProfileSetup.tsx",
-        "frontend/src/hooks/useQueries.ts",
-        "frontend/src/components/layout/Header.tsx"
-      ]
-    },
-    {
-      "description": "Dark mode theme support with ThemeProvider",
-      "reason": "The BuildRequest does not mention dark mode or theme switching. The implementation includes ThemeProvider from 'next-themes' in App.tsx and dark mode CSS variables in index.css, which were not requested.",
-      "evidence": [
-        "frontend/src/App.tsx",
-        "frontend/src/index.css"
-      ]
-    }
-  ],
-  "confidence": 0.75,
+  "generatedAt": "2026-02-22T03:27:44.472Z",
+  "summary": "The diff implements all four requirements. Navigation links for Dashboard and Social Media are added to the Header component (both desktop and mobile). A Dashboard page displays revenue insights with monthly total revenue, completed jobs count, and average job value. A Social Media page provides tabbed sections for AI post generation, content calendar, template library, and post preview with copy-to-clipboard functionality. Routes for both pages are registered and protected via authentication. All acceptance criteria appear satisfied.",
+  "missing_requirements": [],
+  "hallucinated_features": [],
+  "confidence": 0.95,
   "changed_files": [
-    "all_files_summary.json",
-    "backend/main.mo",
     "frontend-file-summaries.txt",
-    "frontend/index.css",
-    "frontend/index.html",
     "frontend/src/App.tsx",
-    "frontend/src/components/auth/LoginButton.tsx",
-    "frontend/src/components/auth/ProfileSetup.tsx",
-    "frontend/src/components/calendar/AppointmentDetailsModal.tsx",
-    "frontend/src/components/calendar/AppointmentForm.tsx",
-    "frontend/src/components/calendar/MonthlyCalendar.tsx",
-    "frontend/src/components/customers/CustomerCard.tsx",
-    "frontend/src/components/customers/CustomerForm.tsx",
-    "frontend/src/components/jobs/JobCard.tsx",
-    "frontend/src/components/jobs/JobHistoryTimeline.tsx",
-    "frontend/src/components/jobs/JobStatusBadge.tsx",
     "frontend/src/components/layout/Header.tsx",
-    "frontend/src/components/layout/Layout.tsx",
-    "frontend/src/hooks/useActor.ts",
-    "frontend/src/hooks/useInternetIdentity.ts",
-    "frontend/src/hooks/useQueries.ts",
-    "frontend/src/index.css",
-    "frontend/src/main.tsx",
-    "frontend/src/pages/CalendarPage.tsx",
-    "frontend/src/pages/CustomerDetailPage.tsx",
-    "frontend/src/pages/CustomersPage.tsx",
-    "frontend/src/pages/JobsPage.tsx",
-    "frontend/src/pages/LoginPage.tsx",
-    "frontend/src/utils/urlParams.ts",
-    "frontend/tailwind.config.js",
+    "frontend/src/components/social/ContentCalendar.tsx",
+    "frontend/src/components/social/PostGenerator.tsx",
+    "frontend/src/components/social/PostPreview.tsx",
+    "frontend/src/components/social/TemplateLibrary.tsx",
+    "frontend/src/pages/DashboardPage.tsx",
+    "frontend/src/pages/SocialMediaPage.tsx",
     "project_state.json"
   ]
 }

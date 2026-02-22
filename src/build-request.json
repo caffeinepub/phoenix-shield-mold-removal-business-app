@@ -1,222 +1,96 @@
 {
   "kind": "build_request",
-  "title": "Build Phase 1: Core Customer Management and Scheduling",
+  "title": "Add navigation links for Dashboard and Social Media sections",
   "projectName": "Phoenix Shield",
-  "priority": "high",
+  "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-16",
-      "text": "Create a customer database in the backend that stores customer records with fields for name, phone number, email address, physical address, and maintains a relationship to job history records",
-      "target": "backend",
-      "source": {
-        "messageIds": [
-          "msg-recent"
-        ],
-        "quotes": [
-          "Customer database with full CRUD operations"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Customer type defined in Motoko with all required fields",
-        "CRUD functions implemented for creating, reading, updating, and deleting customers",
-        "Stable storage used for customer persistence across upgrades",
-        "Each customer has a unique identifier"
-      ]
-    },
-    {
-      "id": "REQ-17",
-      "text": "Implement frontend customer management interface with forms to add new customers, edit existing customer information, view customer details, and delete customer records",
+      "id": "REQ-26",
+      "text": "Add navigation menu items for Dashboard and Social Media sections to the Header component navigation, displaying them alongside existing Customers, Calendar, and Jobs links in both desktop and mobile views",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-recent"
+          "msg-14"
         ],
         "quotes": [
-          "Customer database with full CRUD operations"
+          "Add clear navigation links/buttons to access the Dashboard and Social Media sections"
         ]
       },
       "acceptanceCriteria": [
-        "Add customer form with validation for all fields",
-        "Customer list view showing all customers",
-        "Edit customer modal or page",
-        "Delete confirmation dialog",
-        "Success and error feedback for all operations"
+        "Dashboard link appears in the navigation menu",
+        "Social Media link appears in the navigation menu",
+        "Both links are visible in desktop navigation",
+        "Both links are visible in mobile hamburger menu",
+        "Navigation maintains the existing earth-tone styling"
       ]
     },
     {
-      "id": "REQ-18",
-      "text": "Create a job history data structure in the backend that stores job records linked to customers, including service date, service type, issues found, and job status",
-      "target": "backend",
-      "source": {
-        "messageIds": [
-          "msg-recent"
-        ],
-        "quotes": [
-          "Job history timeline for each customer"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Job type defined with fields for date, service type, issues, and status",
-        "Jobs are associated with customer IDs",
-        "Functions to add, retrieve, and update job records",
-        "Jobs are stored in stable storage"
-      ]
-    },
-    {
-      "id": "REQ-19",
-      "text": "Implement a job history timeline component in the frontend that displays all past services for a selected customer in chronological order, showing service dates, types of work performed, and issues discovered",
+      "id": "REQ-27",
+      "text": "Create a Dashboard page component that displays revenue insights including monthly total revenue, number of jobs completed, and average job value",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-recent"
+          "msg-14"
         ],
         "quotes": [
-          "Job history timeline for each customer"
+          "Dashboard - Revenue insights showing monthly totals, jobs completed, and average job value"
         ]
       },
       "acceptanceCriteria": [
-        "Timeline component displays jobs in reverse chronological order",
-        "Each job entry shows date, service type, and issues found",
-        "Timeline is visible on customer detail page",
-        "Empty state shown when customer has no job history"
+        "Dashboard page displays total revenue for the current month",
+        "Dashboard shows count of jobs completed",
+        "Dashboard calculates and displays average job value",
+        "Dashboard is accessible via the Dashboard navigation link"
       ]
     },
     {
-      "id": "REQ-20",
-      "text": "Build a scheduling system in the backend that stores appointment records with customer ID, scheduled date and time, job type, and duration",
-      "target": "backend",
-      "source": {
-        "messageIds": [
-          "msg-recent"
-        ],
-        "quotes": [
-          "Basic scheduling calendar"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Appointment type defined with date, time, customer reference, and job details",
-        "Functions to create, update, retrieve, and delete appointments",
-        "Appointments stored in stable storage",
-        "Ability to query appointments by date range"
-      ]
-    },
-    {
-      "id": "REQ-21",
-      "text": "Create a calendar interface in the frontend that displays scheduled appointments in a monthly view with the ability to create new appointments, view appointment details, and navigate between months",
+      "id": "REQ-28",
+      "text": "Create a Social Media page component with tabs or sections for AI post generator, content calendar, template library, and post preview/editing functionality",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-recent"
+          "msg-14"
         ],
         "quotes": [
-          "Basic scheduling calendar"
+          "Social Media - AI-powered post generator with mold remediation templates, content calendar, and template library"
         ]
       },
       "acceptanceCriteria": [
-        "Calendar displays current month with appointments",
-        "Clicking a date allows creating a new appointment",
-        "Appointments are visually displayed on their scheduled dates",
-        "Month navigation controls work correctly",
-        "Appointment detail modal shows full information"
+        "Social Media page is accessible via the Social Media navigation link",
+        "Page includes section for AI-powered post generation with topic, tone, and platform selection",
+        "Page includes content calendar view for planning posts",
+        "Page includes template library with categories: before/after, prevention tips, testimonials, emergency response, seasonal content",
+        "Page includes post preview and editing interface with copy to clipboard functionality"
       ]
     },
     {
-      "id": "REQ-22",
-      "text": "Implement a job status tracking system in the backend with three states (scheduled, in-progress, completed) and functions to update job status",
-      "target": "backend",
-      "source": {
-        "messageIds": [
-          "msg-recent"
-        ],
-        "quotes": [
-          "Job status tracking (scheduled/in-progress/completed)"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Job status enum with exactly three states: scheduled, in-progress, completed",
-        "Status field included in job records",
-        "Function to update job status with validation",
-        "Ability to query jobs filtered by status"
-      ]
-    },
-    {
-      "id": "REQ-23",
-      "text": "Create a job status management interface in the frontend that displays jobs grouped or filtered by status with the ability to update job status and view status-specific job lists",
+      "id": "REQ-29",
+      "text": "Configure routing to support Dashboard and Social Media pages with appropriate route paths and navigation integration",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-recent"
-        ],
-        "quotes": [
-          "Job status tracking (scheduled/in-progress/completed)"
+          "msg-14"
         ]
       },
       "acceptanceCriteria": [
-        "Job board or list view showing jobs by status",
-        "Visual distinction between scheduled, in-progress, and completed jobs",
-        "Ability to change job status with dropdown or status buttons",
-        "Filter or tab navigation to view jobs by specific status",
-        "Status change updates reflected immediately in the UI"
-      ]
-    },
-    {
-      "id": "REQ-24",
-      "text": "Integrate Internet Identity authentication so that all customer data, job information, and business features are only accessible to authenticated users",
-      "target": "both",
-      "source": {
-        "messageIds": [
-          "msg-recent"
-        ],
-        "quotes": [
-          "Internet Identity authentication"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Login flow using Internet Identity before accessing the app",
-        "Backend functions check caller identity and restrict access",
-        "Unauthenticated users are redirected to login",
-        "Logout functionality available in the UI",
-        "User identity displayed when logged in"
-      ]
-    },
-    {
-      "id": "REQ-25",
-      "text": "Design and implement a mobile-responsive user interface with an earth tone color scheme using warm greens and browns, clear typography optimized for readability, intuitive navigation suitable for on-the-go business management, and consistent spacing and layout patterns across all pages",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-recent"
-        ],
-        "quotes": [
-          "Mobile-friendly UI with earth tone color scheme (greens and browns)"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Color palette uses earth tones (greens, browns) instead of blue or purple",
-        "All pages are fully responsive and usable on mobile devices",
-        "Typography is clear and legible on small screens",
-        "Navigation is accessible and intuitive on mobile",
-        "Consistent visual theme applied across all components and pages"
+        "Dashboard route is registered and accessible",
+        "Social Media route is registered and accessible",
+        "Routes are protected by authentication like existing routes",
+        "Navigation links correctly route to new pages"
       ]
     }
   ],
   "constraints": [
-    "All backend logic must remain in a single Motoko actor in backend/main.mo",
-    "Do not modify immutable frontend paths: useInternetIdentity hooks, useActor.ts, main.tsx, or components/ui files",
-    "Use only React, Tailwind CSS, Shadcn components, and React Query for the frontend",
-    "Avoid blue and purple color schemes; use earth tones (greens and browns) as specified"
+    "Do not modify the existing Header component's immutable paths (frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, frontend/src/components/ui)",
+    "Maintain the existing earth-tone color scheme using warm greens and browns",
+    "Keep mobile-responsive design patterns consistent with existing pages",
+    "Use existing authentication and authorization patterns"
   ],
   "nonGoals": [
-    "Itemized estimate calculator (deferred to Phase 2)",
-    "Photo gallery system (deferred to Phase 2)",
-    "Follow-up reminder system (deferred to Phase 2)",
-    "Customer communication log (deferred to Phase 2)",
-    "Revenue tracking dashboard (deferred to Phase 2)",
-    "AI-powered social media post generator (deferred to Phase 3)",
-    "Template library for mold remediation content (deferred to Phase 3)",
-    "Content calendar for social media (deferred to Phase 3)",
-    "Post preview and editing system (deferred to Phase 3)",
-    "Drag-and-drop functionality for the calendar (basic calendar only in Phase 1)"
+    "Backend changes for Dashboard or Social Media features",
+    "Modifying existing Customers, Calendar, or Jobs pages",
+    "Implementing actual AI integration or external API calls",
+    "Adding drag-and-drop to the content calendar"
   ],
   "imageRequirements": {
     "required": [],

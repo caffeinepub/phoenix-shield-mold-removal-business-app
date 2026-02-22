@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 5,
+  "projectStateVersion": 7,
   "summary": "Phoenix Shield Mold Removal business management app with AI-powered social media manager and smart CRM/operations system for mold remediation company in Tullahoma, TN",
   "architectural_notes": [
     "Internet Identity authentication for secure single-user access",
@@ -176,6 +176,38 @@
       "title": "Design and implement a mobile-responsive user interface with an earth tone color scheme using warm greens and browns, clear typography optimized for readability, intuitive navigation suitable for on-the-go business management, and consistent spacing and layout patterns across all pages",
       "reqIds": [
         "REQ-25"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-navigation-menu-items-for-dashboard-and-social-media-sections-to-the-header-component-navigation-displaying-them-alongside-existing-customers-calendar-and-jobs-links-in-both-desktop-and-mobile-views",
+      "title": "Add navigation menu items for Dashboard and Social Media sections to the Header component navigation, displaying them alongside existing Customers, Calendar, and Jobs links in both desktop and mobile views",
+      "reqIds": [
+        "REQ-26"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-dashboard-page-component-that-displays-revenue-insights-including-monthly-total-revenue-number-of-jobs-completed-and-average-job-value",
+      "title": "Create a Dashboard page component that displays revenue insights including monthly total revenue, number of jobs completed, and average job value",
+      "reqIds": [
+        "REQ-27"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-social-media-page-component-with-tabs-or-sections-for-ai-post-generator-content-calendar-template-library-and-post-preview-editing-functionality",
+      "title": "Create a Social Media page component with tabs or sections for AI post generator, content calendar, template library, and post preview/editing functionality",
+      "reqIds": [
+        "REQ-28"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-configure-routing-to-support-dashboard-and-social-media-pages-with-appropriate-route-paths-and-navigation-integration",
+      "title": "Configure routing to support Dashboard and Social Media pages with appropriate route paths and navigation integration",
+      "reqIds": [
+        "REQ-29"
       ],
       "version": 1
     }

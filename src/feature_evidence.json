@@ -2,12 +2,10 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-implement-frontend-customer-management-interface-with-forms-to-add-new-customers-edit-existing-customer-information-view-customer-details-and-delete-customer-records",
-      "featureTitle": "Implement frontend customer management interface with forms to add new customers, edit existing customer information, view customer details, and delete customer records",
+      "featureId": "feature-add-navigation-menu-items-for-dashboard-and-social-media-sections-to-the-header-component-navigation-displaying-them-alongside-existing-customers-calendar-and-jobs-links-in-both-desktop-and-mobile-views",
+      "featureTitle": "Add navigation menu items for Dashboard and Social Media sections to the Header component navigation, displaying them alongside existing Customers, Calendar, and Jobs links in both desktop and mobile views",
       "files": [
-        "frontend/src/App.tsx",
-        "frontend/src/components/customers/CustomerForm.tsx",
-        "frontend/src/pages/CustomersPage.tsx"
+        "frontend/src/components/layout/Header.tsx"
       ],
       "components": [
         "authorization@4.0.0",
@@ -18,17 +16,15 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-17"
+        "REQ-26"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-implement-a-job-history-timeline-component-in-the-frontend-that-displays-all-past-services-for-a-selected-customer-in-chronological-order-showing-service-dates-types-of-work-performed-and-issues-discovered",
-      "featureTitle": "Implement a job history timeline component in the frontend that displays all past services for a selected customer in chronological order, showing service dates, types of work performed, and issues discovered",
+      "featureId": "feature-create-a-dashboard-page-component-that-displays-revenue-insights-including-monthly-total-revenue-number-of-jobs-completed-and-average-job-value",
+      "featureTitle": "Create a Dashboard page component that displays revenue insights including monthly total revenue, number of jobs completed, and average job value",
       "files": [
-        "frontend/src/App.tsx",
-        "frontend/src/components/jobs/JobHistoryTimeline.tsx",
-        "frontend/src/pages/CustomerDetailPage.tsx"
+        "frontend/src/pages/DashboardPage.tsx"
       ],
       "components": [
         "authorization@4.0.0",
@@ -39,19 +35,19 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-19"
+        "REQ-27"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-create-a-calendar-interface-in-the-frontend-that-displays-scheduled-appointments-in-a-monthly-view-with-the-ability-to-create-new-appointments-view-appointment-details-and-navigate-between-months",
-      "featureTitle": "Create a calendar interface in the frontend that displays scheduled appointments in a monthly view with the ability to create new appointments, view appointment details, and navigate between months",
+      "featureId": "feature-create-a-social-media-page-component-with-tabs-or-sections-for-ai-post-generator-content-calendar-template-library-and-post-preview-editing-functionality",
+      "featureTitle": "Create a Social Media page component with tabs or sections for AI post generator, content calendar, template library, and post preview/editing functionality",
       "files": [
-        "frontend/src/App.tsx",
-        "frontend/src/components/calendar/AppointmentDetailsModal.tsx",
-        "frontend/src/components/calendar/AppointmentForm.tsx",
-        "frontend/src/components/calendar/MonthlyCalendar.tsx",
-        "frontend/src/pages/CalendarPage.tsx"
+        "frontend/src/components/social/ContentCalendar.tsx",
+        "frontend/src/components/social/PostGenerator.tsx",
+        "frontend/src/components/social/PostPreview.tsx",
+        "frontend/src/components/social/TemplateLibrary.tsx",
+        "frontend/src/pages/SocialMediaPage.tsx"
       ],
       "components": [
         "authorization@4.0.0",
@@ -62,18 +58,15 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-21"
+        "REQ-28"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-create-a-job-status-management-interface-in-the-frontend-that-displays-jobs-grouped-or-filtered-by-status-with-the-ability-to-update-job-status-and-view-status-specific-job-lists",
-      "featureTitle": "Create a job status management interface in the frontend that displays jobs grouped or filtered by status with the ability to update job status and view status-specific job lists",
+      "featureId": "feature-configure-routing-to-support-dashboard-and-social-media-pages-with-appropriate-route-paths-and-navigation-integration",
+      "featureTitle": "Configure routing to support Dashboard and Social Media pages with appropriate route paths and navigation integration",
       "files": [
-        "frontend/src/App.tsx",
-        "frontend/src/components/jobs/JobCard.tsx",
-        "frontend/src/components/jobs/JobStatusBadge.tsx",
-        "frontend/src/pages/JobsPage.tsx"
+        "frontend/src/App.tsx"
       ],
       "components": [
         "authorization@4.0.0",
@@ -84,52 +77,7 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-23"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-integrate-internet-identity-authentication-so-that-all-customer-data-job-information-and-business-features-are-only-accessible-to-authenticated-users",
-      "featureTitle": "Integrate Internet Identity authentication so that all customer data, job information, and business features are only accessible to authenticated users",
-      "files": [
-        "frontend/src/App.tsx",
-        "frontend/src/components/auth/LoginButton.tsx",
-        "frontend/src/components/auth/ProfileSetup.tsx",
-        "frontend/src/components/layout/Header.tsx",
-        "frontend/src/pages/LoginPage.tsx"
-      ],
-      "components": [
-        "authorization@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-24"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-design-and-implement-a-mobile-responsive-user-interface-with-an-earth-tone-color-scheme-using-warm-greens-and-browns-clear-typography-optimized-for-readability-intuitive-navigation-suitable-for-on-the-go-business-management-and-consistent-spacing-and-layout-patterns-across-all-pages",
-      "featureTitle": "Design and implement a mobile-responsive user interface with an earth tone color scheme using warm greens and browns, clear typography optimized for readability, intuitive navigation suitable for on-the-go business management, and consistent spacing and layout patterns across all pages",
-      "files": [
-        "frontend/src/App.tsx",
-        "frontend/src/components/layout/Layout.tsx",
-        "frontend/src/index.css",
-        "frontend/tailwind.config.js"
-      ],
-      "components": [
-        "authorization@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-25"
+        "REQ-29"
       ],
       "confidence": "high"
     }

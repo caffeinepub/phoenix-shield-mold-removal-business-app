@@ -1,252 +1,95 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Phoenix Shield Phase 1: Frontend for Customer Management and Scheduling",
+  "title": "Add navigation links for Dashboard and Social Media sections",
   "requirements": [
     {
-      "id": "REQ-17",
-      "summary": "Implement frontend customer management interface with forms to add new customers, edit existing customer information, view customer details, and delete customer records",
+      "id": "REQ-26",
+      "summary": "Add Dashboard and Social Media navigation menu items to Header component",
       "acceptanceCriteria": [
-        "Add customer form with validation for all fields",
-        "Customer list view showing all customers",
-        "Edit customer modal or page",
-        "Delete confirmation dialog",
-        "Success and error feedback for all operations"
+        "Dashboard link appears in the navigation menu",
+        "Social Media link appears in the navigation menu",
+        "Both links are visible in desktop navigation",
+        "Both links are visible in mobile hamburger menu",
+        "Navigation maintains the existing earth-tone styling"
       ],
       "file_operations": [
-        {
-          "path": "frontend/src/hooks/useCustomers.ts",
-          "operation": "create",
-          "description": "Create React Query hooks for customer CRUD operations: useGetAllCustomers (query all customers), useGetCustomer (query single customer by ID), useCreateCustomer (mutation to create customer), useUpdateCustomer (mutation to update customer), useDeleteCustomer (mutation to delete customer). Each hook calls the corresponding backend methods and handles query invalidation."
-        },
-        {
-          "path": "frontend/src/components/customers/CustomerForm.tsx",
-          "operation": "create",
-          "description": "Create a reusable customer form component with fields for name, phone number, email address, and physical address. Include client-side validation for all fields (required, email format, phone format). Support both create and edit modes based on props. Use shadcn/ui Form components with earth tone styling."
-        },
-        {
-          "path": "frontend/src/components/customers/CustomerList.tsx",
-          "operation": "create",
-          "description": "Create a customer list component that displays all customers in a responsive grid or table layout. Each customer card shows name, phone, and email with action buttons for view, edit, and delete. Include loading and error states. Use earth tone colors for visual hierarchy."
-        },
-        {
-          "path": "frontend/src/components/customers/CustomerDetailsModal.tsx",
-          "operation": "create",
-          "description": "Create a modal component that displays full customer details including all fields and provides edit and delete actions. Use shadcn/ui Dialog component with earth tone styling."
-        },
-        {
-          "path": "frontend/src/components/customers/DeleteCustomerDialog.tsx",
-          "operation": "create",
-          "description": "Create a confirmation dialog component for customer deletion using shadcn/ui AlertDialog. Display customer name and warning message. Include cancel and confirm actions with appropriate styling."
-        },
-        {
-          "path": "frontend/src/pages/CustomersPage.tsx",
-          "operation": "create",
-          "description": "Create the main customers page that integrates CustomerList, CustomerForm modal/drawer, CustomerDetailsModal, and DeleteCustomerDialog. Handle state for opening/closing modals and selected customer. Show success/error toast notifications for all operations. Ensure the page is mobile-responsive and uses earth tone color scheme."
-        },
-        {
-          "path": "frontend/src/App.tsx",
-          "operation": "modify",
-          "description": "Wire the CustomersPage into the app routing. Add a route for '/customers' that renders CustomersPage. Ensure the route is protected by authentication using the authorization component's requirements."
-        }
-      ]
-    },
-    {
-      "id": "REQ-19",
-      "summary": "Implement a job history timeline component in the frontend that displays all past services for a selected customer in chronological order",
-      "acceptanceCriteria": [
-        "Timeline component displays jobs in reverse chronological order",
-        "Each job entry shows date, service type, and issues found",
-        "Timeline is visible on customer detail page",
-        "Empty state shown when customer has no job history"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/hooks/useJobs.ts",
-          "operation": "create",
-          "description": "Create React Query hooks for job operations: useGetAllJobs (query all jobs), useGetJob (query single job by ID), useGetCustomerJobs (derived query that filters jobs by customerId), useCreateJob (mutation to create job), useUpdateJobStatus (mutation to update job status). Handle query invalidation appropriately."
-        },
-        {
-          "path": "frontend/src/components/jobs/JobHistoryTimeline.tsx",
-          "operation": "create",
-          "description": "Create a timeline component that accepts a customerId prop and displays the customer's job history in reverse chronological order. Each timeline entry shows formatted service date, service type, issues found, and job status badge. Include an empty state with appropriate messaging when no jobs exist. Use earth tone colors and ensure mobile responsiveness."
-        },
-        {
-          "path": "frontend/src/pages/CustomerDetailPage.tsx",
-          "operation": "create",
-          "description": "Create a customer detail page that displays full customer information at the top and includes the JobHistoryTimeline component below. Add edit and delete action buttons. Handle loading and error states. Ensure mobile-responsive layout with earth tone styling."
-        },
-        {
-          "path": "frontend/src/App.tsx",
-          "operation": "modify",
-          "description": "Add a route for '/customers/:customerId' that renders CustomerDetailPage. Ensure the route is protected by authentication."
-        },
-        {
-          "path": "frontend/src/components/customers/CustomerList.tsx",
-          "operation": "modify",
-          "description": "Update the CustomerList component to make each customer card clickable, navigating to the customer detail page route (/customers/:customerId) when clicked."
-        }
-      ]
-    },
-    {
-      "id": "REQ-21",
-      "summary": "Create a calendar interface in the frontend that displays scheduled appointments in a monthly view with the ability to create new appointments",
-      "acceptanceCriteria": [
-        "Calendar displays current month with appointments",
-        "Clicking a date allows creating a new appointment",
-        "Appointments are visually displayed on their scheduled dates",
-        "Month navigation controls work correctly",
-        "Appointment detail modal shows full information"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/hooks/useAppointments.ts",
-          "operation": "create",
-          "description": "Create React Query hooks for appointment operations: useGetAllAppointments (query all appointments), useGetAppointment (query single appointment by ID), useCreateAppointment (mutation to create appointment), useDeleteAppointment (mutation to delete appointment if needed). Handle query invalidation."
-        },
-        {
-          "path": "frontend/src/components/calendar/MonthlyCalendar.tsx",
-          "operation": "create",
-          "description": "Create a monthly calendar component that displays a grid of days for the current month. Show appointments on their scheduled dates as colored indicators or badges. Include prev/next month navigation buttons. Make dates clickable to trigger appointment creation. Ensure mobile-responsive grid layout with earth tone styling."
-        },
-        {
-          "path": "frontend/src/components/calendar/AppointmentForm.tsx",
-          "operation": "create",
-          "description": "Create an appointment form component with fields for customer selection (dropdown of all customers), scheduled date/time, job type, and duration in minutes. Include validation for all required fields. Pre-populate date if passed as prop. Use shadcn/ui Form components with earth tone styling."
-        },
-        {
-          "path": "frontend/src/components/calendar/AppointmentDetailsModal.tsx",
-          "operation": "create",
-          "description": "Create a modal component that displays full appointment details including customer name, scheduled date/time, job type, and duration. Include edit and delete actions if needed. Use shadcn/ui Dialog component with earth tone styling."
-        },
-        {
-          "path": "frontend/src/pages/CalendarPage.tsx",
-          "operation": "create",
-          "description": "Create the calendar page that integrates MonthlyCalendar, AppointmentForm modal, and AppointmentDetailsModal. Handle state for opening/closing modals, selected date, and selected appointment. Show success/error toast notifications for operations. Ensure mobile-responsive layout with earth tone color scheme."
-        },
-        {
-          "path": "frontend/src/App.tsx",
-          "operation": "modify",
-          "description": "Add a route for '/calendar' that renders CalendarPage. Ensure the route is protected by authentication."
-        }
-      ]
-    },
-    {
-      "id": "REQ-23",
-      "summary": "Create a job status management interface in the frontend that displays jobs grouped or filtered by status with the ability to update job status",
-      "acceptanceCriteria": [
-        "Job board or list view showing jobs by status",
-        "Visual distinction between scheduled, in-progress, and completed jobs",
-        "Ability to change job status with dropdown or status buttons",
-        "Filter or tab navigation to view jobs by specific status",
-        "Status change updates reflected immediately in the UI"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/components/jobs/JobStatusBadge.tsx",
-          "operation": "create",
-          "description": "Create a reusable job status badge component that displays status with distinct earth tone colors: green for completed, yellow/amber for in-progress, brown/neutral for scheduled. Accept status as prop and render appropriate styling."
-        },
-        {
-          "path": "frontend/src/components/jobs/JobCard.tsx",
-          "operation": "create",
-          "description": "Create a job card component that displays job details including customer name, service date, service type, issues found, and status badge. Include a status update dropdown or buttons to change status. Ensure mobile-responsive card layout with earth tone styling."
-        },
-        {
-          "path": "frontend/src/components/jobs/JobBoard.tsx",
-          "operation": "create",
-          "description": "Create a job board component that displays jobs in columns or sections grouped by status (scheduled, in-progress, completed). Use tabs or filter buttons to toggle between status views. Display JobCard components within each section. Include loading and empty states. Use earth tone colors for visual distinction."
-        },
-        {
-          "path": "frontend/src/pages/JobsPage.tsx",
-          "operation": "create",
-          "description": "Create the jobs page that integrates the JobBoard component. Handle state for selected status filter. Show success/error toast notifications when job status is updated. Ensure mobile-responsive layout with earth tone color scheme."
-        },
-        {
-          "path": "frontend/src/App.tsx",
-          "operation": "modify",
-          "description": "Add a route for '/jobs' that renders JobsPage. Ensure the route is protected by authentication."
-        }
-      ]
-    },
-    {
-      "id": "REQ-24",
-      "summary": "Integrate Internet Identity authentication so that all customer data, job information, and business features are only accessible to authenticated users",
-      "acceptanceCriteria": [
-        "Login flow using Internet Identity before accessing the app",
-        "Backend functions check caller identity and restrict access",
-        "Unauthenticated users are redirected to login",
-        "Logout functionality available in the UI",
-        "User identity displayed when logged in"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/components/auth/LoginButton.tsx",
-          "operation": "create",
-          "description": "Create a login/logout button component using the authorization component's Internet Identity integration. Use the useInternetIdentity hook to handle login, logout, and display appropriate button states. Include query client clearing on logout. Style with earth tone colors. Verify the authorization component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/components/auth/ProfileSetup.tsx",
-          "operation": "create",
-          "description": "Create a profile setup modal component that appears when a user logs in for the first time without a profile. Include a form field for the user's name and call saveCallerUserProfile after submission. Use the useGetCallerUserProfile hook to check profile existence and prevent flashing. Follow the authorization component's guidance for preventing profile setup modal flash. Use shadcn/ui Dialog and earth tone styling. Verify the authorization component's usage instructions before implementing."
-        },
         {
           "path": "frontend/src/components/layout/Header.tsx",
-          "operation": "create",
-          "description": "Create a header component that displays the app logo (using frontend/public/assets/generated/shield-logo.dim_128x128.png), user profile name when logged in, and the LoginButton. Include navigation links to main pages (Customers, Calendar, Jobs). Ensure mobile-responsive with a hamburger menu for small screens. Use earth tone color scheme."
-        },
-        {
-          "path": "frontend/src/components/auth/ProtectedRoute.tsx",
-          "operation": "create",
-          "description": "Create a ProtectedRoute wrapper component that checks authentication state using the useInternetIdentity hook. Redirect unauthenticated users to a login page or show a login prompt. Display loading state while checking authentication. Render children only when authenticated."
-        },
-        {
-          "path": "frontend/src/pages/LoginPage.tsx",
-          "operation": "create",
-          "description": "Create a login page that displays the app branding with hero background (frontend/public/assets/generated/hero-background.dim_1920x600.png), a welcome message, and the LoginButton. Use earth tone color scheme and ensure mobile responsiveness."
-        },
-        {
-          "path": "frontend/src/App.tsx",
           "operation": "modify",
-          "description": "Update the App component to include the ProfileSetup component at the root level. Wrap authenticated routes (/customers, /calendar, /jobs, /customers/:customerId) with the ProtectedRoute component. Add a public route for '/' that renders LoginPage. Include the Header component on authenticated routes. Ensure unauthenticated users see only the LoginPage. Verify the authorization component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/hooks/useGetCallerUserProfile.ts",
-          "operation": "create",
-          "description": "Create a custom hook for getting the caller's user profile that properly handles the actor dependency to prevent modal flashing, following the pattern from the authorization component's usage instructions. Return isLoading, isFetched, and profile data. Verify the authorization component's usage instructions before implementing."
+          "description": "Add Dashboard and Social Media navigation links to both desktop nav menu and mobile Sheet menu, positioned after existing Customers, Calendar, and Jobs links. Maintain consistent styling with existing earth-tone theme and navigation patterns."
         }
       ]
     },
     {
-      "id": "REQ-25",
-      "summary": "Design and implement a mobile-responsive user interface with an earth tone color scheme using warm greens and browns",
+      "id": "REQ-27",
+      "summary": "Create Dashboard page with revenue insights showing monthly totals, jobs completed, and average job value",
       "acceptanceCriteria": [
-        "Color palette uses earth tones (greens, browns) instead of blue or purple",
-        "All pages are fully responsive and usable on mobile devices",
-        "Typography is clear and legible on small screens",
-        "Navigation is accessible and intuitive on mobile",
-        "Consistent visual theme applied across all components and pages"
+        "Dashboard page displays total revenue for the current month",
+        "Dashboard shows count of jobs completed",
+        "Dashboard calculates and displays average job value",
+        "Dashboard is accessible via the Dashboard navigation link"
       ],
       "file_operations": [
         {
-          "path": "frontend/tailwind.config.js",
-          "operation": "modify",
-          "description": "Update the Tailwind configuration to define a custom earth tone color palette. Replace default blue/purple colors with warm greens (primary), browns (secondary), and complementary earth tones. Define colors for primary, secondary, accent, background, and status indicators (success green, warning amber, error red-brown). Ensure colors meet accessibility contrast requirements."
-        },
-        {
-          "path": "frontend/src/index.css",
-          "operation": "modify",
-          "description": "Update global CSS to apply the earth tone color scheme to root CSS variables used by shadcn/ui components. Set base background, foreground, card, and border colors to earth tones. Configure typography for clear readability on small screens. Apply consistent spacing and layout patterns."
-        },
-        {
-          "path": "frontend/src/components/layout/Layout.tsx",
+          "path": "frontend/src/pages/DashboardPage.tsx",
           "operation": "create",
-          "description": "Create a layout wrapper component that includes the Header and provides consistent padding, max-width constraints, and responsive spacing for all pages. Use earth tone background colors. Ensure mobile-first responsive design."
+          "description": "Create Dashboard page component that fetches all jobs using useGetAllJobs hook, calculates monthly revenue metrics (total revenue, completed jobs count, average job value) for the current month, and displays them in card-based layout with earth-tone styling. Use placeholder revenue values derived from job count and sample calculations since backend does not store revenue data."
+        }
+      ]
+    },
+    {
+      "id": "REQ-28",
+      "summary": "Create Social Media page with AI post generator, content calendar, template library, and post preview functionality",
+      "acceptanceCriteria": [
+        "Social Media page is accessible via the Social Media navigation link",
+        "Page includes section for AI-powered post generation with topic, tone, and platform selection",
+        "Page includes content calendar view for planning posts",
+        "Page includes template library with categories: before/after, prevention tips, testimonials, emergency response, seasonal content",
+        "Page includes post preview and editing interface with copy to clipboard functionality"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/SocialMediaPage.tsx",
+          "operation": "create",
+          "description": "Create Social Media page component with tabbed interface (Tabs component from shadcn/ui) containing four sections: AI Post Generator (form with topic input, tone selector, platform selector, and generate button), Content Calendar (monthly calendar grid for planning posts), Template Library (categorized cards for before/after, prevention tips, testimonials, emergency response, seasonal content), and Post Preview (textarea for editing with copy to clipboard button). Use earth-tone styling and reference the social media illustration asset at frontend/public/assets/generated/social-media-illustration.dim_400x300.png in the page header or empty states. Note: This is a frontend-only implementation with mock data and no actual AI integration."
         },
+        {
+          "path": "frontend/src/components/social/PostGenerator.tsx",
+          "operation": "create",
+          "description": "Create AI post generator component with form inputs for topic (text input), tone (select: Professional, Friendly, Urgent, Educational), and platform (select: Facebook, Instagram, LinkedIn, Twitter). Include generate button that creates mock AI-generated content based on selections. Display generated content in a Card component with earth-tone styling."
+        },
+        {
+          "path": "frontend/src/components/social/ContentCalendar.tsx",
+          "operation": "create",
+          "description": "Create content calendar component showing a monthly grid view for planning social media posts. Use similar calendar structure as MonthlyCalendar component but adapted for content planning. Display placeholder posts and allow users to see scheduled content dates. Maintain earth-tone styling consistent with application theme."
+        },
+        {
+          "path": "frontend/src/components/social/TemplateLibrary.tsx",
+          "operation": "create",
+          "description": "Create template library component displaying categorized template cards for: before/after transformations, prevention tips, testimonials, emergency response, and seasonal content. Each category shows sample templates with preview text. Use Card components in a responsive grid layout with earth-tone styling. Include click handlers to load templates into the post preview."
+        },
+        {
+          "path": "frontend/src/components/social/PostPreview.tsx",
+          "operation": "create",
+          "description": "Create post preview component with editable textarea for post content and a copy to clipboard button. Include preview of how the post will appear on different platforms. Use Textarea and Button components from shadcn/ui with earth-tone styling. Implement clipboard copy functionality with toast notification on success."
+        }
+      ]
+    },
+    {
+      "id": "REQ-29",
+      "summary": "Configure routing for Dashboard and Social Media pages with authentication protection",
+      "acceptanceCriteria": [
+        "Dashboard route is registered and accessible",
+        "Social Media route is registered and accessible",
+        "Routes are protected by authentication like existing routes",
+        "Navigation links correctly route to new pages"
+      ],
+      "file_operations": [
         {
           "path": "frontend/src/App.tsx",
           "operation": "modify",
-          "description": "Wrap all authenticated page routes with the Layout component to ensure consistent styling and structure across the application."
+          "description": "Register Dashboard route at /dashboard and Social Media route at /social-media within the authenticated Route group. Import DashboardPage and SocialMediaPage components and add them as child routes with appropriate path configurations, ensuring they are protected by the same authentication guard as existing Customers, Calendar, and Jobs routes."
         }
       ]
     }

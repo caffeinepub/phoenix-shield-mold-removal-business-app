@@ -5,6 +5,8 @@ import CustomersPage from './pages/CustomersPage';
 import CustomerDetailPage from './pages/CustomerDetailPage';
 import CalendarPage from './pages/CalendarPage';
 import JobsPage from './pages/JobsPage';
+import DashboardPage from './pages/DashboardPage';
+import SocialMediaPage from './pages/SocialMediaPage';
 import Layout from './components/layout/Layout';
 import ProfileSetup from './components/auth/ProfileSetup';
 import { Toaster } from '@/components/ui/sonner';
@@ -69,12 +71,26 @@ const jobsRoute = createRoute({
   component: JobsPage,
 });
 
+const dashboardRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/dashboard',
+  component: DashboardPage,
+});
+
+const socialMediaRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/social-media',
+  component: SocialMediaPage,
+});
+
 const routeTree = rootRoute.addChildren([
   indexRoute,
   customersRoute,
   customerDetailRoute,
   calendarRoute,
   jobsRoute,
+  dashboardRoute,
+  socialMediaRoute,
 ]);
 
 const router = createRouter({ routeTree });
