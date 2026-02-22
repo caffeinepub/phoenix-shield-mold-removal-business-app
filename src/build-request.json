@@ -1,132 +1,80 @@
 {
   "kind": "build_request",
-  "title": "Add customer search, job filtering, and PDF estimate export",
+  "title": "Fix customer creation persistence bug",
   "projectName": "Phoenix Shield",
-  "priority": "normal",
+  "priority": "high",
   "requirements": [
     {
-      "id": "REQ-87",
-      "text": "Add a search input field to the CustomersPage component that filters the displayed customer list in real-time as the user types, matching against customer name, phone number, email, or address fields",
-      "target": "frontend",
+      "id": "REQ-92",
+      "text": "Debug and fix the backend createCustomer function in backend/main.mo to resolve the immediate persistence failure that occurs when submitting the customer creation form with name, phone, email, and address fields",
+      "target": "backend",
       "source": {
         "messageIds": [
-          "msg-latest"
+          "msg-recent"
         ],
         "quotes": [
-          "Customer Search & Filters - Add search functionality to quickly find customers by name, phone, or address"
+          "failed to add customer please try again - flashed at bottom",
+          "immediately",
+          "name, phone, email, address"
         ]
       },
       "acceptanceCriteria": [
-        "Search input field appears at the top of the customers list",
-        "Typing in the search field immediately filters the customer cards below",
-        "Search matches partial text in name, phone, email, or address fields (case-insensitive)",
-        "Clearing the search input shows all customers again",
-        "Search state persists while navigating away and returning to the page"
+        "Customer creation form submission successfully persists data to backend storage",
+        "No 'Failed to add customer please try again' error appears after form submission",
+        "Newly created customer appears in the customer list immediately after creation",
+        "All four fields (name, phone, email, address) are correctly saved and retrievable"
       ]
     },
     {
-      "id": "REQ-88",
-      "text": "Implement filter buttons or a dropdown on the JobsPage that allows viewing jobs filtered by status: 'All Jobs', 'Scheduled', 'In Progress', and 'Completed', replacing or enhancing the existing tab-based filtering system",
+      "id": "REQ-93",
+      "text": "Verify the frontend CustomerForm component in frontend/src/components/customers/CustomerForm.tsx is correctly serializing and sending all customer data (name, phone, email, address) to the backend createCustomer mutation",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-latest"
+          "msg-recent"
         ],
         "quotes": [
-          "Job Filters - Add filtering options on the Jobs page to view only scheduled, in-progress, or completed jobs"
+          "failed to add customer everything else appears to be there"
         ]
       },
       "acceptanceCriteria": [
-        "Filter controls appear prominently on the Jobs page above the job list",
-        "Selecting 'Scheduled' shows only jobs with status 'scheduled'",
-        "Selecting 'In Progress' shows only jobs with status 'in-progress'",
-        "Selecting 'Completed' shows only jobs with status 'completed'",
-        "Selecting 'All Jobs' shows all jobs regardless of status",
-        "Active filter state is visually indicated",
-        "Job count updates to reflect the filtered results"
+        "Customer form data is properly formatted before sending to backend",
+        "All required fields are included in the mutation payload",
+        "Form validation prevents submission of incomplete data",
+        "Error handling displays specific error messages if backend returns failure"
       ]
     },
     {
-      "id": "REQ-89",
-      "text": "Add a 'Download PDF' or 'Export as PDF' button to the EstimatesPage component that generates a professionally formatted PDF document containing all estimate details including square footage breakdown, materials line items with quantities and costs, labor calculation, all subtotals, and the grand total",
+      "id": "REQ-94",
+      "text": "Ensure the useCreateCustomer React Query mutation hook in frontend/src/hooks/useQueries.ts properly handles the backend response and updates the customer list cache after successful creation",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-latest"
+          "msg-recent"
         ],
         "quotes": [
-          "Export Estimates as PDF - Generate professional PDF versions of your estimates for email distribution"
+          "no existing customers"
         ]
       },
       "acceptanceCriteria": [
-        "Download PDF button appears on the EstimatesPage near the save/load controls",
-        "Clicking the button generates a PDF file with professional formatting",
-        "PDF includes Phoenix Shield branding (logo and colors)",
-        "PDF displays square footage section with amount, price per sq ft, and subtotal",
-        "PDF lists all materials line items with name, quantity, unit cost, and subtotals",
-        "PDF shows labor hours, hourly rate, and labor subtotal",
-        "PDF displays the grand total prominently",
-        "PDF includes estimate creation date",
-        "PDF downloads automatically to the user's device",
-        "Success notification appears after PDF generation"
-      ]
-    },
-    {
-      "id": "REQ-90",
-      "text": "Add a 'Download PDF' or 'Export as PDF' button to each estimate card on the SavedEstimatesPage that generates a PDF for that specific saved estimate with the same professional formatting as the EstimatesPage PDF export",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-latest"
-        ],
-        "quotes": [
-          "Export Estimates as PDF - Generate professional PDF versions of your estimates for email distribution"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Each estimate card on SavedEstimatesPage displays a PDF download button",
-        "Clicking the button generates a PDF for that specific estimate",
-        "PDF formatting matches the EstimatesPage PDF export format",
-        "PDF includes all estimate details and Phoenix Shield branding",
-        "PDF downloads automatically to the user's device",
-        "Button has appropriate loading state during PDF generation"
-      ]
-    },
-    {
-      "id": "REQ-91",
-      "text": "Add a 'Download PDF' or 'Export as PDF' button to the estimates section on the CustomerDetailPage that generates a PDF for the selected estimate associated with that customer",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-latest"
-        ],
-        "quotes": [
-          "Export Estimates as PDF - Generate professional PDF versions of your estimates for email distribution"
-        ]
-      },
-      "acceptanceCriteria": [
-        "PDF download button appears next to each estimate in the customer's estimates section",
-        "Clicking the button generates a PDF for that estimate",
-        "PDF includes customer information (name, contact details) at the top",
-        "PDF formatting is consistent with other PDF exports in the application",
-        "Success notification appears after PDF generation"
+        "React Query cache is invalidated or updated after successful customer creation",
+        "Newly created customer appears in the list without requiring page refresh",
+        "Loading states are properly managed during the creation process",
+        "Success and error states trigger appropriate UI feedback"
       ]
     }
   ],
   "constraints": [
-    "Do not modify the backend Motoko code - all features are frontend-only implementations",
-    "Maintain the existing tab-based filtering system on JobsPage if present, or replace it cleanly without breaking existing functionality",
-    "Use a client-side PDF generation library compatible with React (such as jsPDF or react-pdf)",
-    "Preserve the existing Phoenix Shield branding (logo, colors) in all PDF exports",
-    "Do not change the immutable frontend paths: useInternetIdentity hooks, useActor.ts, main.tsx, and components/ui"
+    "Maintain single-actor architecture in backend/main.mo",
+    "Do not modify frontend/src/hooks/useInternetIdentity.ts or other immutable paths",
+    "Preserve existing Customer type structure and data model",
+    "Ensure fix does not break other CRUD operations (read, update, delete)"
   ],
   "nonGoals": [
-    "Backend storage or server-side PDF generation",
-    "Email integration to send PDFs directly from the app",
-    "PDF template customization UI beyond the standard format",
-    "Advanced search features like saved search filters or search history",
-    "Export formats other than PDF (Excel, CSV, etc.)",
-    "Batch PDF export for multiple estimates at once"
+    "Adding new customer fields beyond name, phone, email, address",
+    "Implementing customer data validation beyond basic required field checks",
+    "Modifying the customer form UI design or layout",
+    "Adding photo upload functionality in this fix"
   ],
   "imageRequirements": {
     "required": [],

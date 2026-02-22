@@ -53,6 +53,13 @@ export default function CustomerForm({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Validate all fields are filled
+    if (!formData.name.trim() || !formData.phoneNumber.trim() || 
+        !formData.emailAddress.trim() || !formData.physicalAddress.trim()) {
+      return;
+    }
+    
     onSubmit(formData);
   };
 

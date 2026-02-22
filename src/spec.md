@@ -1,13 +1,11 @@
 # Specification
 
 ## Summary
-**Goal:** Add customer search functionality, job status filtering, and PDF export capability for estimates.
+**Goal:** Fix the customer creation persistence bug preventing new customers from being saved to the backend.
 
 **Planned changes:**
-- Add search input to CustomersPage that filters customers by name, phone, email, or address in real-time
-- Implement filter controls on JobsPage to view jobs by status (All, Scheduled, In Progress, Completed)
-- Add PDF export button to EstimatesPage that generates a professionally formatted PDF with all estimate details
-- Add PDF export buttons to each estimate card on SavedEstimatesPage
-- Add PDF export buttons to estimates section on CustomerDetailPage
+- Debug and fix the backend createCustomer function in backend/main.mo to resolve persistence failure
+- Verify frontend CustomerForm component correctly serializes and sends all customer data (name, phone, email, address) to the backend
+- Ensure useCreateCustomer React Query mutation hook properly handles backend response and updates customer list cache after successful creation
 
-**User-visible outcome:** Users can quickly search for customers, filter jobs by status, and download professional PDF versions of estimates for distribution to clients.
+**User-visible outcome:** Users can successfully create new customers through the form, and newly created customers immediately appear in the customer list without errors.

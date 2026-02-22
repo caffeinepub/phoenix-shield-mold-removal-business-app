@@ -22,12 +22,14 @@ export default function CustomersPage() {
     physicalAddress: string;
   }) => {
     try {
-      await createCustomer.mutateAsync(data);
+      const customerId = await createCustomer.mutateAsync(data);
+      console.log('Customer created successfully with ID:', customerId);
       toast.success('Customer added successfully!');
       setShowForm(false);
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error creating customer:', error);
-      toast.error('Failed to add customer. Please try again.');
+      const errorMessage = error?.message || 'Failed to add customer. Please try again.';
+      toast.error(errorMessage);
     }
   };
 

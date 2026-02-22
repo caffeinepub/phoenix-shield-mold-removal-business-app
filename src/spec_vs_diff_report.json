@@ -1,18 +1,17 @@
 {
   "kind": "spec_vs_diff_report",
   "version": "1.0",
-  "generatedAt": "2026-02-22T10:26:32.427Z",
-  "summary": "The diff implements all five requirements (REQ-87 through REQ-91) with complete customer search functionality, job filtering by status, and PDF export buttons on EstimatesPage, SavedEstimatesPage, and CustomerDetailPage. All acceptance criteria appear to be satisfied based on the evidence in the code.",
+  "generatedAt": "2026-02-22T10:44:05.740Z",
+  "summary": "All three requirements (REQ-92, REQ-93, REQ-94) are implemented in the diff. The backend createCustomer function in main.mo properly persists customer data using the Map data structure. The frontend CustomerForm.tsx validates all four required fields before submission and correctly formats the data. The useCreateCustomer hook in useQueries.ts properly handles responses with enhanced error handling and invalidates the React Query cache on success. The CustomersPage.tsx shows success toast notifications and logs the created customer ID. No missing requirements or hallucinated features detected.",
   "missing_requirements": [],
   "hallucinated_features": [],
-  "confidence": 0.92,
+  "confidence": 0.95,
   "changed_files": [
+    "backend/main.mo",
     "frontend-file-summaries.txt",
-    "frontend/src/pages/CustomerDetailPage.tsx",
+    "frontend/src/components/customers/CustomerForm.tsx",
+    "frontend/src/hooks/useQueries.ts",
     "frontend/src/pages/CustomersPage.tsx",
-    "frontend/src/pages/EstimatesPage.tsx",
-    "frontend/src/pages/SavedEstimatesPage.tsx",
-    "frontend/src/utils/generateEstimatePDF.ts",
     "project_state.json"
   ]
 }

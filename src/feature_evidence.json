@@ -2,9 +2,31 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-add-a-search-input-field-to-the-customerspage-component-that-filters-the-displayed-customer-list-in-real-time-as-the-user-types-matching-against-customer-name-phone-number-email-or-address-fields",
-      "featureTitle": "Add a search input field to the CustomersPage component that filters the displayed customer list in real-time as the user types, matching against customer name, phone number, email, or address fields",
+      "featureId": "feature-verify-the-frontend-customerform-component-in-frontend-src-components-customers-customerform-tsx-is-correctly-serializing-and-sending-all-customer-data-name-phone-email-address-to-the-backend-createcustomer-mutation",
+      "featureTitle": "Verify the frontend CustomerForm component in frontend/src/components/customers/CustomerForm.tsx is correctly serializing and sending all customer data (name, phone, email, address) to the backend createCustomer mutation",
       "files": [
+        "frontend/src/components/customers/CustomerForm.tsx",
+        "frontend/src/hooks/useQueries.ts"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-93"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-ensure-the-usecreatecustomer-react-query-mutation-hook-in-frontend-src-hooks-usequeries-ts-properly-handles-the-backend-response-and-updates-the-customer-list-cache-after-successful-creation",
+      "featureTitle": "Ensure the useCreateCustomer React Query mutation hook in frontend/src/hooks/useQueries.ts properly handles the backend response and updates the customer list cache after successful creation",
+      "files": [
+        "frontend/src/components/customers/CustomerForm.tsx",
+        "frontend/src/hooks/useQueries.ts",
         "frontend/src/pages/CustomersPage.tsx"
       ],
       "components": [
@@ -16,66 +38,7 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-87"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-add-a-download-pdf-or-export-as-pdf-button-to-the-estimatespage-component-that-generates-a-professionally-formatted-pdf-document-containing-all-estimate-details-including-square-footage-breakdown-materials-line-items-with-quantities-and-costs-labor-calculation-all-subtotals-and-the-grand-total",
-      "featureTitle": "Add a 'Download PDF' or 'Export as PDF' button to the EstimatesPage component that generates a professionally formatted PDF document containing all estimate details including square footage breakdown, materials line items with quantities and costs, labor calculation, all subtotals, and the grand total",
-      "files": [
-        "frontend/src/pages/EstimatesPage.tsx",
-        "frontend/src/utils/generateEstimatePDF.ts"
-      ],
-      "components": [
-        "authorization@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-89"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-add-a-download-pdf-or-export-as-pdf-button-to-each-estimate-card-on-the-savedestimatespage-that-generates-a-pdf-for-that-specific-saved-estimate-with-the-same-professional-formatting-as-the-estimatespage-pdf-export",
-      "featureTitle": "Add a 'Download PDF' or 'Export as PDF' button to each estimate card on the SavedEstimatesPage that generates a PDF for that specific saved estimate with the same professional formatting as the EstimatesPage PDF export",
-      "files": [
-        "frontend/src/pages/SavedEstimatesPage.tsx"
-      ],
-      "components": [
-        "authorization@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-90"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-add-a-download-pdf-or-export-as-pdf-button-to-the-estimates-section-on-the-customerdetailpage-that-generates-a-pdf-for-the-selected-estimate-associated-with-that-customer",
-      "featureTitle": "Add a 'Download PDF' or 'Export as PDF' button to the estimates section on the CustomerDetailPage that generates a PDF for the selected estimate associated with that customer",
-      "files": [
-        "frontend/src/pages/CustomerDetailPage.tsx",
-        "frontend/src/utils/generateEstimatePDF.ts"
-      ],
-      "components": [
-        "authorization@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-91"
+        "REQ-94"
       ],
       "confidence": "high"
     }

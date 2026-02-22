@@ -1,85 +1,61 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-22T10:26:32.431Z",
+  "generatedAt": "2026-02-22T10:44:05.744Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
-    "total": 5,
-    "implemented": 4,
+    "total": 3,
+    "implemented": 2,
     "items": [
       {
-        "id": "REQ-87",
-        "summary": "Add a search input field to the CustomersPage component that filters the displayed customer list in real-time as the user types, matching against customer name, phone number, email, or address fields",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/pages/CustomersPage.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/src/pages/CustomersPage.tsx"
-        ]
-      },
-      {
-        "id": "REQ-88",
-        "summary": "Implement filter buttons or a dropdown on the JobsPage that allows viewing jobs filtered by status: 'All Jobs', 'Scheduled', 'In Progress', and 'Completed', replacing or enhancing the existing tab-based filtering system",
-        "status": "missing",
-        "plannedFiles": [
-          "frontend/src/pages/JobsPage.tsx"
-        ],
+        "id": "REQ-92",
+        "summary": "Debug and fix the backend createCustomer function in backend/main.mo to resolve the immediate persistence failure that occurs when submitting the customer creation form with name, phone, email, and address fields",
+        "status": "unknown",
+        "plannedFiles": [],
         "matchedFiles": []
       },
       {
-        "id": "REQ-89",
-        "summary": "Add a 'Download PDF' or 'Export as PDF' button to the EstimatesPage component that generates a professionally formatted PDF document containing all estimate details including square footage breakdown, materials line items with quantities and costs, labor calculation, all subtotals, and the grand total",
+        "id": "REQ-93",
+        "summary": "Verify the frontend CustomerForm component in frontend/src/components/customers/CustomerForm.tsx is correctly serializing and sending all customer data (name, phone, email, address) to the backend createCustomer mutation",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/utils/generateEstimatePDF.ts",
-          "frontend/src/pages/EstimatesPage.tsx",
-          "frontend/package.json"
+          "frontend/src/components/customers/CustomerForm.tsx",
+          "frontend/src/hooks/useQueries.ts"
         ],
         "matchedFiles": [
-          "frontend/src/utils/generateEstimatePDF.ts",
-          "frontend/src/pages/EstimatesPage.tsx"
+          "frontend/src/components/customers/CustomerForm.tsx",
+          "frontend/src/hooks/useQueries.ts"
         ]
       },
       {
-        "id": "REQ-90",
-        "summary": "Add a 'Download PDF' or 'Export as PDF' button to each estimate card on the SavedEstimatesPage that generates a PDF for that specific saved estimate with the same professional formatting as the EstimatesPage PDF export",
+        "id": "REQ-94",
+        "summary": "Ensure the useCreateCustomer React Query mutation hook in frontend/src/hooks/useQueries.ts properly handles the backend response and updates the customer list cache after successful creation",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/pages/SavedEstimatesPage.tsx"
+          "frontend/src/hooks/useQueries.ts",
+          "frontend/src/pages/CustomersPage.tsx",
+          "frontend/src/components/customers/CustomerForm.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/pages/SavedEstimatesPage.tsx"
-        ]
-      },
-      {
-        "id": "REQ-91",
-        "summary": "Add a 'Download PDF' or 'Export as PDF' button to the estimates section on the CustomerDetailPage that generates a PDF for the selected estimate associated with that customer",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/utils/generateEstimatePDF.ts",
-          "frontend/src/pages/CustomerDetailPage.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/src/utils/generateEstimatePDF.ts",
-          "frontend/src/pages/CustomerDetailPage.tsx"
+          "frontend/src/hooks/useQueries.ts",
+          "frontend/src/pages/CustomersPage.tsx",
+          "frontend/src/components/customers/CustomerForm.tsx"
         ]
       }
     ]
   },
   "changedFiles": [
+    "backend/main.mo",
     "build-request.json",
     "feature_evidence.json",
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
-    "frontend/src/pages/CustomerDetailPage.tsx",
+    "frontend/src/components/customers/CustomerForm.tsx",
+    "frontend/src/hooks/useQueries.ts",
     "frontend/src/pages/CustomersPage.tsx",
-    "frontend/src/pages/EstimatesPage.tsx",
-    "frontend/src/pages/SavedEstimatesPage.tsx",
-    "frontend/src/utils/generateEstimatePDF.ts",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",

@@ -1,118 +1,54 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Add customer search, job filtering, and PDF estimate export",
+  "title": "Fix customer creation persistence bug - Frontend verification",
   "requirements": [
     {
-      "id": "REQ-87",
-      "summary": "Add real-time customer search functionality to CustomersPage that filters by name, phone, email, or address",
+      "id": "REQ-93",
+      "summary": "Verify the frontend CustomerForm component is correctly serializing and sending all customer data (name, phone, email, address) to the backend createCustomer mutation",
       "acceptanceCriteria": [
-        "Search input field appears at the top of the customers list",
-        "Typing in the search field immediately filters the customer cards below",
-        "Search matches partial text in name, phone, email, or address fields (case-insensitive)",
-        "Clearing the search input shows all customers again",
-        "Search state persists while navigating away and returning to the page"
+        "Customer form data is properly formatted before sending to backend",
+        "All required fields are included in the mutation payload",
+        "Form validation prevents submission of incomplete data",
+        "Error handling displays specific error messages if backend returns failure"
       ],
       "file_operations": [
+        {
+          "path": "frontend/src/components/customers/CustomerForm.tsx",
+          "operation": "modify",
+          "description": "Review and verify that the CustomerForm component correctly captures all four fields (name, phone, email, physicalAddress) and passes them to the useCreateCustomer mutation hook. Ensure form validation requires all fields before submission. Add or enhance error handling to display specific error messages from backend failures, including the 'Failed to add customer please try again' error. Verify the onSuccess callback properly triggers UI updates."
+        },
+        {
+          "path": "frontend/src/hooks/useQueries.ts",
+          "operation": "modify",
+          "description": "Review the useCreateCustomer mutation hook implementation to verify it correctly calls actor.createCustomer with all four parameters (name, phoneNumber, emailAddress, physicalAddress) in the correct order matching the backend interface. Ensure the mutation properly handles errors and returns meaningful error messages to the UI. Verify the mutation configuration includes proper error handling that can be displayed to users."
+        }
+      ]
+    },
+    {
+      "id": "REQ-94",
+      "summary": "Ensure the useCreateCustomer React Query mutation hook properly handles the backend response and updates the customer list cache after successful creation",
+      "acceptanceCriteria": [
+        "React Query cache is invalidated or updated after successful customer creation",
+        "Newly created customer appears in the list without requiring page refresh",
+        "Loading states are properly managed during the creation process",
+        "Success and error states trigger appropriate UI feedback"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/hooks/useQueries.ts",
+          "operation": "modify",
+          "description": "Verify the useCreateCustomer mutation includes an onSuccess handler that invalidates the customer list query cache using queryClient.invalidateQueries with the key ['customers']. Ensure this triggers an immediate refetch of getAllCustomers so the newly created customer appears in the list without page refresh. Verify loading states are properly exposed through the mutation's isLoading property."
+        },
         {
           "path": "frontend/src/pages/CustomersPage.tsx",
           "operation": "modify",
-          "description": "Add a search input field above the customer grid that filters customers in real-time. Implement state management using React useState to track the search query. Filter the customers array by matching the search term (case-insensitive) against customer name, phoneNumber, emailAddress, and physicalAddress fields. Use sessionStorage via the urlParams utility to persist search state across navigation. The search input should use shadcn/ui Input component with appropriate styling and placeholder text."
-        }
-      ]
-    },
-    {
-      "id": "REQ-88",
-      "summary": "Implement status-based job filtering on JobsPage with 'All Jobs', 'Scheduled', 'In Progress', and 'Completed' options",
-      "acceptanceCriteria": [
-        "Filter controls appear prominently on the Jobs page above the job list",
-        "Selecting 'Scheduled' shows only jobs with status 'scheduled'",
-        "Selecting 'In Progress' shows only jobs with status 'in-progress'",
-        "Selecting 'Completed' shows only jobs with status 'completed'",
-        "Selecting 'All Jobs' shows all jobs regardless of status",
-        "Active filter state is visually indicated",
-        "Job count updates to reflect the filtered results"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/pages/JobsPage.tsx",
-          "operation": "modify",
-          "description": "Replace or enhance the existing tab-based filtering system with filter buttons or a dropdown that allows viewing jobs by status. Implement state management for the active filter ('all', 'scheduled', 'inProgress', 'completed'). Filter the jobs array based on the selected status, mapping the filter values to the JobStatus enum from backend.d.ts. Use shadcn/ui Tabs or ToggleGroup component for the filter UI with visual indication of the active filter. Display a job count that updates based on the filtered results. Ensure the transition from the old system to the new one is clean without breaking existing functionality."
-        }
-      ]
-    },
-    {
-      "id": "REQ-89",
-      "summary": "Add PDF export functionality to EstimatesPage with professional formatting including all estimate details and Phoenix Shield branding",
-      "acceptanceCriteria": [
-        "Download PDF button appears on the EstimatesPage near the save/load controls",
-        "Clicking the button generates a PDF file with professional formatting",
-        "PDF includes Phoenix Shield branding (logo and colors)",
-        "PDF displays square footage section with amount, price per sq ft, and subtotal",
-        "PDF lists all materials line items with name, quantity, unit cost, and subtotals",
-        "PDF shows labor hours, hourly rate, and labor subtotal",
-        "PDF displays the grand total prominently",
-        "PDF includes estimate creation date",
-        "PDF downloads automatically to the user's device",
-        "Success notification appears after PDF generation"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/utils/generateEstimatePDF.ts",
-          "operation": "create",
-          "description": "Create a utility function that generates a professionally formatted PDF from an estimate object using jsPDF library. The function should accept an estimate object with fields matching the Estimate interface from backend.d.ts (squareFootage, pricePerSquareFoot, materials array, laborHours, laborHourlyRate, totalMaterialCost, totalLaborCost, totalEstimate, creationDate). Include Phoenix Shield branding by embedding the logo from frontend/public/assets/generated/phoenix-shield-logo.dim_200x200.png and using the brand colors (dark blue #1e3a5f and lime green #84cc16) defined in index.css. Format the PDF with sections for square footage breakdown, materials line items table, labor calculation, and grand total. Convert BigInt values to readable numbers and format currency and dates appropriately. Return the generated PDF blob for download."
+          "description": "Verify the CustomersPage component properly wires the CustomerForm's onSuccess callback to close the form dialog and display success feedback. Ensure the customer list automatically updates when the cache is invalidated by the mutation. Add toast notifications or success messages when customer creation succeeds. Verify error states from the mutation are displayed to users with appropriate error messages."
         },
         {
-          "path": "frontend/src/pages/EstimatesPage.tsx",
+          "path": "frontend/src/components/customers/CustomerForm.tsx",
           "operation": "modify",
-          "description": "Add a 'Download PDF' button near the existing save/load controls on the EstimatesPage. Import and use the generateEstimatePDF utility function when the button is clicked. Create a temporary estimate object from the current form state (squareFootage, pricePerSquareFoot, materials, laborHours, laborHourlyRate) with calculated totals and current timestamp for creationDate. Trigger the PDF download and show a success toast notification using the existing toast system. Add appropriate loading state to the button during PDF generation. Use shadcn/ui Button component with an icon (FileDown from lucide-react)."
-        },
-        {
-          "path": "frontend/package.json",
-          "operation": "modify",
-          "description": "Add jsPDF as a dependency for client-side PDF generation. Include version ^2.5.1 or latest stable version in the dependencies section."
-        }
-      ]
-    },
-    {
-      "id": "REQ-90",
-      "summary": "Add PDF export button to each saved estimate card on SavedEstimatesPage with consistent formatting",
-      "acceptanceCriteria": [
-        "Each estimate card on SavedEstimatesPage displays a PDF download button",
-        "Clicking the button generates a PDF for that specific estimate",
-        "PDF formatting matches the EstimatesPage PDF export format",
-        "PDF includes all estimate details and Phoenix Shield branding",
-        "PDF downloads automatically to the user's device",
-        "Button has appropriate loading state during PDF generation"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/pages/SavedEstimatesPage.tsx",
-          "operation": "modify",
-          "description": "Add a 'Download PDF' button to each estimate card displayed on the SavedEstimatesPage. Import and use the generateEstimatePDF utility function from frontend/src/utils/generateEstimatePDF.ts. When clicked, pass the full estimate object (which already contains all required fields from the backend) to the PDF generator. Implement per-button loading state using React useState to track which estimate is being exported. Show the loading state on the button during PDF generation. Use shadcn/ui Button component with FileDown icon from lucide-react, positioned alongside the existing edit/delete buttons on each card."
-        }
-      ]
-    },
-    {
-      "id": "REQ-91",
-      "summary": "Add PDF export functionality to customer estimates section on CustomerDetailPage including customer information",
-      "acceptanceCriteria": [
-        "PDF download button appears next to each estimate in the customer's estimates section",
-        "Clicking the button generates a PDF for that estimate",
-        "PDF includes customer information (name, contact details) at the top",
-        "PDF formatting is consistent with other PDF exports in the application",
-        "Success notification appears after PDF generation"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/utils/generateEstimatePDF.ts",
-          "operation": "modify",
-          "description": "Extend the generateEstimatePDF function to accept an optional customer parameter with fields from the Customer interface (name, phoneNumber, emailAddress, physicalAddress). When customer information is provided, add a header section to the PDF displaying the customer's name and contact details before the estimate details. Maintain backward compatibility by making the customer parameter optional so existing calls from EstimatesPage and SavedEstimatesPage continue to work without modification."
-        },
-        {
-          "path": "frontend/src/pages/CustomerDetailPage.tsx",
-          "operation": "modify",
-          "description": "Add a 'Download PDF' button next to each estimate displayed in the customer's estimates section. Import the generateEstimatePDF utility and pass both the estimate object and the customer object when generating the PDF. This ensures customer information appears at the top of the PDF. Implement loading state for the PDF generation button. Show a success toast notification after PDF generation completes. Use shadcn/ui Button component with FileDown icon from lucide-react."
+          "description": "Ensure the CustomerForm component exposes mutation loading states to disable the submit button during creation and provides visual feedback. Verify the form resets after successful submission and displays error messages when the mutation fails. Ensure the form closes automatically on success via the onSuccess callback prop."
         }
       ]
     }

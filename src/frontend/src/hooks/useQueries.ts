@@ -81,16 +81,32 @@ export function useCreateCustomer() {
       emailAddress: string;
       physicalAddress: string;
     }) => {
-      if (!actor) throw new Error('Actor not available');
-      return actor.createCustomer(
-        data.name,
-        data.phoneNumber,
-        data.emailAddress,
-        data.physicalAddress
-      );
+      if (!actor) {
+        throw new Error('Actor not available. Please try logging in again.');
+      }
+
+      try {
+        const customerId = await actor.createCustomer(
+          data.name,
+          data.phoneNumber,
+          data.emailAddress,
+          data.physicalAddress
+        );
+        return customerId;
+      } catch (error: any) {
+        console.error('Backend error creating customer:', error);
+        // Provide more specific error message
+        if (error.message) {
+          throw new Error(`Failed to create customer: ${error.message}`);
+        }
+        throw new Error('Failed to create customer. Please check your connection and try again.');
+      }
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['customers'] });
+    },
+    onError: (error) => {
+      console.error('Mutation error:', error);
     },
   });
 }
