@@ -1,0 +1,137 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-implement-frontend-customer-management-interface-with-forms-to-add-new-customers-edit-existing-customer-information-view-customer-details-and-delete-customer-records",
+      "featureTitle": "Implement frontend customer management interface with forms to add new customers, edit existing customer information, view customer details, and delete customer records",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/customers/CustomerForm.tsx",
+        "frontend/src/pages/CustomersPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-17"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-a-job-history-timeline-component-in-the-frontend-that-displays-all-past-services-for-a-selected-customer-in-chronological-order-showing-service-dates-types-of-work-performed-and-issues-discovered",
+      "featureTitle": "Implement a job history timeline component in the frontend that displays all past services for a selected customer in chronological order, showing service dates, types of work performed, and issues discovered",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/jobs/JobHistoryTimeline.tsx",
+        "frontend/src/pages/CustomerDetailPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-19"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-create-a-calendar-interface-in-the-frontend-that-displays-scheduled-appointments-in-a-monthly-view-with-the-ability-to-create-new-appointments-view-appointment-details-and-navigate-between-months",
+      "featureTitle": "Create a calendar interface in the frontend that displays scheduled appointments in a monthly view with the ability to create new appointments, view appointment details, and navigate between months",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/calendar/AppointmentDetailsModal.tsx",
+        "frontend/src/components/calendar/AppointmentForm.tsx",
+        "frontend/src/components/calendar/MonthlyCalendar.tsx",
+        "frontend/src/pages/CalendarPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-21"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-create-a-job-status-management-interface-in-the-frontend-that-displays-jobs-grouped-or-filtered-by-status-with-the-ability-to-update-job-status-and-view-status-specific-job-lists",
+      "featureTitle": "Create a job status management interface in the frontend that displays jobs grouped or filtered by status with the ability to update job status and view status-specific job lists",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/jobs/JobCard.tsx",
+        "frontend/src/components/jobs/JobStatusBadge.tsx",
+        "frontend/src/pages/JobsPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-23"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-integrate-internet-identity-authentication-so-that-all-customer-data-job-information-and-business-features-are-only-accessible-to-authenticated-users",
+      "featureTitle": "Integrate Internet Identity authentication so that all customer data, job information, and business features are only accessible to authenticated users",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/auth/LoginButton.tsx",
+        "frontend/src/components/auth/ProfileSetup.tsx",
+        "frontend/src/components/layout/Header.tsx",
+        "frontend/src/pages/LoginPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-24"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-design-and-implement-a-mobile-responsive-user-interface-with-an-earth-tone-color-scheme-using-warm-greens-and-browns-clear-typography-optimized-for-readability-intuitive-navigation-suitable-for-on-the-go-business-management-and-consistent-spacing-and-layout-patterns-across-all-pages",
+      "featureTitle": "Design and implement a mobile-responsive user interface with an earth tone color scheme using warm greens and browns, clear typography optimized for readability, intuitive navigation suitable for on-the-go business management, and consistent spacing and layout patterns across all pages",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/layout/Layout.tsx",
+        "frontend/src/index.css",
+        "frontend/tailwind.config.js"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-25"
+      ],
+      "confidence": "high"
+    }
+  ]
+}

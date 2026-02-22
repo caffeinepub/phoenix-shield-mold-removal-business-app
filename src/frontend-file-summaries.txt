@@ -1,0 +1,23 @@
+{
+  "frontend/src/App.tsx": "Main application component with TanStack Router setup, protected routes, authentication flow, and theme provider integration for the Phoenix Shield app.",
+  "frontend/src/hooks/useQueries.ts": "Custom React Query hooks for all backend operations including customers, jobs, appointments, and user profiles with proper query invalidation.",
+  "frontend/src/components/auth/LoginButton.tsx": "Login/logout button component using Internet Identity with loading states and query cache clearing on logout.",
+  "frontend/src/components/auth/ProfileSetup.tsx": "Modal dialog for first-time user profile setup that prevents flashing by properly handling actor dependency states.",
+  "frontend/src/components/layout/Header.tsx": "Responsive header with logo, navigation menu, user profile display, and mobile hamburger menu.",
+  "frontend/src/components/layout/Layout.tsx": "Main layout wrapper with header, content area, and footer including Caffeine.ai attribution with UTM tracking.",
+  "frontend/src/components/customers/CustomerForm.tsx": "Reusable form component for creating and editing customers with validation and loading states.",
+  "frontend/src/components/customers/CustomerCard.tsx": "Customer card component displaying contact information and job count with click-through navigation.",
+  "frontend/src/components/jobs/JobStatusBadge.tsx": "Status badge component with earth-tone color coding for scheduled, in-progress, and completed job states.",
+  "frontend/src/components/jobs/JobHistoryTimeline.tsx": "Timeline component displaying customer job history in reverse chronological order with empty state handling.",
+  "frontend/src/components/jobs/JobCard.tsx": "Job card component with status update dropdown and customer information display.",
+  "frontend/src/components/calendar/MonthlyCalendar.tsx": "Monthly calendar grid view with appointment indicators, date navigation, and click handlers for creating appointments using ReactElement type from React.",
+  "frontend/src/components/calendar/AppointmentForm.tsx": "Form component for scheduling appointments with customer selection, date/time pickers, and duration options.",
+  "frontend/src/components/calendar/AppointmentDetailsModal.tsx": "Modal displaying full appointment details including customer, date, time, and job type information.",
+  "frontend/src/pages/LoginPage.tsx": "Landing page with hero background, branding, and login button for unauthenticated users.",
+  "frontend/src/pages/CustomersPage.tsx": "Customer management page with grid layout, add customer functionality, and empty state handling.",
+  "frontend/src/pages/CustomerDetailPage.tsx": "Customer detail page showing contact information and job history timeline with back navigation.",
+  "frontend/src/pages/CalendarPage.tsx": "Calendar page with monthly view, appointment creation, and appointment details modal.",
+  "frontend/src/pages/JobsPage.tsx": "Jobs management page with tabbed filtering by status (all, scheduled, in-progress, completed) and status update functionality.",
+  "frontend/src/index.css": "Global styles with earth-tone OKLCH color system featuring warm greens and browns for both light and dark modes.",
+  "frontend/tailwind.config.js": "Tailwind configuration with earth-tone color palette, Inter font family, and custom design tokens."
+}

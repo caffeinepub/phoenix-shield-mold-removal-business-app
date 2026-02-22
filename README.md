@@ -1,2 +1,3 @@
-# phoenix-shield-mold-removal-business-app
-Exported from Caffeine project: Phoenix Shield Mold Removal Business App
+## Phoenix Shield Mold Removal Business App
+
+To run app build and run docker image: `docker build -t app . docker run -it --network host app`

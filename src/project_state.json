@@ -1,0 +1,293 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 5,
+  "summary": "Phoenix Shield Mold Removal business management app with AI-powered social media manager and smart CRM/operations system for mold remediation company in Tullahoma, TN",
+  "architectural_notes": [
+    "Internet Identity authentication for secure single-user access",
+    "Mobile-friendly responsive design for on-the-go business management",
+    "Template-based AI content generation system for social media (no external AI API integration)",
+    "Local storage for customer data, job history, and business metrics"
+  ],
+  "known_issues": [],
+  "isFixRequest": true,
+  "existing_features": [
+    {
+      "id": "feature-create-a-customer-database-that-stores-customer-information-including-name-phone-email-address-and-service-history-with-the-ability-to-add-edit-view-and-delete-customer-records",
+      "title": "Create a customer database that stores customer information including name, phone, email, address, and service history with the ability to add, edit, view, and delete customer records",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-a-job-history-timeline-for-each-customer-that-displays-past-services-dates-and-issues-found-in-chronological-order",
+      "title": "Implement a job history timeline for each customer that displays past services, dates, and issues found in chronological order",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-build-an-itemized-estimate-calculator-that-allows-input-of-square-footage-materials-and-labor-hours-with-line-items-that-automatically-calculate-subtotals-and-a-final-total",
+      "title": "Build an itemized estimate calculator that allows input of square footage, materials, and labor hours with line items that automatically calculate subtotals and a final total",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-photo-gallery-system-for-each-customer-that-allows-uploading-and-organizing-before-after-photos-of-mold-remediation-work",
+      "title": "Create a photo gallery system for each customer that allows uploading and organizing before/after photos of mold remediation work",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-a-scheduling-calendar-with-drag-and-drop-functionality-that-allows-creating-moving-and-managing-appointments-for-mold-remediation-jobs",
+      "title": "Implement a scheduling calendar with drag-and-drop functionality that allows creating, moving, and managing appointments for mold remediation jobs",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-build-a-job-status-tracking-system-with-three-states-scheduled-in-progress-and-completed-with-the-ability-to-update-job-status-and-view-jobs-filtered-by-status",
+      "title": "Build a job status tracking system with three states: scheduled, in-progress, and completed, with the ability to update job status and view jobs filtered by status",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-follow-up-reminder-system-that-allows-setting-reminders-for-preventive-check-ins-with-customers-at-specified-intervals-such-as-6-month-mold-prevention-check-ins",
+      "title": "Create a follow-up reminder system that allows setting reminders for preventive check-ins with customers at specified intervals (such as 6-month mold prevention check-ins)",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-a-customer-communication-log-that-records-all-calls-texts-and-emails-with-timestamps-and-notes-for-each-customer",
+      "title": "Implement a customer communication log that records all calls, texts, and emails with timestamps and notes for each customer",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-build-a-revenue-tracking-dashboard-that-displays-monthly-business-insights-including-total-revenue-number-of-jobs-completed-and-average-job-value",
+      "title": "Build a revenue tracking dashboard that displays monthly business insights including total revenue, number of jobs completed, and average job value",
+      "reqIds": [
+        "REQ-9"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-an-ai-powered-social-media-post-generator-using-intelligent-templates-and-frameworks-specifically-for-mold-remediation-content-that-generates-engaging-posts-based-on-user-selected-topic-tone-and-target-platform",
+      "title": "Create an AI-powered social media post generator using intelligent templates and frameworks specifically for mold remediation content that generates engaging posts based on user-selected topic, tone, and target platform",
+      "reqIds": [
+        "REQ-10"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-build-a-template-library-browser-for-mold-remediation-social-media-content-with-pre-defined-categories-including-before-after-transformations-mold-prevention-tips-customer-testimonials-emergency-response-and-seasonal-content-that-users-can-browse-customize-and-use",
+      "title": "Build a template library browser for mold remediation social media content with pre-defined categories including before/after transformations, mold prevention tips, customer testimonials, emergency response, and seasonal content that users can browse, customize, and use",
+      "reqIds": [
+        "REQ-11"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-a-content-calendar-for-planning-social-media-posts-that-displays-posts-in-a-monthly-calendar-view-and-allows-scheduling-posts-for-future-dates",
+      "title": "Implement a content calendar for planning social media posts that displays posts in a monthly calendar view and allows scheduling posts for future dates",
+      "reqIds": [
+        "REQ-12"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-post-preview-and-editing-system-that-displays-generated-or-template-based-social-media-posts-with-the-ability-to-edit-content-and-copy-to-clipboard-for-manual-posting-to-social-media-platforms",
+      "title": "Create a post preview and editing system that displays generated or template-based social media posts with the ability to edit content and copy to clipboard for manual posting to social media platforms",
+      "reqIds": [
+        "REQ-13"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-internet-identity-authentication-so-only-the-business-owner-can-securely-access-all-business-data-customer-information-and-management-features",
+      "title": "Implement Internet Identity authentication so only the business owner can securely access all business data, customer information, and management features",
+      "reqIds": [
+        "REQ-14"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-design-a-mobile-friendly-clean-user-interface-with-a-cohesive-visual-theme-that-uses-warm-trustworthy-colors-earth-tones-like-greens-and-browns-instead-of-blue-purple-to-reflect-environmental-remediation-and-safety-with-clear-typography-and-intuitive-navigation-suitable-for-on-the-go-business-management",
+      "title": "Design a mobile-friendly, clean user interface with a cohesive visual theme that uses warm, trustworthy colors (earth tones like greens and browns instead of blue/purple) to reflect environmental remediation and safety, with clear typography and intuitive navigation suitable for on-the-go business management",
+      "reqIds": [
+        "REQ-15"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-frontend-customer-management-interface-with-forms-to-add-new-customers-edit-existing-customer-information-view-customer-details-and-delete-customer-records",
+      "title": "Implement frontend customer management interface with forms to add new customers, edit existing customer information, view customer details, and delete customer records",
+      "reqIds": [
+        "REQ-17"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-a-job-history-timeline-component-in-the-frontend-that-displays-all-past-services-for-a-selected-customer-in-chronological-order-showing-service-dates-types-of-work-performed-and-issues-discovered",
+      "title": "Implement a job history timeline component in the frontend that displays all past services for a selected customer in chronological order, showing service dates, types of work performed, and issues discovered",
+      "reqIds": [
+        "REQ-19"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-calendar-interface-in-the-frontend-that-displays-scheduled-appointments-in-a-monthly-view-with-the-ability-to-create-new-appointments-view-appointment-details-and-navigate-between-months",
+      "title": "Create a calendar interface in the frontend that displays scheduled appointments in a monthly view with the ability to create new appointments, view appointment details, and navigate between months",
+      "reqIds": [
+        "REQ-21"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-job-status-management-interface-in-the-frontend-that-displays-jobs-grouped-or-filtered-by-status-with-the-ability-to-update-job-status-and-view-status-specific-job-lists",
+      "title": "Create a job status management interface in the frontend that displays jobs grouped or filtered by status with the ability to update job status and view status-specific job lists",
+      "reqIds": [
+        "REQ-23"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-integrate-internet-identity-authentication-so-that-all-customer-data-job-information-and-business-features-are-only-accessible-to-authenticated-users",
+      "title": "Integrate Internet Identity authentication so that all customer data, job information, and business features are only accessible to authenticated users",
+      "reqIds": [
+        "REQ-24"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-design-and-implement-a-mobile-responsive-user-interface-with-an-earth-tone-color-scheme-using-warm-greens-and-browns-clear-typography-optimized-for-readability-intuitive-navigation-suitable-for-on-the-go-business-management-and-consistent-spacing-and-layout-patterns-across-all-pages",
+      "title": "Design and implement a mobile-responsive user interface with an earth tone color scheme using warm greens and browns, clear typography optimized for readability, intuitive navigation suitable for on-the-go business management, and consistent spacing and layout patterns across all pages",
+      "reqIds": [
+        "REQ-25"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "AI-powered social media post generator with mold remediation templates",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "Content calendar for planning and scheduling posts",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Template library for common scenarios (before/after, prevention tips, testimonials, seasonal content)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-4",
+      "summary": "Post preview system with edit and copy to clipboard functionality",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-5",
+      "summary": "Customer database with complete job history timeline",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-6",
+      "summary": "Itemized estimate calculator with square footage, materials, labor hours, and automatic totals",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-7",
+      "summary": "Photo gallery per customer for before/after documentation",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-8",
+      "summary": "Drag-and-drop scheduling calendar with appointments",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-9",
+      "summary": "Job status tracking system (scheduled → in-progress → completed)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-10",
+      "summary": "Follow-up reminder system for preventive check-ins",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-11",
+      "summary": "Customer communication log for calls, texts, emails",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-12",
+      "summary": "Revenue tracking dashboard with business insights",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-13",
+      "summary": "Create a customer database in the backend that stores customer records with fields for name, phone number, email address, physical address, and maintains a relationship to job history records",
+      "reqIds": [
+        "REQ-16"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-15",
+      "summary": "Create a job history data structure in the backend that stores job records linked to customers, including service date, service type, issues found, and job status",
+      "reqIds": [
+        "REQ-18"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-17",
+      "summary": "Build a scheduling system in the backend that stores appointment records with customer ID, scheduled date and time, job type, and duration",
+      "reqIds": [
+        "REQ-20"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-19",
+      "summary": "Implement a job status tracking system in the backend with three states (scheduled, in-progress, completed) and functions to update job status",
+      "reqIds": [
+        "REQ-22"
+      ],
+      "status": "pending"
+    }
+  ],
+  "gameProjectType": "none",
+  "projectName": "Phoenix Shield Mold Removal Business App",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}
