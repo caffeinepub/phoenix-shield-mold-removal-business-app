@@ -1,198 +1,132 @@
 {
   "kind": "build_request",
-  "title": "Rebuild Follow-Ups page with editable message templates as primary focus",
+  "title": "Add customer search, job filtering, and PDF estimate export",
   "projectName": "Phoenix Shield",
   "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-65",
-      "text": "Redesign the FollowUpsPage component to display message templates as the primary content, replacing the current customer list view with a template-focused layout",
+      "id": "REQ-87",
+      "text": "Add a search input field to the CustomersPage component that filters the displayed customer list in real-time as the user types, matching against customer name, phone number, email, or address fields",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-recent"
+          "msg-latest"
         ],
         "quotes": [
-          "message templates as the primary focus"
+          "Customer Search & Filters - Add search functionality to quickly find customers by name, phone, or address"
         ]
       },
       "acceptanceCriteria": [
-        "The Follow-Ups page displays message templates prominently as the main content",
-        "The previous customer list view is removed or moved to a secondary position",
-        "The page layout is clean and organized for easy template management"
+        "Search input field appears at the top of the customers list",
+        "Typing in the search field immediately filters the customer cards below",
+        "Search matches partial text in name, phone, email, or address fields (case-insensitive)",
+        "Clearing the search input shows all customers again",
+        "Search state persists while navigating away and returning to the page"
       ]
     },
     {
-      "id": "REQ-66",
-      "text": "Display all four message template types simultaneously on the Follow-Ups page: post-job satisfaction (3-7 days after completion), 6-month mold prevention check-in, seasonal check-ins (spring moisture season and fall prep), and Google review request template",
+      "id": "REQ-88",
+      "text": "Implement filter buttons or a dropdown on the JobsPage that allows viewing jobs filtered by status: 'All Jobs', 'Scheduled', 'In Progress', and 'Completed', replacing or enhancing the existing tab-based filtering system",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-recent"
+          "msg-latest"
         ],
         "quotes": [
-          "all 3 types",
-          "Google review request template"
+          "Job Filters - Add filtering options on the Jobs page to view only scheduled, in-progress, or completed jobs"
         ]
       },
       "acceptanceCriteria": [
-        "Post-job satisfaction template is visible with description indicating 3-7 days after completion timing",
-        "6-month mold prevention check-in template is visible",
-        "Seasonal check-ins templates are visible (spring moisture season and fall prep)",
-        "Google review request template is visible",
-        "All four template types are displayed on the same page without requiring selection"
+        "Filter controls appear prominently on the Jobs page above the job list",
+        "Selecting 'Scheduled' shows only jobs with status 'scheduled'",
+        "Selecting 'In Progress' shows only jobs with status 'in-progress'",
+        "Selecting 'Completed' shows only jobs with status 'completed'",
+        "Selecting 'All Jobs' shows all jobs regardless of status",
+        "Active filter state is visually indicated",
+        "Job count updates to reflect the filtered results"
       ]
     },
     {
-      "id": "REQ-67",
-      "text": "Implement editable text areas for each message template on the Follow-Ups page that allow users to customize the template content in real-time",
+      "id": "REQ-89",
+      "text": "Add a 'Download PDF' or 'Export as PDF' button to the EstimatesPage component that generates a professionally formatted PDF document containing all estimate details including square footage breakdown, materials line items with quantities and costs, labor calculation, all subtotals, and the grand total",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-recent"
+          "msg-latest"
         ],
         "quotes": [
-          "all templates be visible/editable at once",
-          "Editable text area for customizing the message"
+          "Export Estimates as PDF - Generate professional PDF versions of your estimates for email distribution"
         ]
       },
       "acceptanceCriteria": [
-        "Each template has an editable text area that displays the current template content",
-        "Users can modify template text directly in the text area",
-        "Changes to template text are reflected immediately in the interface",
-        "Text areas are appropriately sized for message content"
+        "Download PDF button appears on the EstimatesPage near the save/load controls",
+        "Clicking the button generates a PDF file with professional formatting",
+        "PDF includes Phoenix Shield branding (logo and colors)",
+        "PDF displays square footage section with amount, price per sq ft, and subtotal",
+        "PDF lists all materials line items with name, quantity, unit cost, and subtotals",
+        "PDF shows labor hours, hourly rate, and labor subtotal",
+        "PDF displays the grand total prominently",
+        "PDF includes estimate creation date",
+        "PDF downloads automatically to the user's device",
+        "Success notification appears after PDF generation"
       ]
     },
     {
-      "id": "REQ-68",
-      "text": "Add a preview section for each message template that displays the formatted message with customer name placeholders and shows how the message will appear when sent",
+      "id": "REQ-90",
+      "text": "Add a 'Download PDF' or 'Export as PDF' button to each estimate card on the SavedEstimatesPage that generates a PDF for that specific saved estimate with the same professional formatting as the EstimatesPage PDF export",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-recent"
+          "msg-latest"
         ],
         "quotes": [
-          "Preview of the formatted message"
+          "Export Estimates as PDF - Generate professional PDF versions of your estimates for email distribution"
         ]
       },
       "acceptanceCriteria": [
-        "Each template includes a preview section showing the formatted message",
-        "Preview displays placeholders like [Customer Name] to indicate customization points",
-        "Preview updates dynamically as template text is edited",
-        "Preview is visually distinct from the editable text area"
+        "Each estimate card on SavedEstimatesPage displays a PDF download button",
+        "Clicking the button generates a PDF for that specific estimate",
+        "PDF formatting matches the EstimatesPage PDF export format",
+        "PDF includes all estimate details and Phoenix Shield branding",
+        "PDF downloads automatically to the user's device",
+        "Button has appropriate loading state during PDF generation"
       ]
     },
     {
-      "id": "REQ-69",
-      "text": "Add a copy-to-clipboard button for each message template that copies the formatted message text and displays a success notification when the copy operation completes",
+      "id": "REQ-91",
+      "text": "Add a 'Download PDF' or 'Export as PDF' button to the estimates section on the CustomerDetailPage that generates a PDF for the selected estimate associated with that customer",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-recent"
+          "msg-latest"
         ],
         "quotes": [
-          "Copy-to-clipboard button for easy manual sending"
+          "Export Estimates as PDF - Generate professional PDF versions of your estimates for email distribution"
         ]
       },
       "acceptanceCriteria": [
-        "Each template has a clearly labeled copy-to-clipboard button",
-        "Clicking the button copies the formatted message text to the clipboard",
-        "A success notification appears after successful copy operation",
-        "The button provides visual feedback when clicked"
-      ]
-    },
-    {
-      "id": "REQ-70",
-      "text": "Create default message template text for post-job satisfaction that requests customer feedback 3-7 days after job completion, including placeholders for customer name and customizable content",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-recent"
-        ],
-        "quotes": [
-          "Post-job satisfaction (3-7 days after completion)",
-          "requesting feedback 3-7 days after job completion"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Template includes friendly greeting with customer name placeholder",
-        "Message references recent mold remediation service",
-        "Requests feedback or satisfaction confirmation",
-        "Tone is professional and appreciative"
-      ]
-    },
-    {
-      "id": "REQ-71",
-      "text": "Create default message template text for 6-month mold prevention check-in that reminds customers about preventive maintenance and offers a check-in appointment, including placeholders for customer name",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-recent"
-        ],
-        "quotes": [
-          "6-month mold prevention check-in",
-          "6-month mold prevention (preventive check-in reminder)"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Template emphasizes importance of preventive maintenance",
-        "Message offers to schedule a check-in appointment",
-        "Content is helpful and positions the business as proactive",
-        "Includes customer name placeholder"
-      ]
-    },
-    {
-      "id": "REQ-72",
-      "text": "Create default message template text for seasonal check-ins covering spring moisture season and fall prep, with messaging appropriate for each season's mold prevention needs and customer name placeholders",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-recent"
-        ],
-        "quotes": [
-          "Seasonal check-ins (spring moisture season, fall prep)",
-          "seasonal check-ins (spring moisture season, fall prep)"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Spring template addresses moisture concerns typical of spring season",
-        "Fall template addresses preparation for winter and moisture control",
-        "Both templates offer seasonal inspection or consultation",
-        "Templates include customer name placeholders"
-      ]
-    },
-    {
-      "id": "REQ-73",
-      "text": "Create default message template text for Google review request that politely asks customers to leave a review with a placeholder for the business Google review link and customer name",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-recent"
-        ],
-        "quotes": [
-          "Google review request template"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Template includes friendly request for Google review",
-        "Message expresses appreciation for customer's business",
-        "Includes clear placeholder for Google review link insertion",
-        "Tone is polite and not overly pushy"
+        "PDF download button appears next to each estimate in the customer's estimates section",
+        "Clicking the button generates a PDF for that estimate",
+        "PDF includes customer information (name, contact details) at the top",
+        "PDF formatting is consistent with other PDF exports in the application",
+        "Success notification appears after PDF generation"
       ]
     }
   ],
   "constraints": [
-    "Do not modify the Header component navigation or routing configuration",
-    "Do not change backend data structures or API functions",
-    "Maintain the existing earth-tone color scheme and mobile-responsive design",
-    "Do not integrate with external messaging or email services"
+    "Do not modify the backend Motoko code - all features are frontend-only implementations",
+    "Maintain the existing tab-based filtering system on JobsPage if present, or replace it cleanly without breaking existing functionality",
+    "Use a client-side PDF generation library compatible with React (such as jsPDF or react-pdf)",
+    "Preserve the existing Phoenix Shield branding (logo, colors) in all PDF exports",
+    "Do not change the immutable frontend paths: useInternetIdentity hooks, useActor.ts, main.tsx, and components/ui"
   ],
   "nonGoals": [
-    "Automated sending of messages to customers",
-    "Integration with SMS or email services",
-    "Customer selection or filtering on the Follow-Ups page",
-    "Reminder scheduling or due date tracking functionality",
-    "Backend storage of edited template content"
+    "Backend storage or server-side PDF generation",
+    "Email integration to send PDFs directly from the app",
+    "PDF template customization UI beyond the standard format",
+    "Advanced search features like saved search filters or search history",
+    "Export formats other than PDF (Excel, CSV, etc.)",
+    "Batch PDF export for multiple estimates at once"
   ],
   "imageRequirements": {
     "required": [],

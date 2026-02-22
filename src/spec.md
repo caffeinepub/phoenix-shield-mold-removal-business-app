@@ -1,17 +1,13 @@
 # Specification
 
 ## Summary
-**Goal:** Redesign the Follow-Ups page to display editable message templates as the primary content, replacing the customer list view.
+**Goal:** Add customer search functionality, job status filtering, and PDF export capability for estimates.
 
 **Planned changes:**
-- Replace current customer list view with template-focused layout
-- Display all four message template types simultaneously: post-job satisfaction (3-7 days after completion), 6-month mold prevention check-in, seasonal check-ins (spring moisture season and fall prep), and Google review request
-- Add editable text areas for each template allowing real-time customization
-- Include preview sections showing formatted messages with customer name placeholders
-- Add copy-to-clipboard buttons with success notifications for each template
-- Create default template text for post-job satisfaction requesting feedback 3-7 days after completion
-- Create default template text for 6-month mold prevention check-in offering preventive maintenance appointment
-- Create default template text for seasonal check-ins (spring moisture and fall prep) with season-appropriate messaging
-- Create default template text for Google review request with placeholder for review link
+- Add search input to CustomersPage that filters customers by name, phone, email, or address in real-time
+- Implement filter controls on JobsPage to view jobs by status (All, Scheduled, In Progress, Completed)
+- Add PDF export button to EstimatesPage that generates a professionally formatted PDF with all estimate details
+- Add PDF export buttons to each estimate card on SavedEstimatesPage
+- Add PDF export buttons to estimates section on CustomerDetailPage
 
-**User-visible outcome:** Users can view and edit all four message templates on a single page, preview how messages will appear with customer names, and copy formatted messages to clipboard for manual sending to customers.
+**User-visible outcome:** Users can quickly search for customers, filter jobs by status, and download professional PDF versions of estimates for distribution to clients.

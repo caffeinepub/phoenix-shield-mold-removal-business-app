@@ -5,10 +5,11 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Plus, Trash2, Copy, Save, Loader2 } from 'lucide-react';
+import { Plus, Trash2, Copy, Save, Loader2, FileDown } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 import { useGetAllEstimates, useCreateEstimate, useUpdateEstimate } from '../hooks/useQueries';
 import { copyEstimateToClipboard } from '../utils/copyEstimate';
+import { generateEstimatePDF } from '../utils/generateEstimatePDF';
 import { toast } from 'sonner';
 import type { Estimate } from '../backend';
 
@@ -30,6 +31,7 @@ export default function EstimatesPage() {
   const [materials, setMaterials] = useState<MaterialLineItem[]>([]);
   const [hoursWorked, setHoursWorked] = useState<number>(0);
   const [hourlyRate, setHourlyRate] = useState<number>(0);
+  const [isGeneratingPDF, setIsGeneratingPDF] = useState(false);
 
   const { data: estimates = [], isLoading: estimatesLoading } = useGetAllEstimates();
   const createEstimate = useCreateEstimate();
@@ -148,6 +150,39 @@ export default function EstimatesPage() {
     }
   };
 
+  const handleDownloadPDF = async () => {
+    try {
+      setIsGeneratingPDF(true);
+      
+      const materialsData = materials.map(m => ({
+        name: m.name,
+        quantity: BigInt(Math.floor(m.quantity)),
+        unitCost: BigInt(Math.floor(m.unitCost * 100)),
+      }));
+
+      const estimateData: Estimate = {
+        estimateId: currentEstimateId || BigInt(0),
+        creationDate: BigInt(Date.now() * 1000000),
+        squareFootage: BigInt(Math.floor(squareFootage)),
+        pricePerSquareFoot: BigInt(Math.floor(pricePerSquareFoot * 100)),
+        materials: materialsData,
+        laborHours: BigInt(Math.floor(hoursWorked)),
+        laborHourlyRate: BigInt(Math.floor(hourlyRate * 100)),
+        totalMaterialCost: BigInt(Math.floor(materialsTotal * 100)),
+        totalLaborCost: BigInt(Math.floor(laborSubtotal * 100)),
+        totalEstimate: BigInt(Math.floor(grandTotal * 100)),
+      };
+
+      await generateEstimatePDF({ estimate: estimateData });
+      toast.success('PDF downloaded successfully');
+    } catch (error) {
+      console.error('Error generating PDF:', error);
+      toast.error('Failed to generate PDF');
+    } finally {
+      setIsGeneratingPDF(false);
+    }
+  };
+
   const handleNewEstimate = () => {
     setCurrentEstimateId(null);
     setSquareFootage(0);
@@ -233,6 +268,20 @@ export default function EstimatesPage() {
           )}
         </Button>
 
+        <Button onClick={handleDownloadPDF} variant="outline" disabled={!hasValues || isGeneratingPDF}>
+          {isGeneratingPDF ? (
+            <>
+              <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+              Generating...
+            </>
+          ) : (
+            <>
+              <FileDown className="h-4 w-4 mr-2" />
+              Download PDF
+            </>
+          )}
+        </Button>
+
         <Button onClick={handleCopyToClipboard} variant="outline" disabled={!hasValues}>
           <Copy className="h-4 w-4 mr-2" />
           Copy to Clipboard
@@ -282,7 +331,7 @@ export default function EstimatesPage() {
             </div>
             <Separator />
             <div className="flex justify-between items-center">
-              <span className="font-medium">Subtotal:</span>
+              <span className="font-semibold">Subtotal:</span>
               <span className="text-lg font-bold">{formatCurrency(squareFootageSubtotal)}</span>
             </div>
           </CardContent>
@@ -295,76 +344,75 @@ export default function EstimatesPage() {
             <CardDescription>Add line items for materials and supplies</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-            {materials.length === 0 ? (
-              <p className="text-sm text-muted-foreground text-center py-4">
-                No materials added yet. Click "Add Material" to get started.
-              </p>
-            ) : (
-              <div className="space-y-4">
-                {materials.map((material) => (
-                  <div key={material.id} className="space-y-3 p-4 border rounded-lg">
-                    <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
-                      <div className="md:col-span-2 space-y-2">
-                        <Label htmlFor={`material-name-${material.id}`}>Material Name</Label>
-                        <Input
-                          id={`material-name-${material.id}`}
-                          type="text"
-                          value={material.name}
-                          onChange={(e) => updateMaterial(material.id, 'name', e.target.value)}
-                          placeholder="e.g., HEPA Filter"
-                        />
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor={`material-quantity-${material.id}`}>Quantity</Label>
-                        <Input
-                          id={`material-quantity-${material.id}`}
-                          type="number"
-                          min="0"
-                          step="1"
-                          value={material.quantity || ''}
-                          onChange={(e) => updateMaterial(material.id, 'quantity', Number(e.target.value) || 0)}
-                          placeholder="0"
-                        />
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor={`material-unitCost-${material.id}`}>Unit Cost</Label>
-                        <Input
-                          id={`material-unitCost-${material.id}`}
-                          type="number"
-                          min="0"
-                          step="0.01"
-                          value={material.unitCost || ''}
-                          onChange={(e) => updateMaterial(material.id, 'unitCost', Number(e.target.value) || 0)}
-                          placeholder="0.00"
-                        />
-                      </div>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <Button
-                        variant="destructive"
-                        size="sm"
-                        onClick={() => removeMaterial(material.id)}
-                      >
-                        <Trash2 className="h-4 w-4 mr-2" />
-                        Remove
-                      </Button>
-                      <span className="text-sm font-medium">
-                        Subtotal: {formatCurrency(material.quantity * material.unitCost)}
-                      </span>
-                    </div>
+            {materials.map((material) => (
+              <div key={material.id} className="grid grid-cols-1 md:grid-cols-12 gap-3 items-end">
+                <div className="md:col-span-5 space-y-2">
+                  <Label htmlFor={`material-name-${material.id}`}>Material Name</Label>
+                  <Input
+                    id={`material-name-${material.id}`}
+                    type="text"
+                    value={material.name}
+                    onChange={(e) => updateMaterial(material.id, 'name', e.target.value)}
+                    placeholder="e.g., HEPA Filter"
+                  />
+                </div>
+                <div className="md:col-span-2 space-y-2">
+                  <Label htmlFor={`material-quantity-${material.id}`}>Quantity</Label>
+                  <Input
+                    id={`material-quantity-${material.id}`}
+                    type="number"
+                    min="0"
+                    step="1"
+                    value={material.quantity || ''}
+                    onChange={(e) => updateMaterial(material.id, 'quantity', Number(e.target.value) || 0)}
+                    placeholder="0"
+                  />
+                </div>
+                <div className="md:col-span-2 space-y-2">
+                  <Label htmlFor={`material-cost-${material.id}`}>Unit Cost</Label>
+                  <Input
+                    id={`material-cost-${material.id}`}
+                    type="number"
+                    min="0"
+                    step="0.01"
+                    value={material.unitCost || ''}
+                    onChange={(e) => updateMaterial(material.id, 'unitCost', Number(e.target.value) || 0)}
+                    placeholder="0.00"
+                  />
+                </div>
+                <div className="md:col-span-2 space-y-2">
+                  <Label>Total</Label>
+                  <div className="h-10 flex items-center font-semibold">
+                    {formatCurrency(material.quantity * material.unitCost)}
                   </div>
-                ))}
+                </div>
+                <div className="md:col-span-1">
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => removeMaterial(material.id)}
+                    className="text-destructive hover:text-destructive"
+                  >
+                    <Trash2 className="h-4 w-4" />
+                  </Button>
+                </div>
               </div>
-            )}
-            <Button onClick={addMaterial} variant="outline" className="w-full">
-              <Plus className="h-4 w-4 mr-2" />
+            ))}
+
+            <Button onClick={addMaterial} variant="outline" className="w-full gap-2">
+              <Plus className="h-4 w-4" />
               Add Material
             </Button>
-            <Separator />
-            <div className="flex justify-between items-center">
-              <span className="font-medium">Materials Total:</span>
-              <span className="text-lg font-bold">{formatCurrency(materialsTotal)}</span>
-            </div>
+
+            {materials.length > 0 && (
+              <>
+                <Separator />
+                <div className="flex justify-between items-center">
+                  <span className="font-semibold">Materials Total:</span>
+                  <span className="text-lg font-bold">{formatCurrency(materialsTotal)}</span>
+                </div>
+              </>
+            )}
           </CardContent>
         </Card>
 
@@ -403,14 +451,14 @@ export default function EstimatesPage() {
             </div>
             <Separator />
             <div className="flex justify-between items-center">
-              <span className="font-medium">Subtotal:</span>
+              <span className="font-semibold">Labor Subtotal:</span>
               <span className="text-lg font-bold">{formatCurrency(laborSubtotal)}</span>
             </div>
           </CardContent>
         </Card>
 
-        {/* Grand Total Section */}
-        <Card className="border-2 border-primary">
+        {/* Grand Total */}
+        <Card className="border-primary">
           <CardContent className="pt-6">
             <div className="flex justify-between items-center">
               <span className="text-2xl font-bold">Grand Total:</span>

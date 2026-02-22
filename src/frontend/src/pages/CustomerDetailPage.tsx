@@ -1,10 +1,12 @@
+import { useState } from 'react';
 import { useParams, useNavigate } from '@tanstack/react-router';
 import { useGetCustomer, useGetAllEstimates } from '../hooks/useQueries';
 import JobHistoryTimeline from '../components/jobs/JobHistoryTimeline';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { ArrowLeft, Mail, Phone, MapPin, Copy, FileText } from 'lucide-react';
+import { ArrowLeft, Mail, Phone, MapPin, Copy, FileText, FileDown, Loader2 } from 'lucide-react';
 import { copyEstimateToClipboard } from '../utils/copyEstimate';
+import { generateEstimatePDF } from '../utils/generateEstimatePDF';
 import { toast } from 'sonner';
 import type { Estimate } from '../backend';
 
@@ -13,6 +15,7 @@ export default function CustomerDetailPage() {
   const navigate = useNavigate();
   const { data: customer, isLoading } = useGetCustomer(BigInt(customerId));
   const { data: estimates = [] } = useGetAllEstimates();
+  const [generatingPDFId, setGeneratingPDFId] = useState<bigint | null>(null);
 
   const handleCopyEstimate = async (estimate: Estimate) => {
     try {
@@ -21,6 +24,21 @@ export default function CustomerDetailPage() {
     } catch (error) {
       console.error('Error copying estimate:', error);
       toast.error('Failed to copy estimate');
+    }
+  };
+
+  const handleDownloadPDF = async (estimate: Estimate) => {
+    if (!customer) return;
+    
+    try {
+      setGeneratingPDFId(estimate.estimateId);
+      await generateEstimatePDF({ estimate, customer });
+      toast.success('PDF downloaded successfully');
+    } catch (error) {
+      console.error('Error generating PDF:', error);
+      toast.error('Failed to generate PDF');
+    } finally {
+      setGeneratingPDFId(null);
     }
   };
 
@@ -158,14 +176,34 @@ export default function CustomerDetailPage() {
                       </span>
                     </div>
                   </div>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => handleCopyEstimate(estimate)}
-                  >
-                    <Copy className="h-4 w-4 mr-2" />
-                    Copy
-                  </Button>
+                  <div className="flex gap-2">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => handleDownloadPDF(estimate)}
+                      disabled={generatingPDFId === estimate.estimateId}
+                    >
+                      {generatingPDFId === estimate.estimateId ? (
+                        <>
+                          <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                          Generating...
+                        </>
+                      ) : (
+                        <>
+                          <FileDown className="h-4 w-4 mr-2" />
+                          PDF
+                        </>
+                      )}
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => handleCopyEstimate(estimate)}
+                    >
+                      <Copy className="h-4 w-4 mr-2" />
+                      Copy
+                    </Button>
+                  </div>
                 </CardContent>
               </Card>
             ))}

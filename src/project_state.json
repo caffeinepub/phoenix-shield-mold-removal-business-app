@@ -1,19 +1,20 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 23,
-  "summary": "Phoenix Shield Mold Removal business management app with AI-powered social media manager and smart CRM/operations system for mold remediation company in Tullahoma, TN",
+  "projectStateVersion": 31,
+  "summary": "Phoenix Shield Mold Removal business management app with AI-powered social media manager and smart CRM/operations system for mold remediation company in Tullahoma, TN - now featuring official Phoenix Shield branding with logo, company mascot character, and brand color scheme (dark blue #1a3a52, lime green #b8d430)",
   "architectural_notes": [
     "Internet Identity authentication for secure single-user access",
     "Mobile-friendly responsive design for on-the-go business management",
     "Template-based AI content generation system for social media (no external AI API integration)",
     "Local storage for customer data, job history, and business metrics",
     "Estimates stored as standalone records with optional customer association for flexibility",
-    "Follow-up and review request messages are generated as copy-ready text for manual sending through existing communication channels (no automatic sending integration)"
+    "Follow-up and review request messages are generated as copy-ready text for manual sending through existing communication channels (no automatic sending integration)",
+    "Phoenix Shield brand assets (logo, mascot character) integrated as visual elements throughout the app",
+    "Brand color scheme uses dark blue (#1a3a52) as primary, lime green (#b8d430) as accent, with black/white supporting colors",
+    "Phoenix Shield logo assets (logo-1.jpg primary black/white version, logo-2.jpg colorful version) stored in frontend/public/assets and referenced as static assets throughout the application"
   ],
-  "known_issues": [
-    "Customer creation mutation failing with 'Failed to add customer' error after latest deployment"
-  ],
-  "isFixRequest": true,
+  "known_issues": [],
+  "isFixRequest": false,
   "existing_features": [
     {
       "id": "feature-create-a-customer-database-that-stores-customer-information-including-name-phone-email-address-and-service-history-with-the-ability-to-add-edit-view-and-delete-customer-records",
@@ -518,6 +519,118 @@
         "REQ-73"
       ],
       "version": 1
+    },
+    {
+      "id": "feature-replace-all-placeholder-branding-and-logos-throughout-the-application-with-the-official-phoenix-shield-logo-phoenix-rising-from-shield-with-mold-removal-text-in-circular-badge",
+      "title": "Replace all placeholder branding and logos throughout the application with the official Phoenix Shield logo (phoenix rising from shield with 'MOLD REMOVAL' text in circular badge)",
+      "reqIds": [
+        "REQ-74"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-application-color-scheme-from-earth-tones-to-phoenix-shield-brand-colors-using-dark-blue-1a3a52-as-primary-lime-green-b8d430-as-accent-with-black-and-white-for-contrast",
+      "title": "Update the application color scheme from earth tones to Phoenix Shield brand colors using dark blue (#1a3a52) as primary, lime green (#b8d430) as accent, with black and white for contrast",
+      "reqIds": [
+        "REQ-75"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-incorporate-the-phoenix-shield-mascot-character-friendly-professional-in-green-polo-shirt-as-visual-elements-on-the-dashboardpage-to-add-personality-and-brand-recognition",
+      "title": "Incorporate the Phoenix Shield mascot character (friendly professional in green polo shirt) as visual elements on the DashboardPage to add personality and brand recognition",
+      "reqIds": [
+        "REQ-76"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-the-phoenix-shield-mascot-character-to-the-socialmediapage-as-a-visual-element-that-reinforces-brand-identity-in-the-social-media-management-section",
+      "title": "Add the Phoenix Shield mascot character to the SocialMediaPage as a visual element that reinforces brand identity in the social media management section",
+      "reqIds": [
+        "REQ-77"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-loginpage-hero-section-to-feature-phoenix-shield-branding-with-the-company-colors-logo-and-professional-messaging-that-reflects-the-mold-removal-business-identity",
+      "title": "Update the LoginPage hero section to feature Phoenix Shield branding with the company colors, logo, and professional messaging that reflects the mold removal business identity",
+      "reqIds": [
+        "REQ-78"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-header-component-background-text-colors-and-styling-to-use-phoenix-shield-brand-colors-dark-blue-1a3a52-background-lime-green-b8d430-accents-for-consistent-brand-identity-across-all-pages",
+      "title": "Update the Header component background, text colors, and styling to use Phoenix Shield brand colors (dark blue #1a3a52 background, lime green #b8d430 accents) for consistent brand identity across all pages",
+      "reqIds": [
+        "REQ-79"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-the-phoenix-shield-mascot-character-image-character-png-bald-head-beard-friendly-smile-green-polo-with-phoenix-shield-logo-crossed-arms-pose-to-the-dashboardpage-component-as-a-visual-element-that-reinforces-brand-personality-and-recognition",
+      "title": "Add the Phoenix Shield mascot character image (character.png - bald head, beard, friendly smile, green polo with Phoenix Shield logo, crossed arms pose) to the DashboardPage component as a visual element that reinforces brand personality and recognition",
+      "reqIds": [
+        "REQ-80"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-the-phoenix-shield-mascot-character-image-character-png-to-the-socialmediapage-component-as-a-visual-element-that-reinforces-brand-identity-in-the-social-media-management-section",
+      "title": "Add the Phoenix Shield mascot character image (character.png) to the SocialMediaPage component as a visual element that reinforces brand identity in the social media management section",
+      "reqIds": [
+        "REQ-81"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-replace-the-placeholder-logo-in-the-header-component-with-the-official-phoenix-shield-logo-logo-1-jpg-updating-the-src-path-to-point-to-assets-logo-1-jpg",
+      "title": "Replace the placeholder logo in the Header component with the official Phoenix Shield logo (logo-1.jpg), updating the src path to point to /assets/logo-1.jpg",
+      "reqIds": [
+        "REQ-84"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-replace-the-placeholder-logo-in-the-loginpage-hero-section-with-the-official-phoenix-shield-logo-logo-1-jpg-updating-the-image-source-to-assets-logo-1-jpg",
+      "title": "Replace the placeholder logo in the LoginPage hero section with the official Phoenix Shield logo (logo-1.jpg), updating the image source to /assets/logo-1.jpg",
+      "reqIds": [
+        "REQ-85"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-search-input-field-to-the-customerspage-component-that-filters-the-displayed-customer-list-in-real-time-as-the-user-types-matching-against-customer-name-phone-number-email-or-address-fields",
+      "title": "Add a search input field to the CustomersPage component that filters the displayed customer list in real-time as the user types, matching against customer name, phone number, email, or address fields",
+      "reqIds": [
+        "REQ-87"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-download-pdf-or-export-as-pdf-button-to-the-estimatespage-component-that-generates-a-professionally-formatted-pdf-document-containing-all-estimate-details-including-square-footage-breakdown-materials-line-items-with-quantities-and-costs-labor-calculation-all-subtotals-and-the-grand-total",
+      "title": "Add a 'Download PDF' or 'Export as PDF' button to the EstimatesPage component that generates a professionally formatted PDF document containing all estimate details including square footage breakdown, materials line items with quantities and costs, labor calculation, all subtotals, and the grand total",
+      "reqIds": [
+        "REQ-89"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-download-pdf-or-export-as-pdf-button-to-each-estimate-card-on-the-savedestimatespage-that-generates-a-pdf-for-that-specific-saved-estimate-with-the-same-professional-formatting-as-the-estimatespage-pdf-export",
+      "title": "Add a 'Download PDF' or 'Export as PDF' button to each estimate card on the SavedEstimatesPage that generates a PDF for that specific saved estimate with the same professional formatting as the EstimatesPage PDF export",
+      "reqIds": [
+        "REQ-90"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-download-pdf-or-export-as-pdf-button-to-the-estimates-section-on-the-customerdetailpage-that-generates-a-pdf-for-the-selected-estimate-associated-with-that-customer",
+      "title": "Add a 'Download PDF' or 'Export as PDF' button to the estimates section on the CustomerDetailPage that generates a PDF for the selected estimate associated with that customer",
+      "reqIds": [
+        "REQ-91"
+      ],
+      "version": 1
     }
   ],
   "new_feature_requests": [
@@ -712,6 +825,74 @@
       "summary": "Debug and fix the customer creation mutation in the backend that is causing 'Failed to add customer please try again' error after form submission, ensuring the createCustomer function properly persists customer data and returns success",
       "reqIds": [
         "REQ-63"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-36",
+      "summary": "Update app color scheme from earth tones to Phoenix Shield brand colors (dark blue #1a3a52, lime green #b8d430, with black/white accents)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-37",
+      "summary": "Incorporate Phoenix Shield mascot character as visual elements on dashboard, social media section, and other key pages",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-40",
+      "summary": "Store the uploaded mascot character image (character.png) in the frontend public assets directory (frontend/public/assets) so it can be referenced as a static asset throughout the application",
+      "reqIds": [
+        "REQ-82"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-41",
+      "summary": "Replace placeholder logo references with official Phoenix Shield logo files (logo-1.jpg and logo-2.jpg) throughout application including header, login page, and all brand touchpoints",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-42",
+      "summary": "Store the uploaded Phoenix Shield logo files (logo-1.jpg - black and white circular badge design, and image.png - colorful version with orange/red phoenix) in the frontend public assets directory at frontend/public/assets/",
+      "reqIds": [
+        "REQ-83"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-45",
+      "summary": "Update all other logo references throughout the application (if any exist in DashboardPage, SocialMediaPage, or other components) to use the official Phoenix Shield logo file path /assets/logo-1.jpg",
+      "reqIds": [
+        "REQ-86"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-46",
+      "summary": "Customer search and filter functionality on Customers page to find customers by name, phone, or address",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-47",
+      "summary": "Job filtering options on Jobs page to view jobs by status (scheduled, in-progress, completed)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-48",
+      "summary": "Export estimates as PDF with professional formatting including all line items, subtotals, and grand total for download or email distribution",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-50",
+      "summary": "Implement filter buttons or a dropdown on the JobsPage that allows viewing jobs filtered by status: 'All Jobs', 'Scheduled', 'In Progress', and 'Completed', replacing or enhancing the existing tab-based filtering system",
+      "reqIds": [
+        "REQ-88"
       ],
       "status": "pending"
     }

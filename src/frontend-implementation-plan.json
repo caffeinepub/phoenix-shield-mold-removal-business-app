@@ -1,183 +1,118 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Rebuild Follow-Ups page with editable message templates as primary focus",
+  "title": "Add customer search, job filtering, and PDF estimate export",
   "requirements": [
     {
-      "id": "REQ-65",
-      "summary": "Redesign the FollowUpsPage component to display message templates as the primary content, replacing the current customer list view with a template-focused layout",
+      "id": "REQ-87",
+      "summary": "Add real-time customer search functionality to CustomersPage that filters by name, phone, email, or address",
       "acceptanceCriteria": [
-        "The Follow-Ups page displays message templates prominently as the main content",
-        "The previous customer list view is removed or moved to a secondary position",
-        "The page layout is clean and organized for easy template management"
+        "Search input field appears at the top of the customers list",
+        "Typing in the search field immediately filters the customer cards below",
+        "Search matches partial text in name, phone, email, or address fields (case-insensitive)",
+        "Clearing the search input shows all customers again",
+        "Search state persists while navigating away and returning to the page"
       ],
       "file_operations": [
         {
-          "path": "frontend/src/pages/FollowUpsPage.tsx",
+          "path": "frontend/src/pages/CustomersPage.tsx",
           "operation": "modify",
-          "description": "Restructure the page layout to prioritize message templates over the customer list. Move customer list to a collapsible or secondary section. Create a clean grid or vertical stack layout for displaying multiple message template cards prominently."
+          "description": "Add a search input field above the customer grid that filters customers in real-time. Implement state management using React useState to track the search query. Filter the customers array by matching the search term (case-insensitive) against customer name, phoneNumber, emailAddress, and physicalAddress fields. Use sessionStorage via the urlParams utility to persist search state across navigation. The search input should use shadcn/ui Input component with appropriate styling and placeholder text."
         }
       ]
     },
     {
-      "id": "REQ-66",
-      "summary": "Display all four message template types simultaneously on the Follow-Ups page: post-job satisfaction (3-7 days after completion), 6-month mold prevention check-in, seasonal check-ins (spring moisture season and fall prep), and Google review request template",
+      "id": "REQ-88",
+      "summary": "Implement status-based job filtering on JobsPage with 'All Jobs', 'Scheduled', 'In Progress', and 'Completed' options",
       "acceptanceCriteria": [
-        "Post-job satisfaction template is visible with description indicating 3-7 days after completion timing",
-        "6-month mold prevention check-in template is visible",
-        "Seasonal check-ins templates are visible (spring moisture season and fall prep)",
-        "Google review request template is visible",
-        "All four template types are displayed on the same page without requiring selection"
+        "Filter controls appear prominently on the Jobs page above the job list",
+        "Selecting 'Scheduled' shows only jobs with status 'scheduled'",
+        "Selecting 'In Progress' shows only jobs with status 'in-progress'",
+        "Selecting 'Completed' shows only jobs with status 'completed'",
+        "Selecting 'All Jobs' shows all jobs regardless of status",
+        "Active filter state is visually indicated",
+        "Job count updates to reflect the filtered results"
       ],
       "file_operations": [
         {
-          "path": "frontend/src/components/followups/MessageTemplateCard.tsx",
+          "path": "frontend/src/pages/JobsPage.tsx",
+          "operation": "modify",
+          "description": "Replace or enhance the existing tab-based filtering system with filter buttons or a dropdown that allows viewing jobs by status. Implement state management for the active filter ('all', 'scheduled', 'inProgress', 'completed'). Filter the jobs array based on the selected status, mapping the filter values to the JobStatus enum from backend.d.ts. Use shadcn/ui Tabs or ToggleGroup component for the filter UI with visual indication of the active filter. Display a job count that updates based on the filtered results. Ensure the transition from the old system to the new one is clean without breaking existing functionality."
+        }
+      ]
+    },
+    {
+      "id": "REQ-89",
+      "summary": "Add PDF export functionality to EstimatesPage with professional formatting including all estimate details and Phoenix Shield branding",
+      "acceptanceCriteria": [
+        "Download PDF button appears on the EstimatesPage near the save/load controls",
+        "Clicking the button generates a PDF file with professional formatting",
+        "PDF includes Phoenix Shield branding (logo and colors)",
+        "PDF displays square footage section with amount, price per sq ft, and subtotal",
+        "PDF lists all materials line items with name, quantity, unit cost, and subtotals",
+        "PDF shows labor hours, hourly rate, and labor subtotal",
+        "PDF displays the grand total prominently",
+        "PDF includes estimate creation date",
+        "PDF downloads automatically to the user's device",
+        "Success notification appears after PDF generation"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/utils/generateEstimatePDF.ts",
           "operation": "create",
-          "description": "Create a reusable card component for displaying individual message templates. Include props for template title, description, default message text, and timing information. Use shadcn/ui Card components for consistent styling with the earth-tone theme."
+          "description": "Create a utility function that generates a professionally formatted PDF from an estimate object using jsPDF library. The function should accept an estimate object with fields matching the Estimate interface from backend.d.ts (squareFootage, pricePerSquareFoot, materials array, laborHours, laborHourlyRate, totalMaterialCost, totalLaborCost, totalEstimate, creationDate). Include Phoenix Shield branding by embedding the logo from frontend/public/assets/generated/phoenix-shield-logo.dim_200x200.png and using the brand colors (dark blue #1e3a5f and lime green #84cc16) defined in index.css. Format the PDF with sections for square footage breakdown, materials line items table, labor calculation, and grand total. Convert BigInt values to readable numbers and format currency and dates appropriately. Return the generated PDF blob for download."
         },
         {
-          "path": "frontend/src/pages/FollowUpsPage.tsx",
+          "path": "frontend/src/pages/EstimatesPage.tsx",
           "operation": "modify",
-          "description": "Add four MessageTemplateCard instances for: post-job satisfaction (3-7 days after completion), 6-month mold prevention check-in, seasonal check-ins (spring moisture season and fall prep), and Google review request. Display all templates simultaneously without tabs or selection. Include descriptive headers and timing information for each template type."
-        }
-      ]
-    },
-    {
-      "id": "REQ-67",
-      "summary": "Implement editable text areas for each message template on the Follow-Ups page that allow users to customize the template content in real-time",
-      "acceptanceCriteria": [
-        "Each template has an editable text area that displays the current template content",
-        "Users can modify template text directly in the text area",
-        "Changes to template text are reflected immediately in the interface",
-        "Text areas are appropriately sized for message content"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/components/followups/MessageTemplateCard.tsx",
-          "operation": "modify",
-          "description": "Add an editable textarea element using shadcn/ui Textarea component. Manage local state for template text with useState. Ensure textarea is appropriately sized (minimum 4-6 rows) and includes proper styling for the earth-tone theme. Handle onChange events to update the text in real-time."
-        }
-      ]
-    },
-    {
-      "id": "REQ-68",
-      "summary": "Add a preview section for each message template that displays the formatted message with customer name placeholders and shows how the message will appear when sent",
-      "acceptanceCriteria": [
-        "Each template includes a preview section showing the formatted message",
-        "Preview displays placeholders like [Customer Name] to indicate customization points",
-        "Preview updates dynamically as template text is edited",
-        "Preview is visually distinct from the editable text area"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/components/followups/MessageTemplateCard.tsx",
-          "operation": "modify",
-          "description": "Add a preview section below or beside the editable textarea. Display the formatted message text with placeholders like [Customer Name] replaced or highlighted. Use a distinct visual style (different background color, border, or card styling) to differentiate from the editable area. Update the preview dynamically as the textarea content changes using the template text state."
-        }
-      ]
-    },
-    {
-      "id": "REQ-69",
-      "summary": "Add a copy-to-clipboard button for each message template that copies the formatted message text and displays a success notification when the copy operation completes",
-      "acceptanceCriteria": [
-        "Each template has a clearly labeled copy-to-clipboard button",
-        "Clicking the button copies the formatted message text to the clipboard",
-        "A success notification appears after successful copy operation",
-        "The button provides visual feedback when clicked"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/components/followups/MessageTemplateCard.tsx",
-          "operation": "modify",
-          "description": "Add a copy-to-clipboard button using shadcn/ui Button component with a copy icon. Implement clipboard API functionality to copy the formatted message text. Add a success toast notification using shadcn/ui toast/sonner when copy succeeds. Provide visual feedback on the button (icon change or loading state) during the copy operation."
-        }
-      ]
-    },
-    {
-      "id": "REQ-70",
-      "summary": "Create default message template text for post-job satisfaction that requests customer feedback 3-7 days after job completion, including placeholders for customer name and customizable content",
-      "acceptanceCriteria": [
-        "Template includes friendly greeting with customer name placeholder",
-        "Message references recent mold remediation service",
-        "Requests feedback or satisfaction confirmation",
-        "Tone is professional and appreciative"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/data/messageTemplates.ts",
-          "operation": "create",
-          "description": "Create a data file exporting default message template objects. Define a template for post-job satisfaction with a professional, appreciative tone. Include greeting with [Customer Name] placeholder, reference to recent mold remediation service, request for feedback, and appropriate closing. Example: 'Hi [Customer Name], we hope you're satisfied with the mold remediation work we completed at your property. We'd love to hear your feedback about our service. Please let us know if everything met your expectations or if there's anything we can improve. Thank you for trusting Phoenix Shield with your mold prevention needs.'"
+          "description": "Add a 'Download PDF' button near the existing save/load controls on the EstimatesPage. Import and use the generateEstimatePDF utility function when the button is clicked. Create a temporary estimate object from the current form state (squareFootage, pricePerSquareFoot, materials, laborHours, laborHourlyRate) with calculated totals and current timestamp for creationDate. Trigger the PDF download and show a success toast notification using the existing toast system. Add appropriate loading state to the button during PDF generation. Use shadcn/ui Button component with an icon (FileDown from lucide-react)."
         },
         {
-          "path": "frontend/src/pages/FollowUpsPage.tsx",
+          "path": "frontend/package.json",
           "operation": "modify",
-          "description": "Import the post-job satisfaction template from messageTemplates.ts and pass it as the default text to the corresponding MessageTemplateCard. Include descriptive label and timing information (3-7 days after completion)."
+          "description": "Add jsPDF as a dependency for client-side PDF generation. Include version ^2.5.1 or latest stable version in the dependencies section."
         }
       ]
     },
     {
-      "id": "REQ-71",
-      "summary": "Create default message template text for 6-month mold prevention check-in that reminds customers about preventive maintenance and offers a check-in appointment, including placeholders for customer name",
+      "id": "REQ-90",
+      "summary": "Add PDF export button to each saved estimate card on SavedEstimatesPage with consistent formatting",
       "acceptanceCriteria": [
-        "Template emphasizes importance of preventive maintenance",
-        "Message offers to schedule a check-in appointment",
-        "Content is helpful and positions the business as proactive",
-        "Includes customer name placeholder"
+        "Each estimate card on SavedEstimatesPage displays a PDF download button",
+        "Clicking the button generates a PDF for that specific estimate",
+        "PDF formatting matches the EstimatesPage PDF export format",
+        "PDF includes all estimate details and Phoenix Shield branding",
+        "PDF downloads automatically to the user's device",
+        "Button has appropriate loading state during PDF generation"
       ],
       "file_operations": [
         {
-          "path": "frontend/src/data/messageTemplates.ts",
+          "path": "frontend/src/pages/SavedEstimatesPage.tsx",
           "operation": "modify",
-          "description": "Add a 6-month mold prevention check-in template that emphasizes preventive maintenance importance and offers to schedule a check-in appointment. Use helpful, proactive tone with [Customer Name] placeholder. Example: 'Hi [Customer Name], it's been 6 months since we completed your mold remediation service. We recommend a preventive check-in to ensure everything is still in great condition. Would you like to schedule a quick inspection to catch any potential issues early? Let us know a time that works for you!'"
-        },
-        {
-          "path": "frontend/src/pages/FollowUpsPage.tsx",
-          "operation": "modify",
-          "description": "Import the 6-month prevention template from messageTemplates.ts and pass it to the corresponding MessageTemplateCard with appropriate label and description."
+          "description": "Add a 'Download PDF' button to each estimate card displayed on the SavedEstimatesPage. Import and use the generateEstimatePDF utility function from frontend/src/utils/generateEstimatePDF.ts. When clicked, pass the full estimate object (which already contains all required fields from the backend) to the PDF generator. Implement per-button loading state using React useState to track which estimate is being exported. Show the loading state on the button during PDF generation. Use shadcn/ui Button component with FileDown icon from lucide-react, positioned alongside the existing edit/delete buttons on each card."
         }
       ]
     },
     {
-      "id": "REQ-72",
-      "summary": "Create default message template text for seasonal check-ins covering spring moisture season and fall prep, with messaging appropriate for each season's mold prevention needs and customer name placeholders",
+      "id": "REQ-91",
+      "summary": "Add PDF export functionality to customer estimates section on CustomerDetailPage including customer information",
       "acceptanceCriteria": [
-        "Spring template addresses moisture concerns typical of spring season",
-        "Fall template addresses preparation for winter and moisture control",
-        "Both templates offer seasonal inspection or consultation",
-        "Templates include customer name placeholders"
+        "PDF download button appears next to each estimate in the customer's estimates section",
+        "Clicking the button generates a PDF for that estimate",
+        "PDF includes customer information (name, contact details) at the top",
+        "PDF formatting is consistent with other PDF exports in the application",
+        "Success notification appears after PDF generation"
       ],
       "file_operations": [
         {
-          "path": "frontend/src/data/messageTemplates.ts",
+          "path": "frontend/src/utils/generateEstimatePDF.ts",
           "operation": "modify",
-          "description": "Add two seasonal check-in templates: one for spring moisture season and one for fall prep. Spring template should address moisture concerns typical of spring (rain, humidity, flooding). Fall template should address winter preparation and moisture control. Both should offer seasonal inspections with [Customer Name] placeholders. Examples: Spring: 'Hi [Customer Name], spring brings increased moisture that can lead to mold growth. We'd like to offer a seasonal inspection to check for any moisture issues before they become problems. Contact us to schedule your spring mold prevention check!' Fall: 'Hi [Customer Name], as we prepare for winter, now is the perfect time to ensure your property is protected from moisture and mold. We're offering fall prep inspections to help you stay ahead of any potential issues. Let's schedule a time that works for you!'"
+          "description": "Extend the generateEstimatePDF function to accept an optional customer parameter with fields from the Customer interface (name, phoneNumber, emailAddress, physicalAddress). When customer information is provided, add a header section to the PDF displaying the customer's name and contact details before the estimate details. Maintain backward compatibility by making the customer parameter optional so existing calls from EstimatesPage and SavedEstimatesPage continue to work without modification."
         },
         {
-          "path": "frontend/src/pages/FollowUpsPage.tsx",
+          "path": "frontend/src/pages/CustomerDetailPage.tsx",
           "operation": "modify",
-          "description": "Import both seasonal templates (spring and fall) from messageTemplates.ts and pass them to separate MessageTemplateCard instances with appropriate seasonal labels and descriptions."
-        }
-      ]
-    },
-    {
-      "id": "REQ-73",
-      "summary": "Create default message template text for Google review request that politely asks customers to leave a review with a placeholder for the business Google review link and customer name",
-      "acceptanceCriteria": [
-        "Template includes friendly request for Google review",
-        "Message expresses appreciation for customer's business",
-        "Includes clear placeholder for Google review link insertion",
-        "Tone is polite and not overly pushy"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/data/messageTemplates.ts",
-          "operation": "modify",
-          "description": "Add a Google review request template with polite, appreciative tone. Include [Customer Name] and [Google Review Link] placeholders. Example: 'Hi [Customer Name], thank you for choosing Phoenix Shield for your mold remediation needs. We truly appreciate your business! If you were satisfied with our service, we'd be grateful if you could share your experience with a Google review. Your feedback helps us serve our community better. [Google Review Link]. Thank you!'"
-        },
-        {
-          "path": "frontend/src/pages/FollowUpsPage.tsx",
-          "operation": "modify",
-          "description": "Import the Google review request template from messageTemplates.ts and pass it to the corresponding MessageTemplateCard with appropriate label indicating it's for review requests."
+          "description": "Add a 'Download PDF' button next to each estimate displayed in the customer's estimates section. Import the generateEstimatePDF utility and pass both the estimate object and the customer object when generating the PDF. This ensures customer information appears at the top of the PDF. Implement loading state for the PDF generation button. Show a success toast notification after PDF generation completes. Use shadcn/ui Button component with FileDown icon from lucide-react."
         }
       ]
     }

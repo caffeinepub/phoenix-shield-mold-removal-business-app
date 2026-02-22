@@ -2,10 +2,10 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-redesign-the-followupspage-component-to-display-message-templates-as-the-primary-content-replacing-the-current-customer-list-view-with-a-template-focused-layout",
-      "featureTitle": "Redesign the FollowUpsPage component to display message templates as the primary content, replacing the current customer list view with a template-focused layout",
+      "featureId": "feature-add-a-search-input-field-to-the-customerspage-component-that-filters-the-displayed-customer-list-in-real-time-as-the-user-types-matching-against-customer-name-phone-number-email-or-address-fields",
+      "featureTitle": "Add a search input field to the CustomersPage component that filters the displayed customer list in real-time as the user types, matching against customer name, phone number, email, or address fields",
       "files": [
-        "frontend/src/pages/FollowUpsPage.tsx"
+        "frontend/src/pages/CustomersPage.tsx"
       ],
       "components": [
         "authorization@4.0.0",
@@ -16,16 +16,16 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-65"
+        "REQ-87"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-display-all-four-message-template-types-simultaneously-on-the-follow-ups-page-post-job-satisfaction-3-7-days-after-completion-6-month-mold-prevention-check-in-seasonal-check-ins-spring-moisture-season-and-fall-prep-and-google-review-request-template",
-      "featureTitle": "Display all four message template types simultaneously on the Follow-Ups page: post-job satisfaction (3-7 days after completion), 6-month mold prevention check-in, seasonal check-ins (spring moisture season and fall prep), and Google review request template",
+      "featureId": "feature-add-a-download-pdf-or-export-as-pdf-button-to-the-estimatespage-component-that-generates-a-professionally-formatted-pdf-document-containing-all-estimate-details-including-square-footage-breakdown-materials-line-items-with-quantities-and-costs-labor-calculation-all-subtotals-and-the-grand-total",
+      "featureTitle": "Add a 'Download PDF' or 'Export as PDF' button to the EstimatesPage component that generates a professionally formatted PDF document containing all estimate details including square footage breakdown, materials line items with quantities and costs, labor calculation, all subtotals, and the grand total",
       "files": [
-        "frontend/src/components/followups/MessageTemplateCard.tsx",
-        "frontend/src/pages/FollowUpsPage.tsx"
+        "frontend/src/pages/EstimatesPage.tsx",
+        "frontend/src/utils/generateEstimatePDF.ts"
       ],
       "components": [
         "authorization@4.0.0",
@@ -36,15 +36,15 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-66"
+        "REQ-89"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-implement-editable-text-areas-for-each-message-template-on-the-follow-ups-page-that-allow-users-to-customize-the-template-content-in-real-time",
-      "featureTitle": "Implement editable text areas for each message template on the Follow-Ups page that allow users to customize the template content in real-time",
+      "featureId": "feature-add-a-download-pdf-or-export-as-pdf-button-to-each-estimate-card-on-the-savedestimatespage-that-generates-a-pdf-for-that-specific-saved-estimate-with-the-same-professional-formatting-as-the-estimatespage-pdf-export",
+      "featureTitle": "Add a 'Download PDF' or 'Export as PDF' button to each estimate card on the SavedEstimatesPage that generates a PDF for that specific saved estimate with the same professional formatting as the EstimatesPage PDF export",
       "files": [
-        "frontend/src/components/followups/MessageTemplateCard.tsx"
+        "frontend/src/pages/SavedEstimatesPage.tsx"
       ],
       "components": [
         "authorization@4.0.0",
@@ -55,15 +55,16 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-67"
+        "REQ-90"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-add-a-preview-section-for-each-message-template-that-displays-the-formatted-message-with-customer-name-placeholders-and-shows-how-the-message-will-appear-when-sent",
-      "featureTitle": "Add a preview section for each message template that displays the formatted message with customer name placeholders and shows how the message will appear when sent",
+      "featureId": "feature-add-a-download-pdf-or-export-as-pdf-button-to-the-estimates-section-on-the-customerdetailpage-that-generates-a-pdf-for-the-selected-estimate-associated-with-that-customer",
+      "featureTitle": "Add a 'Download PDF' or 'Export as PDF' button to the estimates section on the CustomerDetailPage that generates a PDF for the selected estimate associated with that customer",
       "files": [
-        "frontend/src/components/followups/MessageTemplateCard.tsx"
+        "frontend/src/pages/CustomerDetailPage.tsx",
+        "frontend/src/utils/generateEstimatePDF.ts"
       ],
       "components": [
         "authorization@4.0.0",
@@ -74,106 +75,7 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-68"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-add-a-copy-to-clipboard-button-for-each-message-template-that-copies-the-formatted-message-text-and-displays-a-success-notification-when-the-copy-operation-completes",
-      "featureTitle": "Add a copy-to-clipboard button for each message template that copies the formatted message text and displays a success notification when the copy operation completes",
-      "files": [
-        "frontend/src/components/followups/MessageTemplateCard.tsx"
-      ],
-      "components": [
-        "authorization@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-69"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-create-default-message-template-text-for-post-job-satisfaction-that-requests-customer-feedback-3-7-days-after-job-completion-including-placeholders-for-customer-name-and-customizable-content",
-      "featureTitle": "Create default message template text for post-job satisfaction that requests customer feedback 3-7 days after job completion, including placeholders for customer name and customizable content",
-      "files": [
-        "frontend/src/data/messageTemplates.ts",
-        "frontend/src/pages/FollowUpsPage.tsx"
-      ],
-      "components": [
-        "authorization@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-70"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-create-default-message-template-text-for-6-month-mold-prevention-check-in-that-reminds-customers-about-preventive-maintenance-and-offers-a-check-in-appointment-including-placeholders-for-customer-name",
-      "featureTitle": "Create default message template text for 6-month mold prevention check-in that reminds customers about preventive maintenance and offers a check-in appointment, including placeholders for customer name",
-      "files": [
-        "frontend/src/data/messageTemplates.ts",
-        "frontend/src/pages/FollowUpsPage.tsx"
-      ],
-      "components": [
-        "authorization@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-71"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-create-default-message-template-text-for-seasonal-check-ins-covering-spring-moisture-season-and-fall-prep-with-messaging-appropriate-for-each-season-s-mold-prevention-needs-and-customer-name-placeholders",
-      "featureTitle": "Create default message template text for seasonal check-ins covering spring moisture season and fall prep, with messaging appropriate for each season's mold prevention needs and customer name placeholders",
-      "files": [
-        "frontend/src/data/messageTemplates.ts",
-        "frontend/src/pages/FollowUpsPage.tsx"
-      ],
-      "components": [
-        "authorization@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-72"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-create-default-message-template-text-for-google-review-request-that-politely-asks-customers-to-leave-a-review-with-a-placeholder-for-the-business-google-review-link-and-customer-name",
-      "featureTitle": "Create default message template text for Google review request that politely asks customers to leave a review with a placeholder for the business Google review link and customer name",
-      "files": [
-        "frontend/src/data/messageTemplates.ts",
-        "frontend/src/pages/FollowUpsPage.tsx"
-      ],
-      "components": [
-        "authorization@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-73"
+        "REQ-91"
       ],
       "confidence": "high"
     }

@@ -1,122 +1,71 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-22T08:25:33.615Z",
+  "generatedAt": "2026-02-22T10:26:32.431Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
-    "total": 9,
-    "implemented": 9,
+    "total": 5,
+    "implemented": 4,
     "items": [
       {
-        "id": "REQ-65",
-        "summary": "Redesign the FollowUpsPage component to display message templates as the primary content, replacing the current customer list view with a template-focused layout",
+        "id": "REQ-87",
+        "summary": "Add a search input field to the CustomersPage component that filters the displayed customer list in real-time as the user types, matching against customer name, phone number, email, or address fields",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/pages/FollowUpsPage.tsx"
+          "frontend/src/pages/CustomersPage.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/pages/FollowUpsPage.tsx"
+          "frontend/src/pages/CustomersPage.tsx"
         ]
       },
       {
-        "id": "REQ-66",
-        "summary": "Display all four message template types simultaneously on the Follow-Ups page: post-job satisfaction (3-7 days after completion), 6-month mold prevention check-in, seasonal check-ins (spring moisture season and fall prep), and Google review request template",
+        "id": "REQ-88",
+        "summary": "Implement filter buttons or a dropdown on the JobsPage that allows viewing jobs filtered by status: 'All Jobs', 'Scheduled', 'In Progress', and 'Completed', replacing or enhancing the existing tab-based filtering system",
+        "status": "missing",
+        "plannedFiles": [
+          "frontend/src/pages/JobsPage.tsx"
+        ],
+        "matchedFiles": []
+      },
+      {
+        "id": "REQ-89",
+        "summary": "Add a 'Download PDF' or 'Export as PDF' button to the EstimatesPage component that generates a professionally formatted PDF document containing all estimate details including square footage breakdown, materials line items with quantities and costs, labor calculation, all subtotals, and the grand total",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/components/followups/MessageTemplateCard.tsx",
-          "frontend/src/pages/FollowUpsPage.tsx"
+          "frontend/src/utils/generateEstimatePDF.ts",
+          "frontend/src/pages/EstimatesPage.tsx",
+          "frontend/package.json"
         ],
         "matchedFiles": [
-          "frontend/src/components/followups/MessageTemplateCard.tsx",
-          "frontend/src/pages/FollowUpsPage.tsx"
+          "frontend/src/utils/generateEstimatePDF.ts",
+          "frontend/src/pages/EstimatesPage.tsx"
         ]
       },
       {
-        "id": "REQ-67",
-        "summary": "Implement editable text areas for each message template on the Follow-Ups page that allow users to customize the template content in real-time",
+        "id": "REQ-90",
+        "summary": "Add a 'Download PDF' or 'Export as PDF' button to each estimate card on the SavedEstimatesPage that generates a PDF for that specific saved estimate with the same professional formatting as the EstimatesPage PDF export",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/components/followups/MessageTemplateCard.tsx"
+          "frontend/src/pages/SavedEstimatesPage.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/components/followups/MessageTemplateCard.tsx"
+          "frontend/src/pages/SavedEstimatesPage.tsx"
         ]
       },
       {
-        "id": "REQ-68",
-        "summary": "Add a preview section for each message template that displays the formatted message with customer name placeholders and shows how the message will appear when sent",
+        "id": "REQ-91",
+        "summary": "Add a 'Download PDF' or 'Export as PDF' button to the estimates section on the CustomerDetailPage that generates a PDF for the selected estimate associated with that customer",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/components/followups/MessageTemplateCard.tsx"
+          "frontend/src/utils/generateEstimatePDF.ts",
+          "frontend/src/pages/CustomerDetailPage.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/components/followups/MessageTemplateCard.tsx"
-        ]
-      },
-      {
-        "id": "REQ-69",
-        "summary": "Add a copy-to-clipboard button for each message template that copies the formatted message text and displays a success notification when the copy operation completes",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/components/followups/MessageTemplateCard.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/src/components/followups/MessageTemplateCard.tsx"
-        ]
-      },
-      {
-        "id": "REQ-70",
-        "summary": "Create default message template text for post-job satisfaction that requests customer feedback 3-7 days after job completion, including placeholders for customer name and customizable content",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/data/messageTemplates.ts",
-          "frontend/src/pages/FollowUpsPage.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/src/data/messageTemplates.ts",
-          "frontend/src/pages/FollowUpsPage.tsx"
-        ]
-      },
-      {
-        "id": "REQ-71",
-        "summary": "Create default message template text for 6-month mold prevention check-in that reminds customers about preventive maintenance and offers a check-in appointment, including placeholders for customer name",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/data/messageTemplates.ts",
-          "frontend/src/pages/FollowUpsPage.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/src/data/messageTemplates.ts",
-          "frontend/src/pages/FollowUpsPage.tsx"
-        ]
-      },
-      {
-        "id": "REQ-72",
-        "summary": "Create default message template text for seasonal check-ins covering spring moisture season and fall prep, with messaging appropriate for each season's mold prevention needs and customer name placeholders",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/data/messageTemplates.ts",
-          "frontend/src/pages/FollowUpsPage.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/src/data/messageTemplates.ts",
-          "frontend/src/pages/FollowUpsPage.tsx"
-        ]
-      },
-      {
-        "id": "REQ-73",
-        "summary": "Create default message template text for Google review request that politely asks customers to leave a review with a placeholder for the business Google review link and customer name",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/data/messageTemplates.ts",
-          "frontend/src/pages/FollowUpsPage.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/src/data/messageTemplates.ts",
-          "frontend/src/pages/FollowUpsPage.tsx"
+          "frontend/src/utils/generateEstimatePDF.ts",
+          "frontend/src/pages/CustomerDetailPage.tsx"
         ]
       }
     ]
@@ -126,9 +75,11 @@
     "feature_evidence.json",
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
-    "frontend/src/components/followups/MessageTemplateCard.tsx",
-    "frontend/src/data/messageTemplates.ts",
-    "frontend/src/pages/FollowUpsPage.tsx",
+    "frontend/src/pages/CustomerDetailPage.tsx",
+    "frontend/src/pages/CustomersPage.tsx",
+    "frontend/src/pages/EstimatesPage.tsx",
+    "frontend/src/pages/SavedEstimatesPage.tsx",
+    "frontend/src/utils/generateEstimatePDF.ts",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",

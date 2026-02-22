@@ -12,9 +12,10 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
-import { Edit, Trash2, Copy, FileText } from 'lucide-react';
+import { Edit, Trash2, Copy, FileText, FileDown, Loader2 } from 'lucide-react';
 import { useGetAllEstimates, useDeleteEstimate } from '../hooks/useQueries';
 import { copyEstimateToClipboard } from '../utils/copyEstimate';
+import { generateEstimatePDF } from '../utils/generateEstimatePDF';
 import { toast } from 'sonner';
 import type { Estimate } from '../backend';
 
@@ -24,6 +25,7 @@ export default function SavedEstimatesPage() {
   const deleteEstimate = useDeleteEstimate();
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [estimateToDelete, setEstimateToDelete] = useState<bigint | null>(null);
+  const [generatingPDFId, setGeneratingPDFId] = useState<bigint | null>(null);
 
   const handleEdit = (estimateId: bigint) => {
     navigate({ to: '/estimates', search: { estimateId: estimateId.toString() } });
@@ -55,6 +57,19 @@ export default function SavedEstimatesPage() {
     } catch (error) {
       console.error('Error copying estimate:', error);
       toast.error('Failed to copy estimate');
+    }
+  };
+
+  const handleDownloadPDF = async (estimate: Estimate) => {
+    try {
+      setGeneratingPDFId(estimate.estimateId);
+      await generateEstimatePDF({ estimate });
+      toast.success('PDF downloaded successfully');
+    } catch (error) {
+      console.error('Error generating PDF:', error);
+      toast.error('Failed to generate PDF');
+    } finally {
+      setGeneratingPDFId(null);
     }
   };
 
@@ -155,6 +170,18 @@ export default function SavedEstimatesPage() {
                   >
                     <Edit className="h-4 w-4 mr-1" />
                     Edit
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => handleDownloadPDF(estimate)}
+                    disabled={generatingPDFId === estimate.estimateId}
+                  >
+                    {generatingPDFId === estimate.estimateId ? (
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                    ) : (
+                      <FileDown className="h-4 w-4" />
+                    )}
                   </Button>
                   <Button
                     variant="outline"

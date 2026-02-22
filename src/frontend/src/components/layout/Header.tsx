@@ -28,16 +28,16 @@ export default function Header() {
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-50 w-full border-b bg-primary backdrop-blur supports-[backdrop-filter]:bg-primary/95">
       <div className="container flex h-16 items-center justify-between">
         <div className="flex items-center gap-6">
           <Link to="/" className="flex items-center gap-3">
             <img
-              src="/assets/generated/shield-logo.dim_128x128.png"
-              alt="Phoenix Shield"
-              className="h-10 w-10"
+              src="/assets/logo-1.jpg"
+              alt="Phoenix Shield Mold Removal"
+              className="h-10 w-10 object-contain rounded-full"
             />
-            <span className="hidden font-semibold text-lg sm:inline-block">Phoenix Shield</span>
+            <span className="hidden font-semibold text-lg sm:inline-block text-primary-foreground">Phoenix Shield</span>
           </Link>
 
           <nav className="hidden md:flex items-center gap-1">
@@ -46,7 +46,7 @@ export default function Header() {
                 key={item.path}
                 variant="ghost"
                 onClick={() => handleNavClick(item.path)}
-                className="gap-2"
+                className="gap-2 text-primary-foreground/90 hover:text-primary-foreground hover:bg-primary-foreground/10"
               >
                 <item.icon className="h-4 w-4" />
                 {item.label}
@@ -57,7 +57,7 @@ export default function Header() {
 
         <div className="flex items-center gap-4">
           {userProfile && (
-            <span className="hidden sm:inline-block text-sm text-muted-foreground">
+            <span className="hidden sm:inline-block text-sm text-primary-foreground/80">
               {userProfile.name}
             </span>
           )}
@@ -65,18 +65,18 @@ export default function Header() {
 
           <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger asChild className="md:hidden">
-              <Button variant="ghost" size="icon">
+              <Button variant="ghost" size="icon" className="text-primary-foreground hover:bg-primary-foreground/10">
                 <Menu className="h-5 w-5" />
               </Button>
             </SheetTrigger>
-            <SheetContent side="right">
+            <SheetContent side="right" className="bg-primary border-primary-foreground/20">
               <nav className="flex flex-col gap-4 mt-8">
                 {navItems.map((item) => (
                   <Button
                     key={item.path}
                     variant="ghost"
                     onClick={() => handleNavClick(item.path)}
-                    className="justify-start gap-2"
+                    className="justify-start gap-2 text-primary-foreground/90 hover:text-primary-foreground hover:bg-primary-foreground/10"
                   >
                     <item.icon className="h-4 w-4" />
                     {item.label}

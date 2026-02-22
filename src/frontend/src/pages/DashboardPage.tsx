@@ -37,9 +37,19 @@ export default function DashboardPage() {
 
   return (
     <div className="container py-8">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold mb-2">Business Dashboard</h1>
-        <p className="text-muted-foreground">Revenue insights for {monthName}</p>
+      <div className="mb-8 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+        <div>
+          <h1 className="text-3xl font-bold mb-2">Business Dashboard</h1>
+          <p className="text-muted-foreground">Revenue insights for {monthName}</p>
+        </div>
+        
+        <div className="flex justify-center md:justify-end">
+          <img
+            src="/assets/character.png"
+            alt="Phoenix Shield Mascot"
+            className="h-40 w-40 object-contain"
+          />
+        </div>
       </div>
 
       <div className="grid gap-6 md:grid-cols-3">
